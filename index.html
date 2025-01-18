@@ -19,6 +19,7 @@
 <body>
     <h1>rock paper scissors</h1>
     <p>welcome to my game</p>
+    <p id="score">Score: You 0 - 0 Computer</p>
     <button onclick="play('rock')">Rock</button>
     <button onclick="play('paper')">Paper</button>
     <button onclick="play('scissors')">Scissors</button>
@@ -46,7 +47,8 @@
                 compScore++;
             }
             
-            alert('you chose ' + choice + ', computer chose ' + compChoice + '.\nresult: you ' + result + '!\nScore: You ' + userScore + ' - ' + compScore + ' Computer');
+            document.getElementById('score').innerText = "Score: You " + userScore + " - " + compScore + " Computer";
+            alert('you chose ' + choice + ', computer chose ' + compChoice + '.\nresult: you ' + result + '!');
         }
     </script>
 </body>
