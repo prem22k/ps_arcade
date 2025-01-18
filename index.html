@@ -24,6 +24,9 @@
     <button onclick="play('scissors')">Scissors</button>
 
     <script>
+        var userScore = 0;
+        var compScore = 0;
+
         function play(choice) {
             var choices = ['rock', 'paper', 'scissors'];
             var compChoice = choices[Math.floor(Math.random() * 3)];
@@ -37,11 +40,13 @@
                 (choice === 'scissors' && compChoice === 'paper')
             ) {
                 result = "win";
+                userScore++;
             } else {
                 result = "lose";
+                compScore++;
             }
             
-            alert('you chose ' + choice + ', computer chose ' + compChoice + '. result: you ' + result + '!');
+            alert('you chose ' + choice + ', computer chose ' + compChoice + '.\nresult: you ' + result + '!\nScore: You ' + userScore + ' - ' + compScore + ' Computer');
         }
     </script>
 </body>
