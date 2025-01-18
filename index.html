@@ -24,6 +24,18 @@
             var choices = ['rock', 'paper', 'scissors'];
             var compChoice = choices[Math.floor(Math.random() * 3)];
             alert('computer chose ' + compChoice);
+            
+            if (choice == compChoice) {
+                alert('it is a tie!');
+            } else if (choice == 'rock' && compChoice == 'scissors') {
+                alert('you win!');
+            } else if (choice == 'paper' && compChoice == 'rock') {
+                alert('you win!');
+            } else if (choice == 'scissors' && compChoice == 'paper') {
+                alert('you win!');
+            } else {
+                alert('you lose!');
+            }
         }
     </script>
 </body>
