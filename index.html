@@ -25,22 +25,23 @@
 
     <script>
         function play(choice) {
-            alert('you chose ' + choice);
             var choices = ['rock', 'paper', 'scissors'];
             var compChoice = choices[Math.floor(Math.random() * 3)];
-            alert('computer chose ' + compChoice);
             
-            if (choice == compChoice) {
-                alert('it is a tie!');
-            } else if (choice == 'rock' && compChoice == 'scissors') {
-                alert('you win!');
-            } else if (choice == 'paper' && compChoice == 'rock') {
-                alert('you win!');
-            } else if (choice == 'scissors' && compChoice == 'paper') {
-                alert('you win!');
+            var result = "";
+            if (choice === compChoice) {
+                result = "tie";
+            } else if (
+                (choice === 'rock' && compChoice === 'scissors') ||
+                (choice === 'paper' && compChoice === 'rock') ||
+                (choice === 'scissors' && compChoice === 'paper')
+            ) {
+                result = "win";
             } else {
-                alert('you lose!');
+                result = "lose";
             }
+            
+            alert('you chose ' + choice + ', computer chose ' + compChoice + '. result: you ' + result + '!');
         }
     </script>
 </body>
