@@ -22,6 +22,11 @@
             font-size: 15px;
             padding: 10px;
         }
+        .info {
+            margin-top: 30px;
+            font-size: 12px;
+            color: gray;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +38,12 @@
     <button onclick="play('scissors')">Scissors</button>
     <br><br>
     <button id="resetBtn" onclick="resetGame()">Reset Score</button>
+
+    <div class="info">
+        <h3>How to play:</h3>
+        <p>Click Rock, Paper, or Scissors button to play against the computer.</p>
+        <p>Rock beats Scissors. Scissors beats Paper. Paper beats Rock.</p>
+    </div>
 
     <script>
         var userScore = 0;
