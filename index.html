@@ -46,8 +46,11 @@
     </div>
 
     <script>
+        // global score counters
         var userScore = 0;
         var compScore = 0;
+        
+        // get user name
         var userName = window.prompt("Enter your name:", "Player");
         if (!userName) userName = "Player";
         document.getElementById('welcome').innerText = "welcome " + userName + "!";
