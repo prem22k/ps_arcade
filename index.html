@@ -27,7 +27,7 @@
 <body>
     <h1>rock paper scissors</h1>
     <p id="welcome">welcome to my game</p>
-    <p id="score">Score: You 0 - 0 Computer</p>
+    <p id="score" style="color: black;">Score: You 0 - 0 Computer</p>
     <button onclick="play('rock')">Rock</button>
     <button onclick="play('paper')">Paper</button>
     <button onclick="play('scissors')">Scissors</button>
@@ -40,6 +40,7 @@
         var userName = window.prompt("Enter your name:", "Player");
         if (!userName) userName = "Player";
         document.getElementById('welcome').innerText = "welcome " + userName + "!";
+        updateScoreText();
 
         function play(choice) {
             var choices = ['rock', 'paper', 'scissors'];
@@ -48,6 +49,7 @@
             var result = "";
             if (choice === compChoice) {
                 result = "tie";
+                document.getElementById('score').style.color = "orange";
             } else if (
                 (choice === 'rock' && compChoice === 'scissors') ||
                 (choice === 'paper' && compChoice === 'rock') ||
@@ -55,20 +57,27 @@
             ) {
                 result = "win";
                 userScore++;
+                document.getElementById('score').style.color = "green";
             } else {
                 result = "lose";
                 compScore++;
+                document.getElementById('score').style.color = "red";
             }
             
-            document.getElementById('score').innerText = "Score: " + userName + " " + userScore + " - " + compScore + " Computer";
+            updateScoreText();
             alert('you chose ' + choice + ', computer chose ' + compChoice + '.\nresult: you ' + result + '!');
         }
 
         function resetGame() {
             userScore = 0;
             compScore = 0;
-            document.getElementById('score').innerText = "Score: " + userName + " " + userScore + " - " + compScore + " Computer";
+            document.getElementById('score').style.color = "black";
+            updateScoreText();
             alert('scores reset!');
+        }
+
+        function updateScoreText() {
+            document.getElementById('score').innerText = "Score: " + userName + " " + userScore + " - " + compScore + " Computer";
         }
     </script>
 </body>
