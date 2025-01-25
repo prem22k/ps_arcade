@@ -17,6 +17,11 @@
             margin: 10px;
             border-radius: 5px;
         }
+        #resetBtn {
+            background: orange;
+            font-size: 15px;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -26,6 +31,8 @@
     <button onclick="play('rock')">Rock</button>
     <button onclick="play('paper')">Paper</button>
     <button onclick="play('scissors')">Scissors</button>
+    <br><br>
+    <button id="resetBtn" onclick="resetGame()">Reset Score</button>
 
     <script>
         var userScore = 0;
@@ -52,6 +59,13 @@
             
             document.getElementById('score').innerText = "Score: You " + userScore + " - " + compScore + " Computer";
             alert('you chose ' + choice + ', computer chose ' + compChoice + '.\nresult: you ' + result + '!');
+        }
+
+        function resetGame() {
+            userScore = 0;
+            compScore = 0;
+            document.getElementById('score').innerText = "Score: You " + userScore + " - " + compScore + " Computer";
+            alert('scores reset!');
         }
     </script>
 </body>
