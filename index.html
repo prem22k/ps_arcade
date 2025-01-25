@@ -26,7 +26,7 @@
 </head>
 <body>
     <h1>rock paper scissors</h1>
-    <p>welcome to my game</p>
+    <p id="welcome">welcome to my game</p>
     <p id="score">Score: You 0 - 0 Computer</p>
     <button onclick="play('rock')">Rock</button>
     <button onclick="play('paper')">Paper</button>
@@ -37,6 +37,9 @@
     <script>
         var userScore = 0;
         var compScore = 0;
+        var userName = window.prompt("Enter your name:", "Player");
+        if (!userName) userName = "Player";
+        document.getElementById('welcome').innerText = "welcome " + userName + "!";
 
         function play(choice) {
             var choices = ['rock', 'paper', 'scissors'];
@@ -57,14 +60,14 @@
                 compScore++;
             }
             
-            document.getElementById('score').innerText = "Score: You " + userScore + " - " + compScore + " Computer";
+            document.getElementById('score').innerText = "Score: " + userName + " " + userScore + " - " + compScore + " Computer";
             alert('you chose ' + choice + ', computer chose ' + compChoice + '.\nresult: you ' + result + '!');
         }
 
         function resetGame() {
             userScore = 0;
             compScore = 0;
-            document.getElementById('score').innerText = "Score: You " + userScore + " - " + compScore + " Computer";
+            document.getElementById('score').innerText = "Score: " + userName + " " + userScore + " - " + compScore + " Computer";
             alert('scores reset!');
         }
     </script>
