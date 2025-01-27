@@ -112,8 +112,9 @@
         
         // guess game code
         function startGuessGame() {
-            var guess = window.prompt("Guess a number:");
-            alert("your guess was " + guess);
+            var target = Math.floor(Math.random() * 100) + 1;
+            var guess = window.prompt("Guess a number between 1 and 100:");
+            alert("target was " + target + " and your guess was " + guess);
         }
         // SCRIPTS_HOLDER
     </script>
