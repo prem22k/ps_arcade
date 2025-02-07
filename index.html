@@ -116,7 +116,7 @@
             var guess = -1;
             while (guess != target) {
                 var userGuess = window.prompt("Guess 1-100:");
-                // oops, forgot to update 'guess' variable so it loops forever!
+                guess = parseInt(userGuess);
             }
             alert("you win!");
         }
