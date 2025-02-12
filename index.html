@@ -117,6 +117,11 @@
             while (guess != target) {
                 var userGuess = window.prompt("Guess 1-100:");
                 guess = parseInt(userGuess);
+                if (guess > target) {
+                    alert("Too high!");
+                } else if (guess < target) {
+                    alert("Too low!");
+                }
             }
             alert("you win!");
         }
