@@ -118,6 +118,7 @@
             var target = globalTarget;
             var guess = -1;
             var attempts = 0;
+            document.getElementById('guess-game').style.backgroundColor = 'yellow';
             while (guess != target) {
                 var userGuess = window.prompt("Guess 1-100:");
                 guess = parseInt(userGuess);
