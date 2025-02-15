@@ -60,6 +60,7 @@
         <p>Try to guess the number between 1 and 100!</p>
         <button onclick="startGuessGame()">Play Guess Game</button>
         <button onclick="resetGuessTarget()">New Secret Number</button>
+        <p id="last-guess">Last Guess: None</p>
     </div>
     <!-- GAMES_HOLDER -->
 
@@ -121,6 +122,7 @@
                 var userGuess = window.prompt("Guess 1-100:");
                 guess = parseInt(userGuess);
                 attempts++;
+                document.getElementById('last-guess').innerText = "Last Guess: " + guess;
                 if (guess > target) {
                     alert("Too high!");
                 } else if (guess < target) {
