@@ -58,6 +58,7 @@
         <h2>Guess My Number</h2>
         <p>Try to guess the number between 1 and 100!</p>
         <button onclick="startGuessGame()">Play Guess Game</button>
+        <button onclick="resetGuessTarget()">New Secret Number</button>
     </div>
     <!-- GAMES_HOLDER -->
 
@@ -112,7 +113,7 @@
         
         // guess game code
         function startGuessGame() {
-            var target = Math.floor(Math.random() * 100) + 1;
+            var target = globalTarget;
             var guess = -1;
             var attempts = 0;
             while (guess != target) {
@@ -126,6 +127,11 @@
                 }
             }
             alert("you win! it took you " + attempts + " attempts.");
+        }
+        var globalTarget = Math.floor(Math.random() * 100) + 1;
+        function resetGuessTarget() {
+            globalTarget = Math.floor(Math.random() * 100) + 1;
+            alert("new target generated!");
         }
         // SCRIPTS_HOLDER
     </script>
