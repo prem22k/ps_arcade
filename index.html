@@ -153,6 +153,12 @@
             globalTarget = Math.floor(Math.random() * 100) + 1;
             alert("new target generated!");
         }
+        // cookie clicker code
+        var cookieClicks = 0;
+        function clickCookie() {
+            cookieClicks++;
+            document.getElementById('cookie-score').innerText = "Cookies: " + cookieClicks;
+        }
         // SCRIPTS_HOLDER
     </script>
 </body>
