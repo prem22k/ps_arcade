@@ -158,7 +158,7 @@
         function clickCookie() {
             // BUG: localStorage returns string, and we add to it directly without parseInt in next steps!
             var clicks = localStorage.getItem("cookieClicks") || 0;
-            clicks = clicks + 1; // oops, string add!
+            clicks = clicks + "1"; // oh no it is adding as string like "011" 
             localStorage.setItem("cookieClicks", clicks);
             document.getElementById('cookie-score').innerText = "Cookies: " + clicks;
         }
