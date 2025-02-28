@@ -83,6 +83,7 @@
     <div id="cookie-game">
         <h2>Cookie Clicker</h2>
         <p id="cookie-score">Cookies: 0</p>
+        <p id="cookie-high">High Score: 0</p>
         <button id="cookie-btn" onclick="clickCookie()">CLICK ME</button>
         <button id="cookie-reset" onclick="resetCookieClicks()">Reset Clicks</button>
     </div>
@@ -162,12 +163,23 @@
             alert("new target generated!");
         }
         // cookie clicker code
+        var initialHigh = localStorage.getItem("cookieHigh") || 0;
+        // set text
+        setTimeout(function() {
+            document.getElementById('cookie-high').innerText = "High Score: " + initialHigh;
+        }, 100);
         var cookieClicks = 0;
         function clickCookie() {
             var clicks = parseInt(localStorage.getItem("cookieClicks")) || 0;
             clicks = clicks + 1;
             localStorage.setItem("cookieClicks", clicks);
             document.getElementById('cookie-score').innerText = "Cookies: " + clicks;
+            
+            var high = parseInt(localStorage.getItem("cookieHigh")) || 0;
+            if (clicks > high) {
+                localStorage.setItem("cookieHigh", clicks);
+                document.getElementById('cookie-high').innerText = "High Score: " + clicks;
+            }
         }
         function resetCookieClicks() {
             localStorage.setItem("cookieClicks", 0);
