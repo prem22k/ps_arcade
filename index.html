@@ -84,6 +84,7 @@
         <h2>Cookie Clicker</h2>
         <p id="cookie-score">Cookies: 0</p>
         <p id="cookie-high">High Score: 0</p>
+        <span id="save-status"></span>
         <button id="cookie-btn" onclick="clickCookie()">CLICK ME</button>
         <button id="cookie-reset" onclick="resetCookieClicks()">Reset Clicks</button>
     </div>
@@ -173,6 +174,7 @@
             var clicks = parseInt(localStorage.getItem("cookieClicks")) || 0;
             clicks = clicks + 1;
             localStorage.setItem("cookieClicks", clicks);
+            document.getElementById('save-status').innerText = "Saved!";
             document.getElementById('cookie-score').innerText = "Cookies: " + clicks;
             if (clicks === 100) {
                 alert("CONGRATS! You hit 100 clicks!");
