@@ -4,11 +4,11 @@
     <title>Arcade Game</title>
     <style>
         body {
-            text-shadow: 1px 1px 2px gray;
             background-color: lightblue;
             color: red;
             text-align: center;
             font-family: sans-serif;
+            text-shadow: 1px 1px 2px gray;
         }
         button {
             background: yellow;
@@ -65,46 +65,54 @@
             width: 80%;
             max-width: 600px;
         }
-        /* STYLES_HOLDER */
+        /* SCRAMBLE_STYLES */
     </style>
 </head>
 <body>
     <div class="arcade-box">
-    <div id="rps-game">
-        <h1>rock paper scissors</h1>
-        <p id="welcome">welcome to my game</p>
-        <p id="score" style="color: black;">Score: You 0 - 0 Computer</p>
-        <button onclick="play('rock')">Rock</button>
-        <button onclick="play('paper')">Paper</button>
-        <button onclick="play('scissors')">Scissors</button>
-        <br><br>
-        <button id="resetBtn" onclick="resetGame()">Reset Score</button>
+        <div id="rps-game">
+            <h1>rock paper scissors</h1>
+            <p id="welcome">welcome to my game</p>
+            <p id="score" style="color: black;">Score: You 0 - 0 Computer</p>
+            <button onclick="play('rock')">Rock</button>
+            <button onclick="play('paper')">Paper</button>
+            <button onclick="play('scissors')">Scissors</button>
+            <br><br>
+            <button id="resetBtn" onclick="resetGame()">Reset Score</button>
 
-        <div class="info">
-            <h3>How to play:</h3>
-            <p>Click Rock, Paper, or Scissors button to play against the computer.</p>
-            <p>Rock beats Scissors. Scissors beats Paper. Paper beats Rock.</p>
+            <div class="info">
+                <h3>How to play:</h3>
+                <p>Click Rock, Paper, or Scissors button to play against the computer.</p>
+                <p>Rock beats Scissors. Scissors beats Paper. Paper beats Rock.</p>
+            </div>
         </div>
+        
+        <hr>
+        <div id="guess-game">
+            <h2>Guess My Number</h2>
+            <p>Try to guess the number between 1 and 100!</p>
+            <button onclick="startGuessGame()">Play Guess Game</button>
+            <button onclick="resetGuessTarget()">New Secret Number</button>
+            <p id="last-guess">Last Guess: None</p>
+        </div>
+
+        <hr>
+        <div id="cookie-game">
+            <h2>Cookie Clicker</h2>
+            <p id="cookie-score">Cookies: 0</p>
+            <p id="cookie-high">High Score: 0</p>
+            <span id="save-status"></span>
+            <button id="cookie-btn" onclick="clickCookie()">CLICK ME</button>
+            <button id="cookie-reset" onclick="resetCookieClicks()">Reset Clicks</button>
+        </div>
+        
+        <hr>
+        <div id="word-game">
+            <h2>Word Scramble</h2>
+            <p>Unscramble the word below!</p>
+        </div>
+        <!-- SCRAMBLE_HTML -->
     </div>
-    
-    <hr>
-    <div id="guess-game">
-        <h2>Guess My Number</h2>
-        <p>Try to guess the number between 1 and 100!</p>
-        <button onclick="startGuessGame()">Play Guess Game</button>
-        <button onclick="resetGuessTarget()">New Secret Number</button>
-        <p id="last-guess">Last Guess: None</p>
-    </div>
-    <hr>
-    <div id="cookie-game">
-        <h2>Cookie Clicker</h2>
-        <p id="cookie-score">Cookies: 0</p>
-        <p id="cookie-high">High Score: 0</p>
-        <span id="save-status"></span>
-        <button id="cookie-btn" onclick="clickCookie()">CLICK ME</button>
-        <button id="cookie-reset" onclick="resetCookieClicks()">Reset Clicks</button>
-    </div>
-    <!-- GAMES_HOLDER -->
 
     <script>
         // global score counters
@@ -156,11 +164,17 @@
         }
         
         // guess game code
+        var globalTarget = Math.floor(Math.random() * 100) + 1;
+        function resetGuessTarget() {
+            globalTarget = Math.floor(Math.random() * 100) + 1;
+            alert("new target generated!");
+        }
+
         function startGuessGame() {
+            document.getElementById('guess-game').style.backgroundColor = 'yellow';
             var target = globalTarget;
             var guess = -1;
             var attempts = 0;
-            document.getElementById('guess-game').style.backgroundColor = 'yellow';
             while (guess != target) {
                 var userGuess = window.prompt("Guess 1-100:");
                 guess = parseInt(userGuess);
@@ -174,41 +188,40 @@
             }
             alert("you win! it took you " + attempts + " attempts.");
         }
-        var globalTarget = Math.floor(Math.random() * 100) + 1;
-        function resetGuessTarget() {
-            globalTarget = Math.floor(Math.random() * 100) + 1;
-            alert("new target generated!");
-        }
+
         // cookie clicker code
         var initialHigh = localStorage.getItem("cookieHigh") || 0;
         // set text
         setTimeout(function() {
             document.getElementById('cookie-high').innerText = "High Score: " + initialHigh;
         }, 100);
-        var cookieClicks = 0;
+
         function clickCookie() {
             var clicks = parseInt(localStorage.getItem("cookieClicks")) || 0;
             clicks = clicks + 1;
             localStorage.setItem("cookieClicks", clicks);
-            document.getElementById('save-status').innerText = "Saved!";
             document.getElementById('cookie-score').innerText = "Cookies: " + clicks;
-            if (clicks === 100) {
-                alert("CONGRATS! You hit 100 clicks!");
-            }
+            document.getElementById('save-status').innerText = "Saved!";
             
             var high = parseInt(localStorage.getItem("cookieHigh")) || 0;
             if (clicks > high) {
                 localStorage.setItem("cookieHigh", clicks);
                 document.getElementById('cookie-high').innerText = "High Score: " + clicks;
             }
+            if (clicks === 100) {
+                alert("CONGRATS! You hit 100 clicks!");
+            }
         }
+
         function resetCookieClicks() {
             localStorage.setItem("cookieClicks", 0);
             document.getElementById('cookie-score').innerText = "Cookies: 0";
             alert("cookie clicks reset!");
         }
+
         // all three games working great!
+        
+        // SCRAMBLE_SCRIPTS
     </script>
 </body>
-</div>
 </html>
