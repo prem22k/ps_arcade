@@ -231,6 +231,12 @@
         
         // word scramble game
         var wordList = ["javascript", "arcade", "cookie", "scramble", "computer"];
+        function scrambleWord(word) {
+            var chars = word.split('');
+            // beginner random sort
+            chars.sort(function() { return Math.random() - 0.5; });
+            return chars.join('');
+        }
         // SCRAMBLE_SCRIPTS
     </script>
 </body>
