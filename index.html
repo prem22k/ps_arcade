@@ -119,6 +119,8 @@
             <h2>Word Scramble</h2>
             <p>Unscramble the word below!</p>
             <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
+            <input type="text" id="guess-input" placeholder="Type your guess here">
+            <button onclick="checkWord()">Submit</button>
         </div>
         <!-- SCRAMBLE_HTML -->
     </div>
@@ -250,6 +252,10 @@
         
         // Load on start
         setTimeout(loadScrambleWord, 200);
+        function checkWord() {
+            var playerGuess = document.getElementById('guess-input').value;
+            alert("you typed " + playerGuess);
+        }
         // SCRAMBLE_SCRIPTS
     </script>
 </body>
