@@ -254,7 +254,11 @@
         setTimeout(loadScrambleWord, 200);
         function checkWord() {
             var playerGuess = document.getElementById('guess-input').value;
-            alert("you typed " + playerGuess);
+            if (playerGuess.toLowerCase() === currentOriginalWord.toLowerCase()) {
+                alert("Correct!");
+            } else {
+                alert("Wrong, try again!");
+            }
         }
         // SCRAMBLE_SCRIPTS
     </script>
