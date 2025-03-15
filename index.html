@@ -118,6 +118,7 @@
         <div id="word-game">
             <h2>Word Scramble</h2>
             <p>Unscramble the word below!</p>
+            <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
         </div>
         <!-- SCRAMBLE_HTML -->
     </div>
@@ -237,6 +238,18 @@
             chars.sort(function() { return Math.random() - 0.5; });
             return chars.join('');
         }
+        var currentScrambleWord = "";
+        var currentOriginalWord = "";
+        
+        function loadScrambleWord() {
+            var randomIndex = Math.floor(Math.random() * wordList.length);
+            currentOriginalWord = wordList[randomIndex];
+            currentScrambleWord = scrambleWord(currentOriginalWord);
+            document.getElementById('scrambled-word').innerText = currentScrambleWord;
+        }
+        
+        // Load on start
+        setTimeout(loadScrambleWord, 200);
         // SCRAMBLE_SCRIPTS
     </script>
 </body>
