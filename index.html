@@ -122,6 +122,7 @@
             <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
             <input type="text" id="guess-input" placeholder="Type your guess here">
             <button onclick="checkWord()">Submit</button>
+            <button onclick="showScrambleHint()">Hint</button>
             <p id="scramble-err" style="color: red; font-weight: bold;"></p>
         </div>
         <!-- SCRAMBLE_HTML -->
@@ -268,6 +269,10 @@
             }
         }
         var scrambleScore = 0;
+        function showScrambleHint() {
+            var firstLetter = currentOriginalWord.charAt(0);
+            alert("The first letter is: " + firstLetter);
+        }
         // SCRAMBLE_SCRIPTS
     </script>
 </body>
