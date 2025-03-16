@@ -259,6 +259,8 @@
                 scrambleScore++;
                 document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
                 alert("Correct!");
+                document.getElementById('guess-input').value = "";
+                loadScrambleWord();
             } else {
                 alert("Wrong, try again!");
             }
