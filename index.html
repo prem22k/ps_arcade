@@ -122,6 +122,7 @@
             <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
             <input type="text" id="guess-input" placeholder="Type your guess here">
             <button onclick="checkWord()">Submit</button>
+            <p id="scramble-err" style="color: red; font-weight: bold;"></p>
         </div>
         <!-- SCRAMBLE_HTML -->
     </div>
@@ -260,9 +261,10 @@
                 document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
                 alert("Correct!");
                 document.getElementById('guess-input').value = "";
+                document.getElementById('scramble-err').innerText = "";
                 loadScrambleWord();
             } else {
-                alert("Wrong, try again!");
+                document.getElementById('scramble-err').innerText = "Wrong, try again!";
             }
         }
         var scrambleScore = 0;
