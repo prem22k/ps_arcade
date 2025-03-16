@@ -117,6 +117,7 @@
         <hr>
         <div id="word-game">
             <h2>Word Scramble</h2>
+            <p id="scramble-score">Score: 0</p>
             <p>Unscramble the word below!</p>
             <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
             <input type="text" id="guess-input" placeholder="Type your guess here">
@@ -255,11 +256,14 @@
         function checkWord() {
             var playerGuess = document.getElementById('guess-input').value;
             if (playerGuess.toLowerCase() === currentOriginalWord.toLowerCase()) {
+                scrambleScore++;
+                document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
                 alert("Correct!");
             } else {
                 alert("Wrong, try again!");
             }
         }
+        var scrambleScore = 0;
         // SCRAMBLE_SCRIPTS
     </script>
 </body>
