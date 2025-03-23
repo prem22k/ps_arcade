@@ -284,7 +284,9 @@
             alert("The first letter is: " + firstLetter);
         }
         function skipScrambleWord() {
-            scrambleScore--;
+            if (scrambleScore > 0) {
+                scrambleScore--;
+            }
             document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
             loadScrambleWord();
         }
