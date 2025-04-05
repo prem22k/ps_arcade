@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="rps-game">
+        <h1>rock paper scissors</h1>
+        <p id="welcome">welcome to my game</p>
+        <p id="score" style="color: black;">Score: You 0 - 0 Computer</p>
+        <button onclick="play('rock')">Rock</button>
+        <button onclick="play('paper')">Paper</button>
+        <button onclick="play('scissors')">Scissors</button>
+        <br><br>
+        <button id="resetBtn" onclick="resetGame()">Reset Score</button>
+
+        <div class="info">
+            <h3>How to play:</h3>
+            <p>Click Rock, Paper, or Scissors button to play against the computer.</p>
+            <p>Rock beats Scissors. Scissors beats Paper. Paper beats Rock.</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
