@@ -34,3 +34,4 @@ button {
     color: red;
     font-weight: bold;
 }
+#cookie-btn:hover { cursor: pointer; }
