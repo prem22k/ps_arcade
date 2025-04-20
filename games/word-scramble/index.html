@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Scramble</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="word-game">
+        <h2>Word Scramble</h2>
+        <p id="scramble-score">Score: 0</p>
+        <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
+        <input type="text" id="guess-input" placeholder="Type your guess here">
+        <br><br>
+        <button onclick="checkWord()">Submit</button>
+        <button onclick="showScrambleHint()">Hint</button>
+        <button onclick="skipScrambleWord()">Skip Word</button>
+        <p id="scramble-err" style="color: red; font-weight: bold;"></p>
+        
+        <div class="info">
+            <h3>Word Scramble Help:</h3>
+            <p>Try to unscramble the letters. Use hint to get first letter.</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
