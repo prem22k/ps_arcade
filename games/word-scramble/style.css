@@ -1,0 +1,30 @@
+body {
+    background-color: lightblue;
+    color: red;
+    text-align: center;
+    font-family: sans-serif;
+    text-shadow: 1px 1px 2px gray;
+}
+#word-game {
+    border: 4px solid purple;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: lightgoldenrodyellow;
+}
+#word-game button {
+    background-color: darkorange;
+    font-size: 15px;
+    padding: 8px;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin: 5px;
+}
+#guess-input {
+    font-size: 18px;
+    padding: 8px;
+}
+.info {
+    margin-top: 20px;
+    font-size: 12px;
+    color: gray;
+}
