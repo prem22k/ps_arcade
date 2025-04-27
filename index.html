@@ -5,21 +5,41 @@
     <style>
         body {
             background-color: lightblue;
-            color: red;
+            color: #333;
             text-align: center;
-            font-family: sans-serif;
-            text-shadow: 1px 1px 2px gray;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .arcade-box {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .card {
+            background-color: white;
+            border: 3px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            width: 200px;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+        }
+        .card a {
+            text-decoration: none;
+            color: darkblue;
+            font-weight: bold;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <h1>welcome to prem's arcade</h1>
     <p>choose a game to play:</p>
-    <ul>
-        <li><a href="games/rock-paper-scissors/index.html">Rock Paper Scissors</a></li>
-        <li><a href="games/guess-number/index.html">Guess My Number</a></li>
-        <li><a href="games/clicker/index.html">Cookie Clicker</a></li>
-        <li><a href="games/word-scramble/index.html">Word Scramble</a></li>
-    </ul>
+    <div class="arcade-box">
+        <div class="card"><a href="games/rock-paper-scissors/index.html">Rock Paper Scissors</a></div>
+        <div class="card"><a href="games/guess-number/index.html">Guess My Number</a></div>
+        <div class="card"><a href="games/clicker/index.html">Cookie Clicker</a></div>
+        <div class="card"><a href="games/word-scramble/index.html">Word Scramble</a></div>
+    </div>
 </body>
 </html>
