@@ -31,4 +31,5 @@ function startGuessGame() {
     if (guess == target) {
         alert("you win! it took you " + attempts + " attempts.");
     }
+    document.getElementById('guess-game').style.backgroundColor = 'lightgreen';
 }
