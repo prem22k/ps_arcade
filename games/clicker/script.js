@@ -1,6 +1,9 @@
 var initialHigh = localStorage.getItem("cookieHigh") || 0;
+var initialClicks = localStorage.getItem("cookieClicks") || 0;
+
 setTimeout(function() {
     document.getElementById('cookie-high').innerText = "High Score: " + initialHigh;
+    document.getElementById('cookie-score').innerText = "Cookies: " + initialClicks;
 }, 100);
 
 function clickCookie() {
