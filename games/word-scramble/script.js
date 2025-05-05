@@ -1,8 +1,14 @@
 var wordList = ["javascript", "arcade", "cookie", "scramble", "computer"];
 function scrambleWord(word) {
     var chars = word.split('');
-    chars.sort(function() { return Math.random() - 0.5; });
-    return chars.join('');
+    var scrambled = word;
+    var attempts = 0;
+    while (scrambled === word && attempts < 10) {
+        chars.sort(function() { return Math.random() - 0.5; });
+        scrambled = chars.join('');
+        attempts++;
+    }
+    return scrambled;
 }
 
 var currentScrambleWord = "";
