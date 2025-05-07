@@ -24,7 +24,7 @@ function loadScrambleWord() {
 
 function checkWord() {
     var playerGuess = document.getElementById('guess-input').value;
-    if (playerGuess.toLowerCase() === currentOriginalWord.toLowerCase()) {
+    if (playerGuess.trim().toLowerCase() === currentOriginalWord.toLowerCase()) {
         scrambleScore++;
         document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
         alert("Correct!");
