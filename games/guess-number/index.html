@@ -8,7 +8,8 @@
     <div id="guess-game">
         <h2>Guess My Number</h2>
         <p>Try to guess the number between 1 and 100!</p>
-        <button onclick="startGuessGame()">Play Guess Game</button>
+        <input type="number" id="user-guess-input">
+        <button id="submit-guess-btn" onclick="submitGuess()">Submit</button>
         <button onclick="resetGuessTarget()">New Secret Number</button>
         <p id="last-guess">Last Guess: None</p>
     </div>
