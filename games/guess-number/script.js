@@ -4,32 +4,16 @@ function resetGuessTarget() {
     alert("new target generated!");
 }
 
-function startGuessGame() {
-    document.getElementById('guess-game').style.backgroundColor = 'yellow';
-    var target = globalTarget;
-    var guess = -1;
-    var attempts = 0;
-    while (guess != target) {
-        var userGuess = window.prompt("Guess 1-100:");
-        if (userGuess === null) {
-            alert("Game exited.");
-            break;
-        }
-        guess = parseInt(userGuess);
-        if (isNaN(guess)) {
-            alert("Please enter a valid number!");
-            continue;
-        }
-        attempts++;
-        document.getElementById('last-guess').innerText = "Last Guess: " + guess;
-        if (guess > target) {
-            alert("Too high!");
-        } else if (guess < target) {
-            alert("Too low!");
-        }
+function submitGuess() {
+    var userGuess = document.getElementById('user-guess-input').value;
+    var guess = parseInt(userGuess);
+    document.getElementById('last-guess').innerText = "Last Guess: " + guess;
+    if (guess > globalTarget) {
+        alert("Too high!");
+    } else if (guess < globalTarget) {
+        alert("Too low!");
+    } else if (guess == globalTarget) {
+        alert("you win!");
+        document.getElementById('guess-game').style.backgroundColor = 'lightgreen';
     }
-    if (guess == target) {
-        alert("you win! it took you " + attempts + " attempts.");
-    }
-    document.getElementById('guess-game').style.backgroundColor = 'lightgreen';
 }
