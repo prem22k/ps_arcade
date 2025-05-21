@@ -8,7 +8,15 @@ function resetGuessTarget() {
 
 function submitGuess() {
     var userGuess = document.getElementById('user-guess-input').value;
+    if (userGuess === "") {
+        alert("Please enter a number!");
+        return;
+    }
     var guess = parseInt(userGuess);
+    if (isNaN(guess)) {
+        alert("Please enter a valid number!");
+        return;
+    }
     attempts++;
     document.getElementById('last-guess').innerText = "Last Guess: " + guess;
     document.getElementById('guess-attempts').innerText = "Attempts: " + attempts;
