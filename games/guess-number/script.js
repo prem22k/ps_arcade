@@ -20,11 +20,17 @@ function submitGuess() {
     attempts++;
     document.getElementById('last-guess').innerText = "Last Guess: " + guess;
     document.getElementById('guess-attempts').innerText = "Attempts: " + attempts;
+    
+    var feedbackEl = document.getElementById('guess-feedback');
     if (guess > globalTarget) {
-        alert("Too high!");
+        feedbackEl.innerText = "Too high!";
+        feedbackEl.style.color = "red";
     } else if (guess < globalTarget) {
-        alert("Too low!");
+        feedbackEl.innerText = "Too low!";
+        feedbackEl.style.color = "orange";
     } else if (guess == globalTarget) {
+        feedbackEl.innerText = "You win! The number was " + globalTarget;
+        feedbackEl.style.color = "green";
         alert("you win! it took you " + attempts + " attempts.");
         document.getElementById('guess-game').style.backgroundColor = 'lightgreen';
     }
