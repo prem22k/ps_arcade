@@ -3,7 +3,13 @@ var attempts = 0;
 
 function resetGuessTarget() {
     globalTarget = Math.floor(Math.random() * 100) + 1;
-    alert("new target generated!");
+    attempts = 0;
+    document.getElementById('guess-game').style.backgroundColor = 'yellow';
+    document.getElementById('last-guess').innerText = "Last Guess: None";
+    document.getElementById('guess-attempts').innerText = "Attempts: 0";
+    var feedbackEl = document.getElementById('guess-feedback');
+    feedbackEl.innerText = "New target generated!";
+    feedbackEl.style.color = "blue";
 }
 
 function submitGuess() {
