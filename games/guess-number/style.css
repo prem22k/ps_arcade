@@ -18,6 +18,10 @@ button {
     padding: 20px;
     margin-top: 20px;
     background-color: lightgreen;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
 }
 #user-guess-input {
     font-size: 18px;
