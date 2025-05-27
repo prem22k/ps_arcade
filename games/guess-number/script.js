@@ -13,7 +13,8 @@ function resetGuessTarget() {
 }
 
 function submitGuess() {
-    var userGuess = document.getElementById('user-guess-input').value;
+    var inputEl = document.getElementById('user-guess-input');
+    var userGuess = inputEl.value;
     if (userGuess === "") {
         alert("Please enter a number!");
         return;
@@ -40,4 +41,5 @@ function submitGuess() {
         alert("you win! it took you " + attempts + " attempts.");
         document.getElementById('guess-game').style.backgroundColor = 'lightgreen';
     }
+    inputEl.value = "";
 }
