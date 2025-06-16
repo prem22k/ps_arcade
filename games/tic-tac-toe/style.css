@@ -27,3 +27,7 @@ body {
     align-items: center;
     cursor: pointer;
 }
+#player-turn {
+    font-size: 22px;
+    font-weight: bold;
+}
