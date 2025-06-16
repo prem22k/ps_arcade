@@ -7,6 +7,11 @@ cells.forEach(function(cell) {
     cell.addEventListener('click', function() {
         if (!gameActive) return;
         var index = parseInt(cell.getAttribute('data-index'));
-        console.log('clicked index: ' + index);
+        
+        // BUG: overwrites cell without checking state
+        board[index] = currentPlayer;
+        cell.innerText = currentPlayer;
+        
+        currentPlayer = (currentPlayer === "X") ? "O" : "X";
     });
 });
