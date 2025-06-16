@@ -8,7 +8,9 @@ cells.forEach(function(cell) {
         if (!gameActive) return;
         var index = parseInt(cell.getAttribute('data-index'));
         
-        // BUG: overwrites cell without checking state
+        // validation check to prevent overwriting
+        if (board[index] !== "") return;
+        
         board[index] = currentPlayer;
         cell.innerText = currentPlayer;
         
