@@ -44,9 +44,10 @@ cells.forEach(function(cell) {
             return;
         }
         
-        // tie logic
+        // tie logic and UI updates
         if (checkTie()) {
             alert("It's a tie!");
+            turnIndicator.innerText = "It's a tie!";
             gameActive = false;
             return;
         }
