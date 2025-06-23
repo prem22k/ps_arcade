@@ -11,7 +11,6 @@ var winConditions = [
     [0, 4, 8], [2, 4, 6]
 ];
 
-// loop check for win conditions
 function checkWin() {
     for (var i = 0; i < winConditions.length; i++) {
         var cond = winConditions[i];
@@ -31,6 +30,13 @@ cells.forEach(function(cell) {
         
         board[index] = currentPlayer;
         cell.innerText = currentPlayer;
+        
+        if (checkWin()) {
+            alert("Player " + currentPlayer + " wins!");
+            turnIndicator.innerText = "Player " + currentPlayer + " Wins!";
+            gameActive = false;
+            return;
+        }
         
         currentPlayer = (currentPlayer === "X") ? "O" : "X";
         turnIndicator.innerText = "Player " + currentPlayer + "'s Turn";
