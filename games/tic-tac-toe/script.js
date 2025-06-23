@@ -35,6 +35,7 @@ function resetBoard() {
     turnIndicator.innerText = "Player X's Turn";
     cells.forEach(function(cell) {
         cell.innerText = "";
+        cell.classList.remove('x', 'o');
     });
     alert("Board reset!");
 }
@@ -48,6 +49,7 @@ cells.forEach(function(cell) {
         
         board[index] = currentPlayer;
         cell.innerText = currentPlayer;
+        cell.classList.add(currentPlayer.toLowerCase());
         
         if (checkWin()) {
             alert("Player " + currentPlayer + " wins!");
