@@ -21,6 +21,12 @@ function checkWin() {
     return false;
 }
 
+function checkTie() {
+    return board.every(function(cell) {
+        return cell !== "";
+    });
+}
+
 cells.forEach(function(cell) {
     cell.addEventListener('click', function() {
         if (!gameActive) return;
@@ -34,6 +40,13 @@ cells.forEach(function(cell) {
         if (checkWin()) {
             alert("Player " + currentPlayer + " wins!");
             turnIndicator.innerText = "Player " + currentPlayer + " Wins!";
+            gameActive = false;
+            return;
+        }
+        
+        // tie logic
+        if (checkTie()) {
+            alert("It's a tie!");
             gameActive = false;
             return;
         }
