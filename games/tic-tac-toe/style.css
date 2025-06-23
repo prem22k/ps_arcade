@@ -44,3 +44,9 @@ button {
     font-size: 18px;
     padding: 10px;
 }
+.cell.x {
+    color: blue;
+}
+.cell.o {
+    color: green;
+}
