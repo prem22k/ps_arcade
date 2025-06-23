@@ -13,7 +13,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    grid-gap: 10px;
+    grid-gap: 15px;
     justify-content: center;
 }
 .cell {
