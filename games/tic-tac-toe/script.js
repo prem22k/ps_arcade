@@ -27,6 +27,18 @@ function checkTie() {
     });
 }
 
+// reset board function
+function resetBoard() {
+    board = ["", "", "", "", "", "", "", "", ""];
+    currentPlayer = "X";
+    gameActive = true;
+    turnIndicator.innerText = "Player X's Turn";
+    cells.forEach(function(cell) {
+        cell.innerText = "";
+    });
+    alert("Board reset!");
+}
+
 cells.forEach(function(cell) {
     cell.addEventListener('click', function() {
         if (!gameActive) return;
