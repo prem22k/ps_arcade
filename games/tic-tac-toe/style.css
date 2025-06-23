@@ -31,3 +31,16 @@ body {
     font-size: 22px;
     font-weight: bold;
 }
+button {
+    background: yellow;
+    border: 3px solid black;
+    font-size: 20px;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+}
+#reset-btn {
+    background: orange;
+    font-size: 18px;
+    padding: 10px;
+}
