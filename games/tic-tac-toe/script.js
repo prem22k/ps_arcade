@@ -31,7 +31,7 @@ function checkTie() {
 function resetBoard() {
     board = ["", "", "", "", "", "", "", "", ""];
     currentPlayer = "X";
-    gameActive = true;
+    gameActive = true; // reset active status explicitly
     turnIndicator.innerText = "Player X's Turn";
     cells.forEach(function(cell) {
         cell.innerText = "";
