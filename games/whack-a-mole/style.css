@@ -25,3 +25,16 @@ body {
     position: relative;
     overflow: hidden;
 }
+.mole {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    bottom: -100px;
+    left: 25px;
+    transition: bottom 0.1s ease;
+}
+.hole.active .mole {
+    bottom: 10px;
+}
