@@ -4,3 +4,24 @@ body {
     text-align: center;
     font-family: sans-serif;
 }
+#mole-game {
+    border: 4px solid darkgreen;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #7cfc00;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-gap: 20px;
+    justify-content: center;
+}
+.hole {
+    width: 150px;
+    height: 150px;
+    background-color: #8b5a2b;
+    border: 5px solid brown;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
