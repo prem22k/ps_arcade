@@ -20,7 +20,8 @@ function showMole() {
 
 var gameInterval = null;
 function startGame() {
+    // FIX: clear active intervals to prevent stacking
+    clearInterval(gameInterval);
     showMole();
     gameInterval = setInterval(showMole, 1000);
 }
-// BUG: Calling startGame multiple times creates stacked intervals!
