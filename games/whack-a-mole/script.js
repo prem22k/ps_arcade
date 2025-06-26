@@ -1,5 +1,8 @@
 var holes = document.querySelectorAll('.hole');
+var scoreDisplay = document.getElementById('score-display');
+var score = 0;
 var lastHoleIndex = -1;
+var gameInterval = null;
 
 function randomHole() {
     var index = Math.floor(Math.random() * holes.length);
@@ -18,10 +21,10 @@ function showMole() {
     activeHole.classList.add('active');
 }
 
-var gameInterval = null;
 function startGame() {
-    // FIX: clear active intervals to prevent stacking
     clearInterval(gameInterval);
+    score = 0;
+    scoreDisplay.innerText = "Score: " + score;
     showMole();
     gameInterval = setInterval(showMole, 1000);
 }
