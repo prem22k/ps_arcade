@@ -34,6 +34,7 @@ holes.forEach(function(hole) {
         if (hole.classList.contains('active')) {
             score++;
             scoreDisplay.innerText = "Score: " + score;
+            hole.classList.remove('active');
         }
     });
 });
