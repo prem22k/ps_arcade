@@ -17,3 +17,9 @@ function showMole() {
     var activeHole = randomHole();
     activeHole.classList.add('active');
 }
+
+var gameInterval = null;
+function startGame() {
+    showMole();
+    gameInterval = setInterval(showMole, 1000);
+}
