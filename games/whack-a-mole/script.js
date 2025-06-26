@@ -23,3 +23,4 @@ function startGame() {
     showMole();
     gameInterval = setInterval(showMole, 1000);
 }
+// BUG: Calling startGame multiple times creates stacked intervals!
