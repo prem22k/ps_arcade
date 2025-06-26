@@ -29,9 +29,11 @@ function startGame() {
     gameInterval = setInterval(showMole, 1000);
 }
 
-// click listeners
 holes.forEach(function(hole) {
     hole.addEventListener('click', function() {
-        console.log('hole clicked index');
+        if (hole.classList.contains('active')) {
+            score++;
+            scoreDisplay.innerText = "Score: " + score;
+        }
     });
 });
