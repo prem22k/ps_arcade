@@ -47,3 +47,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+.hud {
+    font-size: 24px;
+    font-weight: bold;
+}
