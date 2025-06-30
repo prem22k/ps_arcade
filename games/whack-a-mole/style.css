@@ -51,3 +51,6 @@ button {
     font-size: 24px;
     font-weight: bold;
 }
+.mole:hover {
+    transform: scale(1.05);
+}
