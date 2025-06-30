@@ -31,12 +31,20 @@ function startGame() {
     timeLeft = 30;
     gameActive = true;
     scoreDisplay.innerText = "Score: " + score;
+    var timeDisplay = document.getElementById('time-display');
+    if (timeDisplay) {
+        timeDisplay.innerText = "Time: " + timeLeft + "s";
+    }
     
     showMole();
     gameInterval = setInterval(showMole, 1000);
     
     countdownInterval = setInterval(function() {
         timeLeft--;
+        var timeDisplay = document.getElementById('time-display');
+        if (timeDisplay) {
+            timeDisplay.innerText = "Time: " + timeLeft + "s";
+        }
         if (timeLeft <= 0) {
             endGame();
         }
