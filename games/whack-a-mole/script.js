@@ -68,6 +68,7 @@ function stopGame() {
 
 holes.forEach(function(hole) {
     hole.addEventListener('click', function() {
+        if (!gameActive) return; // prevent clicks after game ends
         if (hole.classList.contains('active')) {
             score++;
             scoreDisplay.innerText = "Score: " + score;
