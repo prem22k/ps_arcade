@@ -53,7 +53,6 @@ function startGame() {
     }, 1000);
 }
 
-// game over and cleanup handler
 function endGame() {
     clearInterval(gameInterval);
     clearInterval(countdownInterval);
@@ -71,7 +70,7 @@ function stopGame() {
 
 holes.forEach(function(hole) {
     hole.addEventListener('click', function() {
-        if (!gameActive) return; // prevent clicks after game ends
+        if (!gameActive) return; // game status check
         if (hole.classList.contains('active')) {
             if (moleClicked) return;
             score++;
