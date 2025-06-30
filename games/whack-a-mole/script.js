@@ -6,6 +6,7 @@ var lastHoleIndex = -1;
 var gameInterval = null;
 var countdownInterval = null;
 var gameActive = false;
+var moleClicked = false;
 
 function randomHole() {
     var index = Math.floor(Math.random() * holes.length);
@@ -20,6 +21,7 @@ function showMole() {
     holes.forEach(function(hole) {
         hole.classList.remove('active');
     });
+    moleClicked = false;
     var activeHole = randomHole();
     activeHole.classList.add('active');
 }
@@ -51,6 +53,7 @@ function startGame() {
     }, 1000);
 }
 
+// game over and cleanup handler
 function endGame() {
     clearInterval(gameInterval);
     clearInterval(countdownInterval);
@@ -70,8 +73,10 @@ holes.forEach(function(hole) {
     hole.addEventListener('click', function() {
         if (!gameActive) return; // prevent clicks after game ends
         if (hole.classList.contains('active')) {
+            if (moleClicked) return;
             score++;
             scoreDisplay.innerText = "Score: " + score;
+            moleClicked = true;
             hole.classList.remove('active');
         }
     });
