@@ -4,3 +4,10 @@ body {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+#snake-game {
+    margin-top: 30px;
+}
+#snake-canvas {
+    background-color: #1e1e1e;
+    border: 3px solid #333;
+}
