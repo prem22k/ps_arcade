@@ -12,11 +12,11 @@ var dx = gridSize;
 var dy = 0;
 
 document.addEventListener('keydown', function(e) {
-    // BUG: Allows instant reverse!
-    if (e.key === 'ArrowUp') { dx = 0; dy = -gridSize; }
-    else if (e.key === 'ArrowDown') { dx = 0; dy = gridSize; }
-    else if (e.key === 'ArrowLeft') { dx = -gridSize; dy = 0; }
-    else if (e.key === 'ArrowRight') { dx = gridSize; dy = 0; }
+    // FIX: stop snake reversing into itself
+    if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -gridSize; }
+    else if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = gridSize; }
+    else if (e.key === 'ArrowLeft' && dx === 0) { dx = -gridSize; dy = 0; }
+    else if (e.key === 'ArrowRight' && dx === 0) { dx = gridSize; dy = 0; }
 });
 
 function gameLoop() {
