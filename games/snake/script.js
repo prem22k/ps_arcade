@@ -12,6 +12,7 @@ var dx = gridSize;
 var dy = 0;
 
 document.addEventListener('keydown', function(e) {
+    // BUG: Allows instant reverse!
     if (e.key === 'ArrowUp') { dx = 0; dy = -gridSize; }
     else if (e.key === 'ArrowDown') { dx = 0; dy = gridSize; }
     else if (e.key === 'ArrowLeft') { dx = -gridSize; dy = 0; }
@@ -21,7 +22,6 @@ document.addEventListener('keydown', function(e) {
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Move snake head
     var head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
     snake.pop();
