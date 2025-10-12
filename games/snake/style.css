@@ -6,8 +6,13 @@ body {
 }
 #snake-game {
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #snake-canvas {
     background-color: #1e1e1e;
     border: 3px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
