@@ -10,6 +10,8 @@ var snake = [
 
 var dx = gridSize;
 var dy = 0;
+var foodX = 240;
+var foodY = 200;
 
 document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -gridSize; }
@@ -18,16 +20,20 @@ document.addEventListener('keydown', function(e) {
     else if (e.key === 'ArrowRight' && dx === 0) { dx = gridSize; dy = 0; }
 });
 
-function moveSnake() {
-    var head = {x: snake[0].x + dx, y: snake[0].y + dy};
-    snake.unshift(head);
-    snake.pop();
+function drawFood() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(foodX, foodY, gridSize, gridSize);
 }
 
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    moveSnake();
     
+    var head = {x: snake[0].x + dx, y: snake[0].y + dy};
+    snake.unshift(head);
+    snake.pop();
+    
+    drawFood();
+
     ctx.fillStyle = 'lightgreen';
     snake.forEach(function(part) {
         ctx.fillRect(part.x, part.y, gridSize, gridSize);
