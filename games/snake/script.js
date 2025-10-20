@@ -25,11 +25,18 @@ function randomFood() {
     foodY = Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize;
 }
 
+function checkSelfCollision(head) {
+    for (var i = 1; i < snake.length; i++) {
+        if (snake[i].x === head.x && snake[i].y === head.y) return true;
+    }
+    return false;
+}
+
 function gameLoop() {
     var head = {x: snake[0].x + dx, y: snake[0].y + dy};
     
-    // Check wall collision
-    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+    // Check wall or self collision
+    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || checkSelfCollision(head)) {
         alert("Game Over!");
         snake = [{x: 160, y: 200}, {x: 140, y: 200}, {x: 120, y: 200}];
         dx = gridSize;
