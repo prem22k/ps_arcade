@@ -1,6 +1,7 @@
 var canvas = document.getElementById('snake-canvas');
 var ctx = canvas.getContext('2d');
 var scoreBoard = document.getElementById('score-board');
+var restartBtn = document.getElementById('restart-btn');
 var gridSize = 20;
 
 var snake = [
@@ -23,6 +24,18 @@ document.addEventListener('keydown', function(e) {
     else if (e.key === 'ArrowRight' && dx === 0) { dx = gridSize; dy = 0; }
 });
 
+restartBtn.addEventListener('click', resetGame);
+
+function resetGame() {
+    if (score > highScore) highScore = score;
+    score = 0;
+    scoreBoard.innerText = "Score: " + score + " | High Score: " + highScore;
+    snake = [{x: 160, y: 200}, {x: 140, y: 200}, {x: 120, y: 200}];
+    dx = gridSize;
+    dy = 0;
+    randomFood();
+}
+
 function randomFood() {
     foodX = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
     foodY = Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize;
@@ -40,12 +53,7 @@ function gameLoop() {
     
     if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || checkSelfCollision(head)) {
         alert("Game Over!");
-        if (score > highScore) highScore = score;
-        score = 0;
-        scoreBoard.innerText = "Score: " + score + " | High Score: " + highScore;
-        snake = [{x: 160, y: 200}, {x: 140, y: 200}, {x: 120, y: 200}];
-        dx = gridSize;
-        dy = 0;
+        resetGame();
         return;
     }
     
