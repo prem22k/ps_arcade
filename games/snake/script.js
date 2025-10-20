@@ -26,18 +26,25 @@ function randomFood() {
 }
 
 function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
     var head = {x: snake[0].x + dx, y: snake[0].y + dy};
-    snake.unshift(head);
     
-    // Check food collision
+    // Check wall collision
+    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+        alert("Game Over!");
+        snake = [{x: 160, y: 200}, {x: 140, y: 200}, {x: 120, y: 200}];
+        dx = gridSize;
+        dy = 0;
+        return;
+    }
+    
+    snake.unshift(head);
     if (head.x === foodX && head.y === foodY) {
         randomFood();
     } else {
         snake.pop();
     }
     
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'red';
     ctx.fillRect(foodX, foodY, gridSize, gridSize);
 
