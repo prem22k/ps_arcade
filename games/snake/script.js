@@ -20,9 +20,9 @@ document.addEventListener('keydown', function(e) {
     else if (e.key === 'ArrowRight' && dx === 0) { dx = gridSize; dy = 0; }
 });
 
-function drawFood() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(foodX, foodY, gridSize, gridSize);
+function randomFood() {
+    foodX = Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize;
+    foodY = Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize;
 }
 
 function gameLoop() {
@@ -30,9 +30,16 @@ function gameLoop() {
     
     var head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(head);
-    snake.pop();
     
-    drawFood();
+    // Check food collision
+    if (head.x === foodX && head.y === foodY) {
+        randomFood();
+    } else {
+        snake.pop();
+    }
+    
+    ctx.fillStyle = 'red';
+    ctx.fillRect(foodX, foodY, gridSize, gridSize);
 
     ctx.fillStyle = 'lightgreen';
     snake.forEach(function(part) {
