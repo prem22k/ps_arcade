@@ -16,3 +16,21 @@ body {
     border-radius: 8px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
+#score-board {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+button {
+    background: #e67e22;
+    border: 3px solid #d35400;
+    font-size: 18px;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover {
+    background: #d35400;
+}
