@@ -17,7 +17,11 @@ var foodY = 200;
 var score = 0;
 var highScore = 0;
 
+// Prevent key scrolls
 document.addEventListener('keydown', function(e) {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) > -1) {
+        e.preventDefault();
+    }
     if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -gridSize; }
     else if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = gridSize; }
     else if (e.key === 'ArrowLeft' && dx === 0) { dx = -gridSize; dy = 0; }
