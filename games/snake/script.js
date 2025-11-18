@@ -17,7 +17,7 @@ var foodY = 200;
 var score = 0;
 var highScore = 0;
 
-// Prevent key scrolls
+// Prevent key scrolls and handle directional keys
 document.addEventListener('keydown', function(e) {
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) > -1) {
         e.preventDefault();
@@ -34,7 +34,11 @@ function resetGame() {
     if (score > highScore) highScore = score;
     score = 0;
     scoreBoard.innerText = "Score: " + score + " | High Score: " + highScore;
-    snake = [{x: 160, y: 200}, {x: 140, y: 200}, {x: 120, y: 200}];
+    snake = [
+        {x: 160, y: 200},
+        {x: 140, y: 200},
+        {x: 120, y: 200}
+    ];
     dx = gridSize;
     dy = 0;
     randomFood();
