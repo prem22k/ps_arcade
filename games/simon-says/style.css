@@ -10,4 +10,21 @@ body {
     width: 320px;
     height: 320px;
     margin: 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 10px solid #333;
+}
+.panel {
+    width: 150px;
+    height: 150px;
+    opacity: 0.6;
+    cursor: pointer;
+    border: 5px solid #1a1a1a;
+}
+.green { background-color: #2ecc71; }
+.red { background-color: #e74c3c; }
+.yellow { background-color: #f1c40f; }
+.blue { background-color: #3498db; }
+.panel.active {
+    opacity: 1.0;
 }
