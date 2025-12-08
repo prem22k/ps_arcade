@@ -37,6 +37,21 @@ function playBeep(color) {
     osc.stop(ctx.currentTime + 0.3);
 }
 
+function playGameOverBeep() {
+    var ctx = getAudioContext();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.value = 120.00; // Low buzz
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.6);
+}
+
 function lightUp(color) {
     var panel = document.querySelector('.panel.' + color);
     panel.classList.add('active');
@@ -68,6 +83,7 @@ function nextLevel() {
 
 function checkUserSequence(index) {
     if (userSequence[index] !== sequence[index]) {
+        playGameOverBeep();
         alert("Game Over! You reached level " + level);
         sequence = [];
         level = 0;
