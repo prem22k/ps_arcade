@@ -1,4 +1,3 @@
-// Initialize Web Audio API
 var audioCtx = null;
 
 function getAudioContext() {
@@ -7,3 +6,11 @@ function getAudioContext() {
     }
     return audioCtx;
 }
+
+// Frequency map
+var freqs = {
+    green: 261.63,  // C4
+    red: 329.63,    // E4
+    yellow: 392.00, // G4
+    blue: 523.25    // C5
+};
