@@ -36,9 +36,18 @@ function playBeep(color) {
     osc.stop(ctx.currentTime + 0.3);
 }
 
+function lightUp(color) {
+    var panel = document.querySelector('.panel.' + color);
+    panel.classList.add('active');
+    playBeep(color);
+    setTimeout(function() {
+        panel.classList.remove('active');
+    }, 250);
+}
+
 document.querySelectorAll('.panel').forEach(function(panel) {
     panel.addEventListener('click', function() {
         var color = panel.getAttribute('data-color');
-        playBeep(color);
+        lightUp(color);
     });
 });
