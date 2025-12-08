@@ -46,6 +46,17 @@ function lightUp(color) {
     }, 250);
 }
 
+function playSequence() {
+    var i = 0;
+    var interval = setInterval(function() {
+        lightUp(sequence[i]);
+        i++;
+        if (i >= sequence.length) {
+            clearInterval(interval);
+        }
+    }, 600);
+}
+
 function nextLevel() {
     userSequence = [];
     level++;
