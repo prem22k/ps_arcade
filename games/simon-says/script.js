@@ -14,6 +14,12 @@ var freqs = {
     blue: 523.25
 };
 
+// Game state variables
+var sequence = [];
+var userSequence = [];
+var level = 0;
+var gameActive = false;
+
 function playBeep(color) {
     var ctx = getAudioContext();
     if (ctx.state === 'suspended') {
@@ -21,17 +27,13 @@ function playBeep(color) {
     }
     var osc = ctx.createOscillator();
     var gain = ctx.createGain();
-    
     osc.type = 'sine';
     osc.frequency.value = freqs[color];
-    
     gain.gain.setValueAtTime(0, ctx.currentTime);
     gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.05);
     gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
-    
     osc.connect(gain);
     gain.connect(ctx.destination);
-    
     osc.start();
     osc.stop(ctx.currentTime + 0.3);
 }
@@ -44,10 +46,3 @@ function lightUp(color) {
         panel.classList.remove('active');
     }, 250);
 }
-
-document.querySelectorAll('.panel').forEach(function(panel) {
-    panel.addEventListener('click', function() {
-        var color = panel.getAttribute('data-color');
-        lightUp(color);
-    });
-});
