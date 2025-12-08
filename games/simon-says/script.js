@@ -7,10 +7,38 @@ function getAudioContext() {
     return audioCtx;
 }
 
-// Frequency map
 var freqs = {
-    green: 261.63,  // C4
-    red: 329.63,    // E4
-    yellow: 392.00, // G4
-    blue: 523.25    // C5
+    green: 261.63,
+    red: 329.63,
+    yellow: 392.00,
+    blue: 523.25
 };
+
+function playBeep(color) {
+    var ctx = getAudioContext();
+    if (ctx.state === 'suspended') {
+        ctx.resume();
+    }
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.value = freqs[color];
+    
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    osc.start();
+    osc.stop(ctx.currentTime + 0.3);
+}
+
+document.querySelectorAll('.panel').forEach(function(panel) {
+    panel.addEventListener('click', function() {
+        var color = panel.getAttribute('data-color');
+        playBeep(color);
+    });
+});
