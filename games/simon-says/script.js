@@ -78,3 +78,13 @@ function checkUserSequence(index) {
         setTimeout(nextLevel, 1000);
     }
 }
+
+document.querySelectorAll('.panel').forEach(function(panel) {
+    panel.addEventListener('click', function() {
+        if (!gameActive) return;
+        var color = panel.getAttribute('data-color');
+        lightUp(color);
+        userSequence.push(color);
+        checkUserSequence(userSequence.length - 1);
+    });
+});
