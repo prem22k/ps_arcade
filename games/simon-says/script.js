@@ -14,7 +14,6 @@ var freqs = {
     blue: 523.25
 };
 
-// Game state variables
 var sequence = [];
 var userSequence = [];
 var level = 0;
@@ -45,4 +44,13 @@ function lightUp(color) {
     setTimeout(function() {
         panel.classList.remove('active');
     }, 250);
+}
+
+function nextLevel() {
+    userSequence = [];
+    level++;
+    var colors = ['green', 'red', 'yellow', 'blue'];
+    var randomColor = colors[Math.floor(Math.random() * colors.length)];
+    sequence.push(randomColor);
+    playSequence();
 }
