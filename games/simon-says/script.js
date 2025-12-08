@@ -65,3 +65,16 @@ function nextLevel() {
     sequence.push(randomColor);
     playSequence();
 }
+
+function checkUserSequence(index) {
+    if (userSequence[index] !== sequence[index]) {
+        alert("Game Over! You reached level " + level);
+        sequence = [];
+        level = 0;
+        gameActive = false;
+        return;
+    }
+    if (userSequence.length === sequence.length) {
+        setTimeout(nextLevel, 1000);
+    }
+}
