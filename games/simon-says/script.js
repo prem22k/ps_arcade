@@ -18,6 +18,7 @@ var sequence = [];
 var userSequence = [];
 var level = 0;
 var gameActive = false;
+var playingSequence = false;
 var statusIndicator = document.getElementById('status-indicator');
 var startBtn = document.getElementById('start-btn');
 
@@ -64,12 +65,14 @@ function lightUp(color) {
 }
 
 function playSequence() {
+    playingSequence = true;
     var i = 0;
     var interval = setInterval(function() {
         lightUp(sequence[i]);
         i++;
         if (i >= sequence.length) {
             clearInterval(interval);
+            playingSequence = false;
         }
     }, 600);
 }
@@ -109,7 +112,7 @@ function checkUserSequence(index) {
 
 document.querySelectorAll('.panel').forEach(function(panel) {
     panel.addEventListener('click', function() {
-        if (!gameActive) return;
+        if (!gameActive || playingSequence) return;
         var color = panel.getAttribute('data-color');
         lightUp(color);
         userSequence.push(color);
