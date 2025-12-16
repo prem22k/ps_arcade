@@ -42,6 +42,9 @@ function playBeep(color) {
 
 function playGameOverBeep() {
     var ctx = getAudioContext();
+    if (ctx.state === 'suspended') {
+        ctx.resume();
+    }
     var osc = ctx.createOscillator();
     var gain = ctx.createGain();
     osc.type = 'sawtooth';
@@ -88,6 +91,10 @@ function nextLevel() {
 }
 
 function startGame() {
+    var ctx = getAudioContext();
+    if (ctx.state === 'suspended') {
+        ctx.resume();
+    }
     sequence = [];
     level = 0;
     gameActive = true;
