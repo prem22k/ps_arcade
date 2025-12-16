@@ -27,6 +27,7 @@ body {
     opacity: 0.6;
     cursor: pointer;
     border: 5px solid #1a1a1a;
+    transition: transform 0.1s ease, opacity 0.1s ease;
 }
 .green { background-color: #2ecc71; }
 .red { background-color: #e74c3c; }
@@ -34,6 +35,10 @@ body {
 .blue { background-color: #3498db; }
 .panel.active {
     opacity: 1.0;
+}
+.panel:hover {
+    transform: scale(1.02);
+    opacity: 0.8;
 }
 #status-indicator {
     font-size: 20px;
