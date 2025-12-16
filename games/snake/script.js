@@ -17,15 +17,16 @@ var foodY = 200;
 var score = 0;
 var highScore = 0;
 
-// Prevent key scrolls and handle directional keys
+// Prevent key scrolls and handle directional/WASD keys
 document.addEventListener('keydown', function(e) {
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) > -1) {
+    var key = e.key.toLowerCase();
+    if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'w', 'a', 's', 'd'].indexOf(key) > -1) {
         e.preventDefault();
     }
-    if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -gridSize; }
-    else if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = gridSize; }
-    else if (e.key === 'ArrowLeft' && dx === 0) { dx = -gridSize; dy = 0; }
-    else if (e.key === 'ArrowRight' && dx === 0) { dx = gridSize; dy = 0; }
+    if ((key === 'arrowup' || key === 'w') && dy === 0) { dx = 0; dy = -gridSize; }
+    else if ((key === 'arrowdown' || key === 's') && dy === 0) { dx = 0; dy = gridSize; }
+    else if ((key === 'arrowleft' || key === 'a') && dx === 0) { dx = -gridSize; dy = 0; }
+    else if ((key === 'arrowright' || key === 'd') && dx === 0) { dx = gridSize; dy = 0; }
 });
 
 restartBtn.addEventListener('click', resetGame);
