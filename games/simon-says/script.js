@@ -21,6 +21,7 @@ var level = 0;
 var gameActive = false;
 var playingSequence = false;
 var seqInterval = null;
+var nextLevelTimeout = null;
 var statusIndicator = document.getElementById('status-indicator');
 var startBtn = document.getElementById('start-btn');
 
@@ -103,6 +104,13 @@ function startGame() {
         clearInterval(seqInterval);
         seqInterval = null;
     }
+    if (nextLevelTimeout) {
+        clearTimeout(nextLevelTimeout);
+        nextLevelTimeout = null;
+    }
+    document.querySelectorAll('.panel').forEach(function(panel) {
+        panel.classList.remove('active');
+    });
     playingSequence = false;
     sequence = [];
     level = 0;
@@ -119,10 +127,21 @@ function checkUserSequence(index) {
         sequence = [];
         level = 0;
         gameActive = false;
+        if (nextLevelTimeout) {
+            clearTimeout(nextLevelTimeout);
+            nextLevelTimeout = null;
+        }
+        document.querySelectorAll('.panel').forEach(function(panel) {
+            panel.classList.remove('active');
+        });
         return;
     }
     if (userSequence.length === sequence.length) {
-        setTimeout(nextLevel, 1000);
+        playingSequence = true; // disable inputs during level transition delay
+        nextLevelTimeout = setTimeout(function() {
+            nextLevelTimeout = null;
+            nextLevel();
+        }, 1000);
     }
 }
 
