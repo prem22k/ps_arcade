@@ -20,6 +20,7 @@ var userSequence = [];
 var level = 0;
 var gameActive = false;
 var playingSequence = false;
+var seqInterval = null;
 var statusIndicator = document.getElementById('status-indicator');
 var startBtn = document.getElementById('start-btn');
 
@@ -70,12 +71,14 @@ function lightUp(color) {
 
 function playSequence() {
     playingSequence = true;
+    if (seqInterval) clearInterval(seqInterval);
     var i = 0;
-    var interval = setInterval(function() {
+    seqInterval = setInterval(function() {
         lightUp(sequence[i]);
         i++;
         if (i >= sequence.length) {
-            clearInterval(interval);
+            clearInterval(seqInterval);
+            seqInterval = null;
             playingSequence = false;
         }
     }, 600);
@@ -96,6 +99,11 @@ function startGame() {
     if (ctx.state === 'suspended') {
         ctx.resume();
     }
+    if (seqInterval) {
+        clearInterval(seqInterval);
+        seqInterval = null;
+    }
+    playingSequence = false;
     sequence = [];
     level = 0;
     gameActive = true;
