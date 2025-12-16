@@ -18,6 +18,8 @@ var sequence = [];
 var userSequence = [];
 var level = 0;
 var gameActive = false;
+var statusIndicator = document.getElementById('status-indicator');
+var startBtn = document.getElementById('start-btn');
 
 function playBeep(color) {
     var ctx = getAudioContext();
@@ -42,7 +44,7 @@ function playGameOverBeep() {
     var osc = ctx.createOscillator();
     var gain = ctx.createGain();
     osc.type = 'sawtooth';
-    osc.frequency.value = 120.00; // Low buzz
+    osc.frequency.value = 120.00;
     gain.gain.setValueAtTime(0, ctx.currentTime);
     gain.gain.linearRampToValueAtTime(0.4, ctx.currentTime + 0.05);
     gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
@@ -75,16 +77,26 @@ function playSequence() {
 function nextLevel() {
     userSequence = [];
     level++;
+    statusIndicator.innerText = "Level: " + level;
     var colors = ['green', 'red', 'yellow', 'blue'];
     var randomColor = colors[Math.floor(Math.random() * colors.length)];
     sequence.push(randomColor);
     playSequence();
 }
 
+function startGame() {
+    sequence = [];
+    level = 0;
+    gameActive = true;
+    nextLevel();
+}
+
+startBtn.addEventListener('click', startGame);
+
 function checkUserSequence(index) {
     if (userSequence[index] !== sequence[index]) {
         playGameOverBeep();
-        alert("Game Over! You reached level " + level);
+        statusIndicator.innerText = "Game Over! Score: " + (level - 1);
         sequence = [];
         level = 0;
         gameActive = false;
