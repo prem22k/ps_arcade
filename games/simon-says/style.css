@@ -1,61 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
 body {
-    background-color: #1a1a1a;
-    color: white;
+    background: radial-gradient(circle at center, #2c3e50 0%, #0f171e 100%);
+    color: #f5f6fa;
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 #simon-game {
-    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 400px;
+    width: 100%;
 }
+
+h2 {
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #2ecc71, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+#status-indicator {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 24px;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+    color: #e67e22;
+    margin-bottom: 25px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
 .board {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
     width: 320px;
     height: 320px;
-    margin: 20px auto;
+    margin: 10px auto 25px;
     border-radius: 50%;
     overflow: hidden;
-    border: 10px solid #222;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    border: 14px solid #111;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0,0,0,0.8);
+    background-color: #111;
 }
+
 .panel {
     box-sizing: border-box;
     width: 160px;
     height: 160px;
-    opacity: 0.6;
+    opacity: 0.45;
     cursor: pointer;
-    border: 5px solid #1a1a1a;
-    transition: transform 0.1s ease, opacity 0.1s ease;
+    border: 8px solid #111;
+    transition: opacity 0.15s ease-in-out, filter 0.15s ease-in-out, transform 0.1s ease;
 }
+
 .green { background-color: #2ecc71; }
 .red { background-color: #e74c3c; }
 .yellow { background-color: #f1c40f; }
 .blue { background-color: #3498db; }
+
+/* Panel active states with magnificent inner glows and full opacity */
 .panel.active {
     opacity: 1.0;
+    filter: brightness(1.2);
+    box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.95);
 }
+
 .panel:hover {
-    transform: scale(1.02);
-    opacity: 0.8;
+    opacity: 0.7;
+    filter: brightness(1.05);
 }
-#status-indicator {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
+
+.panel:active {
+    transform: scale(0.98);
 }
+
+.center-circle {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #111;
+    border: 8px solid #111;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 6px rgba(255,255,255,0.1);
+    z-index: 10;
+    pointer-events: none;
+}
+
 button {
-    background: #e67e22;
-    border: 3px solid #d35400;
-    font-size: 18px;
-    padding: 10px 20px;
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    border: none;
+    font-size: 1rem;
+    padding: 12px 35px;
     color: white;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
 }
+
 button:hover {
-    background: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.6);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
 }
