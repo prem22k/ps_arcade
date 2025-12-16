@@ -1,3 +1,4 @@
+// clean up beep playing functions and frequency mapping
 var audioCtx = null;
 
 function getAudioContext() {
