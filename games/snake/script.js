@@ -16,6 +16,7 @@ var foodX = 240;
 var foodY = 200;
 var score = 0;
 var highScore = 0;
+var gameActive = false;
 
 // Prevent key scrolls and handle directional/WASD keys
 document.addEventListener('keydown', function(e) {
@@ -29,7 +30,16 @@ document.addEventListener('keydown', function(e) {
     else if ((key === 'arrowright' || key === 'd') && dx === 0) { dx = gridSize; dy = 0; }
 });
 
-restartBtn.addEventListener('click', resetGame);
+restartBtn.addEventListener('click', function() {
+    if (!gameActive) {
+        gameActive = true;
+        restartBtn.innerText = "Restart Game";
+    } else {
+        resetGame();
+        gameActive = true;
+        restartBtn.innerText = "Restart Game";
+    }
+});
 
 function resetGame() {
     if (score > highScore) highScore = score;
@@ -42,6 +52,8 @@ function resetGame() {
     ];
     dx = gridSize;
     dy = 0;
+    gameActive = false;
+    restartBtn.innerText = "Start Game";
     randomFood();
 }
 
@@ -58,6 +70,18 @@ function checkSelfCollision(head) {
 }
 
 function gameLoop() {
+    if (!gameActive) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'red';
+        ctx.fillRect(foodX, foodY, gridSize, gridSize);
+
+        ctx.fillStyle = 'lightgreen';
+        snake.forEach(function(part) {
+            ctx.fillRect(part.x, part.y, gridSize, gridSize);
+        });
+        return;
+    }
+
     var head = {x: snake[0].x + dx, y: snake[0].y + dy};
     
     if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || checkSelfCollision(head)) {
