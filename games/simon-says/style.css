@@ -18,7 +18,8 @@ body {
     margin: 20px auto;
     border-radius: 50%;
     overflow: hidden;
-    border: 10px solid #333;
+    border: 10px solid #222;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
 }
 .panel {
     width: 150px;
