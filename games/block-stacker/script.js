@@ -4,6 +4,7 @@ var highScore = 0;
 var level = 1;
 var activeBlockWidth = 200;
 var colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6', '#e67e22'];
+var audioCtx = null;
 
 function resetGame() {
     score = 0;
@@ -24,4 +25,11 @@ function updateSwingMax() {
     craneBlock.style.width = activeBlockWidth + 'px';
     var color = colors[Math.floor(Math.random() * colors.length)];
     craneBlock.style.backgroundColor = color;
+}
+
+function getAudioContext() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
 }
