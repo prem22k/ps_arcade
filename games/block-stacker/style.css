@@ -56,3 +56,12 @@ body {
     top: 60px;
     animation: swing 2s ease-in-out infinite alternate;
 }
+
+.base-platform {
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    width: 240px;
+    height: 25px;
+    background-color: #34495e;
+}
