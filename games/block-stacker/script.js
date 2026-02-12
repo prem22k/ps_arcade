@@ -9,3 +9,9 @@ function resetGame() {
     gameActive = true;
     document.getElementById('score').innerText = score;
 }
+
+function getCurrentLeft() {
+    var craneBlock = document.getElementById('crane-block');
+    var computed = window.getComputedStyle(craneBlock);
+    return parseFloat(computed.left) || 0;
+}
