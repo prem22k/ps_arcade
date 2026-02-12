@@ -28,3 +28,31 @@ body {
     0% { left: 0px; }
     100% { left: var(--swing-max); }
 }
+
+#viewport {
+    width: 320px;
+    height: 400px;
+    background-color: #111;
+    border: 6px solid #222;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+#crane-line {
+    position: absolute;
+    width: 2px;
+    height: 60px;
+    background-color: #f1c40f;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#crane-block {
+    position: absolute;
+    height: 35px;
+    background-color: #e74c3c;
+    top: 60px;
+    animation: swing 2s ease-in-out infinite alternate;
+}
