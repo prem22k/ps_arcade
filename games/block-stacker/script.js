@@ -67,3 +67,10 @@ function scrollCamera() {
     var offset = Math.max(0, (stack.length - 4) * 35);
     document.getElementById('tower-container').style.transform = 'translateY(' + offset + 'px)';
 }
+
+window.addEventListener('keydown', function(e) {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        dropBlock();
+    }
+});
