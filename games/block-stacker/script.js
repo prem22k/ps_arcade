@@ -5,6 +5,7 @@ var level = 1;
 var activeBlockWidth = 200;
 var colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6', '#e67e22'];
 var audioCtx = null;
+var dropping = false;
 
 function resetGame() {
     score = 0;
@@ -32,4 +33,9 @@ function getAudioContext() {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
     return audioCtx;
+}
+
+function dropBlock() {
+    if (!gameActive || dropping) return;
+    dropping = true;
 }
