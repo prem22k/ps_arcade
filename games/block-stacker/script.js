@@ -58,3 +58,8 @@ function triggerGameOver() {
     gameActive = false;
     dropping = false;
 }
+
+function scrollCamera() {
+    var offset = Math.max(0, (stack.length - 4) * 35);
+    document.getElementById('tower-container').style.transform = 'translateY(' + offset + 'px)';
+}
