@@ -49,4 +49,12 @@ function dropBlock() {
         overlapLeft = prevBlock.left;
         overlapWidth = prevBlock.width;
     }
+    if (overlapWidth <= 0) {
+        triggerGameOver();
+    }
+}
+
+function triggerGameOver() {
+    gameActive = false;
+    dropping = false;
 }
