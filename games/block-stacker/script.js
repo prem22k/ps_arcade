@@ -41,4 +41,8 @@ function dropBlock() {
     if (!gameActive || dropping) return;
     dropping = true;
     var currentLeft = getCurrentLeft();
+    var prevBlock = stack[stack.length - 1];
+    var overlapLeft = Math.max(currentLeft, prevBlock.left);
+    var overlapRight = Math.min(currentLeft + activeBlockWidth, prevBlock.left + prevBlock.width);
+    var overlapWidth = overlapRight - overlapLeft;
 }
