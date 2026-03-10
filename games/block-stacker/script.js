@@ -6,12 +6,14 @@ var activeBlockWidth = 200;
 var colors = ['#e74c3c', '#3498db', '#f1c40f', '#2ecc71', '#9b59b6', '#e67e22'];
 var audioCtx = null;
 var dropping = false;
+var stack = [{left: 40, width: 240}];
 
 function resetGame() {
     score = 0;
     level = 1;
     gameActive = true;
     document.getElementById('score').innerText = score;
+    stack = [{left: 40, width: 240}];
 }
 
 function getCurrentLeft() {
@@ -38,4 +40,5 @@ function getAudioContext() {
 function dropBlock() {
     if (!gameActive || dropping) return;
     dropping = true;
+    var currentLeft = getCurrentLeft();
 }
