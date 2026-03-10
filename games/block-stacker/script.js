@@ -45,4 +45,8 @@ function dropBlock() {
     var overlapLeft = Math.max(currentLeft, prevBlock.left);
     var overlapRight = Math.min(currentLeft + activeBlockWidth, prevBlock.left + prevBlock.width);
     var overlapWidth = overlapRight - overlapLeft;
+    if (Math.abs(currentLeft - prevBlock.left) < 4) {
+        overlapLeft = prevBlock.left;
+        overlapWidth = prevBlock.width;
+    }
 }
