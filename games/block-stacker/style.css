@@ -82,3 +82,18 @@ body {
     border-radius: 4px;
     transition: bottom 0.15s ease-in;
 }
+
+.falling-block {
+    position: absolute;
+    height: 35px;
+    box-sizing: border-box;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    z-index: 4;
+    animation: fallAndSpin 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+@keyframes fallAndSpin {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(500px) rotate(180deg); opacity: 0; }
+}
