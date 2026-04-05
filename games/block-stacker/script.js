@@ -73,6 +73,9 @@ function dropBlock() {
     
     var slicedLeft = 0;
     var slicedWidth = 0;
+    var craneBlock = document.getElementById('crane-block');
+    var color = craneBlock.style.backgroundColor;
+    
     if (currentLeft < prevBlock.left) {
         slicedLeft = currentLeft;
         slicedWidth = prevBlock.left - currentLeft;
@@ -81,6 +84,7 @@ function dropBlock() {
         slicedWidth = (currentLeft + activeBlockWidth) - (prevBlock.left + prevBlock.width);
     }
     
+    spawnSlice(slicedLeft, slicedWidth, color);
     activeBlockWidth = overlapWidth;
 }
 
