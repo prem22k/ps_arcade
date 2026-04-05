@@ -29,7 +29,6 @@ function updateSwingMax() {
     var color = colors[Math.floor(Math.random() * colors.length)];
     craneBlock.style.backgroundColor = color;
     
-    // adjust swing duration based on level
     var duration = Math.max(0.6, 2.0 - score * 0.08);
     craneBlock.style.animationDuration = duration + 's';
 }
@@ -55,6 +54,18 @@ function dropBlock() {
     }
     if (overlapWidth <= 0) {
         triggerGameOver();
+        return;
+    }
+    
+    // slice logic
+    var slicedLeft = 0;
+    var slicedWidth = 0;
+    if (currentLeft < prevBlock.left) {
+        slicedLeft = currentLeft;
+        slicedWidth = prevBlock.left - currentLeft;
+    } else if (currentLeft + activeBlockWidth > prevBlock.left + prevBlock.width) {
+        slicedLeft = prevBlock.left + prevBlock.width;
+        slicedWidth = (currentLeft + activeBlockWidth) - (prevBlock.left + prevBlock.width);
     }
 }
 
