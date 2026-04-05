@@ -97,3 +97,29 @@ body {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
     100% { transform: translateY(500px) rotate(180deg); opacity: 0; }
 }
+
+#game-over-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background: #1e272e;
+    border: 3px solid #f1c40f;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
