@@ -85,7 +85,10 @@ function dropBlock() {
     }
     
     spawnSlice(slicedLeft, slicedWidth, color);
+    
     activeBlockWidth = overlapWidth;
+    score++;
+    document.getElementById('score').innerText = score;
 }
 
 function triggerGameOver() {
