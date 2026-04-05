@@ -57,7 +57,6 @@ function dropBlock() {
         return;
     }
     
-    // slice logic
     var slicedLeft = 0;
     var slicedWidth = 0;
     if (currentLeft < prevBlock.left) {
@@ -67,6 +66,8 @@ function dropBlock() {
         slicedLeft = prevBlock.left + prevBlock.width;
         slicedWidth = (currentLeft + activeBlockWidth) - (prevBlock.left + prevBlock.width);
     }
+    
+    activeBlockWidth = overlapWidth;
 }
 
 function triggerGameOver() {
