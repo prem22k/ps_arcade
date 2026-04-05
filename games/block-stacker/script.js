@@ -40,6 +40,20 @@ function getAudioContext() {
     return audioCtx;
 }
 
+function spawnSlice(left, width, color) {
+    if (width <= 0) return;
+    var slice = document.createElement('div');
+    slice.className = 'falling-block';
+    slice.style.left = left + 'px';
+    slice.style.width = width + 'px';
+    slice.style.backgroundColor = color;
+    slice.style.bottom = (stack.length * 35) + 'px';
+    document.getElementById('tower-container').appendChild(slice);
+    setTimeout(function() {
+        slice.remove();
+    }, 800);
+}
+
 function dropBlock() {
     if (!gameActive || dropping) return;
     dropping = true;
