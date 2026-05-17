@@ -1,0 +1,25 @@
+:root {
+    --cyber-bg: #030812;
+    --cyber-border: rgba(0, 240, 255, 0.2);
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff0055;
+    --neon-green: #39ff14;
+}
+
+body {
+    background-color: var(--cyber-bg);
+    color: #e2e8f0;
+}
+
+.cyber-grid-bg {
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.cyber-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
