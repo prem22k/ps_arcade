@@ -1,1 +1,5 @@
-// scoreTracker matrix shell
+export const scoreTracker = {
+    getRegistry() {
+        return {};
+    }
+};
