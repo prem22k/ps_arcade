@@ -40,3 +40,10 @@ body {
     from { text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); }
     to { text-shadow: 0 0 20px var(--neon-cyan), 0 0 35px var(--neon-pink); }
 }
+.game-card {
+    background: rgba(6, 12, 28, 0.7);
+    border: 1px solid var(--cyber-border);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+}
