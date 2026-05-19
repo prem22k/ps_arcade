@@ -25,9 +25,8 @@ const parseScoreSafe = (key) => {
 export const scoreTracker = {
     getRegistry() {
         return { ...gameRegistry };
-    }
-};
-export const scoreTrackerExtension = {
+    },
+    
     syncAllScores() {
         console.log('[SYS_TRACK] Syncing game score registry matrices...');
         const scores = {};
@@ -37,8 +36,20 @@ export const scoreTrackerExtension = {
             const rawScore = parseScoreSafe(key);
             scores[game] = rawScore;
             grandTotal += rawScore;
+            
+            const el = document.getElementById(`score-${game}`);
+            if (el) el.innerText = rawScore;
         });
         
+        console.log(`[SYS_TRACK] Global sum vector calculated: ${grandTotal}`);
         return { scores, grandTotal };
+    },
+    
+    calculatePilotRank(scoreSum) {
+        if (scoreSum === 0) return 'RECRUIT_D01';
+        if (scoreSum < 10) return 'CYBER_INTRUDER';
+        if (scoreSum < 50) return 'NET_RUNNER';
+        if (scoreSum < 200) return 'GRID_MASTER';
+        return 'NEON_ARCHITECT';
     }
 };
