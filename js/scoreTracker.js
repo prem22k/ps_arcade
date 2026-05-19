@@ -27,3 +27,18 @@ export const scoreTracker = {
         return { ...gameRegistry };
     }
 };
+export const scoreTrackerExtension = {
+    syncAllScores() {
+        console.log('[SYS_TRACK] Syncing game score registry matrices...');
+        const scores = {};
+        let grandTotal = 0;
+        
+        Object.entries(gameRegistry).forEach(([game, key]) => {
+            const rawScore = parseScoreSafe(key);
+            scores[game] = rawScore;
+            grandTotal += rawScore;
+        });
+        
+        return { scores, grandTotal };
+    }
+};
