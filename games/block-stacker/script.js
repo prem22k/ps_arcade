@@ -28,14 +28,14 @@ function getAudioContext() {
     return audioCtx;
 }
 
-function playSuccessBeep() {
+function playSuccessBeep(isPerfect) {
     try {
         var ctx = getAudioContext();
         if (ctx.state === 'suspended') ctx.resume();
         var osc = ctx.createOscillator();
         var gain = ctx.createGain();
         osc.type = 'square';
-        osc.frequency.value = 300 + score * 25;
+        osc.frequency.value = isPerfect ? (450 + score * 25) : (300 + score * 25);
         gain.gain.setValueAtTime(0, ctx.currentTime);
         gain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.15);
@@ -144,16 +144,15 @@ function dropBlock() {
     craneBlock.style.left = droppedLeft + 'px';
     
     var prevBlock = stack[stack.length - 1];
+    
+    var isPerfect = Math.abs(droppedLeft - prevBlock.left) < 6;
+    if (isPerfect) {
+        droppedLeft = prevBlock.left;
+    }
+    
     var overlapLeft = Math.max(droppedLeft, prevBlock.left);
     var overlapRight = Math.min(droppedLeft + activeBlockWidth, prevBlock.left + prevBlock.width);
     var overlapWidth = overlapRight - overlapLeft;
-    
-    // Snapping help for junior devs
-    if (Math.abs(droppedLeft - prevBlock.left) < 6) {
-        overlapLeft = prevBlock.left;
-        overlapWidth = prevBlock.width;
-        droppedLeft = prevBlock.left;
-    }
     
     // Calculate vertical dropping positions
     var stackTopY = (stack.length - 1) * 35 + 25; // height of stack top
@@ -188,11 +187,18 @@ function dropBlock() {
             triggerGameOver();
         } else {
             // Successful stacking!
-            playSuccessBeep();
+            playSuccessBeep(isPerfect);
             
             // Adjust stacked block properties to actual overlap width and position
             blockEl.style.left = overlapLeft + 'px';
             blockEl.style.width = overlapWidth + 'px';
+            
+            if (isPerfect) {
+                blockEl.style.filter = 'brightness(1.8)';
+                setTimeout(function() {
+                    blockEl.style.filter = 'none';
+                }, 100);
+            }
             
             // Spawn flying slice if there is overhang
             var slicedLeft = 0;
