@@ -136,12 +136,12 @@ function dropBlock() {
     if (!gameActive || dropping) return;
     dropping = true;
     
-    // Get absolute current position during animation swing
     var droppedLeft = getCurrentLeft();
     
-    // Stop swing visual
     craneBlock.style.animation = 'none';
     craneBlock.style.left = droppedLeft + 'px';
+    
+    craneLine.style.display = 'none';
     
     var prevBlock = stack[stack.length - 1];
     
@@ -154,42 +154,48 @@ function dropBlock() {
     var overlapRight = Math.min(droppedLeft + activeBlockWidth, prevBlock.left + prevBlock.width);
     var overlapWidth = overlapRight - overlapLeft;
     
-    // Calculate vertical dropping positions
-    var stackTopY = (stack.length - 1) * 35 + 25; // height of stack top
     var targetBottom = stack.length * 35 + 25;
-    
     var cameraOffset = Math.max(0, (stack.length - 4) * 35);
-    var dropStartY = 305 + cameraOffset; // relative bottom height corresponding to crane top position
+    var dropStartY = 305 + cameraOffset;
     
-    // Create new falling stack block element
-    var blockEl = document.createElement('div');
-    blockEl.className = 'stacked-block';
-    blockEl.style.left = droppedLeft + 'px';
-    blockEl.style.width = activeBlockWidth + 'px';
-    blockEl.style.backgroundColor = currentColor;
-    blockEl.style.bottom = dropStartY + 'px';
-    towerContainer.appendChild(blockEl);
-    
-    // Animate falling drop transition
-    setTimeout(function() {
-        blockEl.style.bottom = targetBottom + 'px';
-    }, 10);
-    
-    // Once visual drop ends (150ms) calculate stack validity
-    setTimeout(function() {
+    if (overlapWidth <= 0) {
         craneBlock.style.display = 'none';
-        craneLine.style.display = 'none';
         
-        if (overlapWidth <= 0) {
-            // complete miss!
-            blockEl.className = 'falling-block';
-            playGameOverBuzz();
+        var blockEl = document.createElement('div');
+        blockEl.className = 'falling-block';
+        blockEl.style.left = droppedLeft + 'px';
+        blockEl.style.width = activeBlockWidth + 'px';
+        blockEl.style.backgroundColor = currentColor;
+        blockEl.style.bottom = dropStartY + 'px';
+        towerContainer.appendChild(blockEl);
+        
+        playGameOverBuzz();
+        
+        dropTimeout = setTimeout(function() {
+            dropTimeout = null;
             triggerGameOver();
-        } else {
-            // Successful stacking!
+        }, 800);
+        
+    } else {
+        var blockEl = document.createElement('div');
+        blockEl.className = 'stacked-block';
+        blockEl.style.left = droppedLeft + 'px';
+        blockEl.style.width = activeBlockWidth + 'px';
+        blockEl.style.backgroundColor = currentColor;
+        blockEl.style.bottom = dropStartY + 'px';
+        towerContainer.appendChild(blockEl);
+        
+        craneBlock.style.display = 'none';
+        
+        setTimeout(function() {
+            blockEl.style.bottom = targetBottom + 'px';
+        }, 10);
+        
+        dropTimeout = setTimeout(function() {
+            dropTimeout = null;
+            
             playSuccessBeep(isPerfect);
             
-            // Adjust stacked block properties to actual overlap width and position
             blockEl.style.left = overlapLeft + 'px';
             blockEl.style.width = overlapWidth + 'px';
             
@@ -200,7 +206,6 @@ function dropBlock() {
                 }, 100);
             }
             
-            // Spawn flying slice if there is overhang
             var slicedLeft = 0;
             var slicedWidth = 0;
             if (droppedLeft < prevBlock.left) {
@@ -215,7 +220,6 @@ function dropBlock() {
                 spawnSlice(slicedLeft, slicedWidth, currentColor);
             }
             
-            // Register block in memory
             stack.push({
                 left: overlapLeft,
                 width: overlapWidth
@@ -231,14 +235,13 @@ function dropBlock() {
                 highScoreEl.innerText = highScore;
             }
             
-            // Shift camera view downward
             var offset = Math.max(0, (stack.length - 4) * 35);
             towerContainer.style.transform = 'translateY(-' + offset + 'px)';
             
-            // Continue stacking
-            setTimeout(spawnNewSwinger, 400);
-        }
-    }, 150);
+            dropTimeout = setTimeout(spawnNewSwinger, 400);
+            
+        }, 150);
+    }
 }
 
 function triggerGameOver() {
