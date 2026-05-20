@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Block Stacker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="game-container">
         <h2>Block Stacker</h2>
+        
         <div id="hud">
-            <div>Score: <span id="score">0</span></div>
-            <div>High Score: <span id="high-score">0</span></div>
+            <div class="hud-item">Score: <span id="score">0</span></div>
+            <div class="hud-item">High: <span id="high-score">0</span></div>
         </div>
+
         <div id="viewport">
             <div id="crane-line"></div>
             <div id="crane-block"></div>
@@ -18,13 +22,15 @@
                 <div class="base-platform"></div>
             </div>
         </div>
+
         <div id="controls">
-            <button id="action-btn">Start Game</button>
+            <button id="action-btn">Drop Block</button>
         </div>
+
         <div id="game-over-modal" class="hidden">
             <div class="modal-content">
                 <h3>Game Over!</h3>
-                <p>Score: <span id="final-score">0</span></p>
+                <p>Final Score: <span id="final-score">0</span></p>
                 <button id="restart-btn">Play Again</button>
             </div>
         </div>
