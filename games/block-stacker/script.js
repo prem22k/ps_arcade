@@ -236,7 +236,7 @@ function dropBlock() {
             }
             
             var offset = Math.max(0, (stack.length - 4) * 35);
-            towerContainer.style.transform = 'translateY(-' + offset + 'px)';
+            towerContainer.style.transform = 'translateY(' + offset + 'px)';
             
             dropTimeout = setTimeout(spawnNewSwinger, 400);
             
