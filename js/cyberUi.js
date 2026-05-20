@@ -5,11 +5,26 @@ const initAudio = () => {
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
 };
 
 export const cyberUi = {
     initSoundToggle() {
-        soundEnabled = true;
+        const btn = document.getElementById('sound-toggle');
+        if (!btn) return;
+        const stored = localStorage.getItem('arcade_sound_enabled');
+        soundEnabled = stored !== 'false';
+        btn.innerText = soundEnabled ? '[AUDIO: ON]' : '[AUDIO: OFF]';
+        
+        btn.addEventListener('click', () => {
+            initAudio();
+            soundEnabled = !soundEnabled;
+            localStorage.setItem('arcade_sound_enabled', soundEnabled);
+            btn.innerText = soundEnabled ? '[AUDIO: ON]' : '[AUDIO: OFF]';
+            this.playSynthBeep(440, 0.05, 'triangle');
+        });
     },
     
     playSynthBeep(freq = 600, duration = 0.08, type = 'sine') {
