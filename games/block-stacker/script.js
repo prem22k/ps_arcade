@@ -7,6 +7,7 @@ var currentColor = colors[0];
 var audioCtx = null;
 var dropping = false;
 var stack = [];
+var dropTimeout = null; // track active timeout
 
 var craneBlock = document.getElementById('crane-block');
 var craneLine = document.getElementById('crane-line');
@@ -64,6 +65,10 @@ function playGameOverBuzz() {
 }
 
 function resetGame() {
+    if (dropTimeout) {
+        clearTimeout(dropTimeout);
+        dropTimeout = null;
+    }
     score = 0;
     activeBlockWidth = 200;
     dropping = false;
