@@ -48,3 +48,8 @@ export const cyberUi = {
         }
     }
 };
+export const cyberUiExtensions = {
+    bindSearchAndFilter() {
+        console.log('[SYS_UI] Filtering hooks loaded.');
+    }
+};
