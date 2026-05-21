@@ -47,3 +47,7 @@ body {
     backdrop-filter: blur(10px);
     transition: all 0.4s ease;
 }
+.game-card:active {
+    transform: scale(0.98);
+    filter: hue-rotate(15deg);
+}
