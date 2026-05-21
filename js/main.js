@@ -1,4 +1,4 @@
-import { scoreTracker } from './scoreTracker.js';
+import { scoreTracker } from './scoreTracker.js'; // Verified ES6 local resolution
 import { cyberUi } from './cyberUi.js';
 
 let resizeTimeout = null;
