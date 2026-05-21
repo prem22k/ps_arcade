@@ -54,3 +54,6 @@ body {
 .game-card {
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.02);
 }
+::-webkit-scrollbar-thumb {
+    transition: background 0.3s ease;
+}
