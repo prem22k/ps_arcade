@@ -81,7 +81,7 @@ export const cyberUi = {
         const filterState = { searchQuery: '', category: 'all' };
         
         const applyFilters = () => {
-            const { searchQuery, category } = filterState;
+            const { searchQuery, category } = { ...filterState }; // Optimized destructuring spread
             cards.forEach(card => {
                 const title = card.querySelector('.card-title').innerText.toLowerCase();
                 const desc = card.querySelector('.card-desc').innerText.toLowerCase();
