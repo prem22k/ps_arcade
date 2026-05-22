@@ -1,59 +1,434 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
+
 :root {
     --cyber-bg: #030812;
+    --cyber-card-bg: rgba(6, 12, 28, 0.85);
     --cyber-border: rgba(0, 240, 255, 0.2);
+    --cyber-border-glow: rgba(0, 240, 255, 0.45);
+    
     --neon-cyan: #00f0ff;
     --neon-pink: #ff0055;
     --neon-green: #39ff14;
+    --neon-yellow: #f1c40f;
+    
+    --shadow-cyan: 0 0 10px rgba(0, 240, 255, 0.5);
+    --shadow-pink: 0 0 10px rgba(255, 0, 85, 0.5);
+    --shadow-green: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     background-color: var(--cyber-bg);
     color: #e2e8f0;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
 }
 
+/* Neon grid lines background */
 .cyber-grid-bg {
     background-image: 
         linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
     background-size: 30px 30px;
+    background-position: center;
 }
 
-.cyber-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
+/* CRT and Scanlines effect */
 .scanlines {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-    background-size: 100% 4px;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
     z-index: 100;
     pointer-events: none;
 }
 
+.glow-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 30%, rgba(3, 8, 18, 0.8) 100%);
+    z-index: 99;
+    pointer-events: none;
+}
+
+.cyber-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Futuristic Header */
+.cyber-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--cyber-border);
+    padding-bottom: 30px;
+    position: relative;
+}
+
+.glitch-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    text-shadow: var(--shadow-cyan);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
 @keyframes titleGlow {
-    from { text-shadow: 0 0 10px rgba(0, 240, 255, 0.3); }
+    from { text-shadow: 0 0 10px rgba(0, 240, 255, 0.3), 0 0 20px rgba(0, 240, 255, 0.2); }
     to { text-shadow: 0 0 20px var(--neon-cyan), 0 0 35px var(--neon-pink); }
 }
+
+.subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-cyan);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    margin-top: 10px;
+}
+
+/* HUD Panel */
+.cyber-hud {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.hud-stat {
+    background: rgba(6, 12, 28, 0.9);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
+}
+
+.hud-stat .label {
+    color: #94a3b8;
+}
+
+.hud-stat .value {
+    font-weight: 700;
+}
+
+.cyan-text { color: var(--neon-cyan); text-shadow: var(--shadow-cyan); }
+.pink-text { color: var(--neon-pink); text-shadow: var(--shadow-pink); }
+.green-text { color: var(--neon-green); text-shadow: var(--shadow-green); }
+.yellow-text { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(241, 196, 15, 0.4); }
+
+.pulsing {
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; filter: brightness(1.2); }
+}
+
+/* Controls section */
+.cyber-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+    background: rgba(6, 12, 28, 0.6);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    padding: 15px 25px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+}
+
+.search-wrapper, .filter-wrapper, .audio-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cyber-tag {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-pink);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.cyber-input {
+    background: #040814;
+    border: 1px solid var(--cyber-border);
+    border-radius: 4px;
+    padding: 8px 15px;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    width: 220px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: var(--shadow-cyan);
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #94a3b8;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    transition: all 0.25s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    border-color: var(--neon-pink);
+    color: #fff;
+    background: rgba(255, 0, 85, 0.05);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.15);
+}
+
+.cyber-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    text-shadow: var(--shadow-cyan);
+    transition: all 0.25s ease;
+}
+
+.cyber-toggle-btn:hover {
+    background: rgba(0, 240, 255, 0.1);
+    box-shadow: var(--shadow-cyan);
+}
+
+/* Grid layout */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Game Card */
 .game-card {
-    background: rgba(6, 12, 28, 0.7);
+    background: var(--cyber-card-bg);
     border: 1px solid var(--cyber-border);
     border-radius: 8px;
+    position: relative;
+    overflow: hidden;
     backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
 }
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--neon-cyan);
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 15px 30px rgba(0, 240, 255, 0.15);
+}
+
+.game-card:hover::before {
+    background-color: var(--neon-pink);
+    box-shadow: var(--shadow-pink);
+}
+
+.game-card.hidden {
+    display: none !important;
+}
+
+.card-inner {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-category {
+    font-family: 'Share Tech Mono', monospace;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.card-desc {
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.card-score {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    margin-bottom: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+}
+
+.card-score .score-val {
+    font-weight: 700;
+    text-shadow: var(--shadow-green);
+}
+
+.cyber-btn {
+    display: block;
+    text-align: center;
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: var(--shadow-cyan);
+    transition: all 0.3s ease;
+}
+
+.cyber-btn:hover {
+    background: var(--neon-cyan);
+    color: #030812;
+    text-shadow: none;
+    box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+/* Random Game Picker FAB */
+.picker-container {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    z-index: 50;
+}
+
+.cyber-fab-btn {
+    background: rgba(3, 8, 18, 0.9);
+    border: 2px solid var(--neon-pink);
+    color: var(--neon-pink);
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: var(--shadow-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cyber-fab-btn:hover {
+    background: var(--neon-pink);
+    color: #030812;
+    text-shadow: none;
+    box-shadow: 0 0 20px var(--neon-pink);
+    transform: scale(1.05);
+}
+
+/* Custom Pulsing Neon Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #030812;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 4px;
+    box-shadow: inset 0 0 6px rgba(0, 240, 255, 0.5);
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-pink);
+    box-shadow: inset 0 0 6px rgba(255, 0, 85, 0.5);
+}
+
 .game-card:active {
     transform: scale(0.98);
     filter: hue-rotate(15deg);
 }
+
 .game-card {
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.02);
 }
-::-webkit-scrollbar-thumb {
-    transition: background 0.3s ease;
+
+@media(max-width: 768px) {
+    .cyber-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-wrapper .cyber-input {
+        width: 100%;
+    }
+    .filter-buttons {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .filter-btn {
+        flex-grow: 1;
+    }
 }

@@ -4,24 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CYBER_ARCADE // Unified Portfolio</title>
-    <!-- CACHE_MANIFEST_V3_FALLBACK -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="cyber-grid-bg">
+    <!-- Cyberpunk Scanline Overlays -->
     <div class="scanlines"></div>
     <div class="glow-overlay"></div>
 
     <div class="cyber-container">
+        <!-- Futuristic Header -->
         <header class="cyber-header">
             <h1 class="glitch-title" data-text="CYBER_ARCADE">CYBER_ARCADE</h1>
             <p class="subtitle">[v3.0.0-prod] // PREMIUM WEB GAME PORTFOLIO</p>
+            
+            <!-- Unified Stats HUD Panel -->
             <div id="stats-hud" class="cyber-hud">
                 <div class="hud-stat">
                     <span class="label">ARCADE_STATUS:</span>
                     <span class="value cyan-text pulsing">ONLINE</span>
                 </div>
+                <div class="hud-stat">
+                    <span class="label">TOTAL_GAMES:</span>
+                    <span id="stat-total" class="value pink-text">9</span>
+                </div>
+                <div class="hud-stat">
+                    <span class="label">GLOBAL_HIGH_SCORE:</span>
+                    <span id="stat-highscore" class="value green-text">0</span>
+                </div>
+                <div class="hud-stat">
+                    <span class="label">PILOT_RANK:</span>
+                    <span id="stat-rank" class="value yellow-text">RECRUIT_D01</span>
+                </div>
             </div>
         </header>
+
+        <!-- Search and Filter Controls -->
+        <section class="cyber-controls">
+            <div class="search-wrapper">
+                <span class="cyber-tag">[SEARCH]</span>
+                <input type="text" id="game-search" placeholder="Type module pattern..." class="cyber-input">
+            </div>
+            
+            <div class="filter-wrapper">
+                <span class="cyber-tag">[FILTER]</span>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">ALL</button>
+                    <button class="filter-btn" data-category="classic">CLASSIC</button>
+                    <button class="filter-btn" data-category="arcade">ARCADE</button>
+                    <button class="filter-btn" data-category="advanced">ADVANCED</button>
+                </div>
+            </div>
+            
+            <div class="audio-control">
+                <button id="sound-toggle" class="cyber-toggle-btn">[AUDIO: ON]</button>
+            </div>
+        </section>
+
+        <!-- Dynamic Game Cards Grid -->
+        <main class="games-grid" id="games-grid">
+            <article class="game-card" data-category="classic" data-game="rock-paper-scissors">
+                <div class="card-inner">
+                    <div class="card-category">CLASSIC // RPS</div>
+                    <h2 class="card-title">Rock Paper Scissors</h2>
+                    <p class="card-desc">Standard hand gestures challenge. Pit your random odds against the machine's matrix logic.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-rock-paper-scissors">0</span></div>
+                    <a href="games/rock-paper-scissors/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="classic" data-game="guess-number">
+                <div class="card-inner">
+                    <div class="card-category">CLASSIC // GUESS</div>
+                    <h2 class="card-title">Guess My Number</h2>
+                    <p class="card-desc">Binary search logic optimization. Deduce the target seed in minimal attempts.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-guess-number">0</span></div>
+                    <a href="games/guess-number/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="classic" data-game="clicker">
+                <div class="card-inner">
+                    <div class="card-category">CLASSIC // CLICKER</div>
+                    <h2 class="card-title">Cookie Clicker</h2>
+                    <p class="card-desc">Asynchronous incremental click simulation. Scale operations exponentially via high-velocity mouse inputs.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-clicker">0</span></div>
+                    <a href="games/clicker/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="classic" data-game="word-scramble">
+                <div class="card-inner">
+                    <div class="card-category">CLASSIC // SCRAMBLE</div>
+                    <h2 class="card-title">Word Scramble</h2>
+                    <p class="card-desc">Array transposition linguistic solver. Untangle scrambled alphanumeric syntax.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-word-scramble">0</span></div>
+                    <a href="games/word-scramble/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="arcade" data-game="tic-tac-toe">
+                <div class="card-inner">
+                    <div class="card-category">ARCADE // TTT</div>
+                    <h2 class="card-title">Tic-Tac-Toe</h2>
+                    <p class="card-desc">3x3 matrix state validator. Connect linear vectors while blocking enemy system branches.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-tic-tac-toe">0</span></div>
+                    <a href="games/tic-tac-toe/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="arcade" data-game="whack-a-mole">
+                <div class="card-inner">
+                    <div class="card-category">ARCADE // MOLE</div>
+                    <h2 class="card-title">Whack-a-Mole</h2>
+                    <p class="card-desc">Event loop DOM manipulation timing. Eliminate periodic interface threats as they surface.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-whack-a-mole">0</span></div>
+                    <a href="games/whack-a-mole/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="advanced" data-game="snake">
+                <div class="card-inner">
+                    <div class="card-category">ADVANCED // SNAKE</div>
+                    <h2 class="card-title">Snake</h2>
+                    <p class="card-desc">HTML5 Canvas vector physics loop. Grow your numeric queue array while avoiding boundary colliders.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-snake">0</span></div>
+                    <a href="games/snake/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="advanced" data-game="simon-says">
+                <div class="card-inner">
+                    <div class="card-category">ADVANCED // SIMON</div>
+                    <h2 class="card-title">Simon Says</h2>
+                    <p class="card-desc">Holographic sound sequence recall engine. Match cascading audio-visual signal patterns.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-simon-says">0</span></div>
+                    <a href="games/simon-says/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+
+            <article class="game-card" data-category="advanced" data-game="block-stacker">
+                <div class="card-inner">
+                    <div class="card-category">ADVANCED // STACKER</div>
+                    <h2 class="card-title">Block Stacker</h2>
+                    <p class="card-desc">CSS keyframe crane physics stacker. Calculate precise bounding overlaps to assemble monolithic towers.</p>
+                    <div class="card-score">HIGH_SCORE: <span class="score-val" id="score-block-stacker">0</span></div>
+                    <a href="games/block-stacker/index.html" class="cyber-btn">[LAUNCH_MODULE]</a>
+                </div>
+            </article>
+        </main>
     </div>
+
+    <!-- Random Picker Floating Button -->
+    <div class="picker-container">
+        <button id="random-picker-btn" class="cyber-fab-btn">[RANDOM_CHALLENGE]</button>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
