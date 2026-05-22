@@ -21,7 +21,7 @@ export const cyberUi = {
         btn.innerText = soundEnabled ? '[AUDIO: ON]' : '[AUDIO: OFF]';
         
         btn.addEventListener('click', () => {
-            initAudio();
+            initAudio(); // Resumed on explicit user interaction gesture
             soundEnabled = !soundEnabled;
             localStorage.setItem('arcade_sound_enabled', soundEnabled);
             btn.innerText = soundEnabled ? '[AUDIO: ON]' : '[AUDIO: OFF]';
@@ -32,7 +32,7 @@ export const cyberUi = {
     playSynthBeep(freq = 600, duration = 0.08, type = 'sine') {
         if (!soundEnabled) return;
         try {
-            initAudio();
+            initAudio(); // Resumed on explicit user interaction gesture
             if (!audioCtx) return;
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
