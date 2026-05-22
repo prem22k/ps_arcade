@@ -12,7 +12,7 @@ const handleResize = () => {
 window.addEventListener('resize', handleResize);
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[SYS_INIT] Launching cyber-arcade system sequence...');
+    console.log('[SYS_INIT] Launching ps_arcade system sequence...');
     const { grandTotal } = scoreTracker.syncAllScores();
     const rankEl = document.getElementById('stat-rank');
     const totalScoreEl = document.getElementById('stat-highscore');
@@ -23,12 +23,5 @@ document.addEventListener('DOMContentLoaded', () => {
     cyberUi.bindGlitchHeaders();
     cyberUi.bindSearchAndFilter();
     cyberUi.bindRandomPicker();
-    
-    const cards = document.querySelectorAll('.game-card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            cyberUi.playSynthBeep(523.25, 0.04, 'sine');
-        });
-    });
 });
 // debounced resize verified

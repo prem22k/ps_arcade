@@ -40,29 +40,7 @@ body {
     background-position: center;
 }
 
-/* CRT and Scanlines effect */
-.scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 4px, 6px 100%;
-    z-index: 100;
-    pointer-events: none;
-}
 
-.glow-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, transparent 30%, rgba(3, 8, 18, 0.8) 100%);
-    z-index: 99;
-    pointer-events: none;
-}
 
 .cyber-container {
     max-width: 1200px;
@@ -165,7 +143,7 @@ body {
     backdrop-filter: blur(8px);
 }
 
-.search-wrapper, .filter-wrapper, .audio-control {
+.search-wrapper, .filter-wrapper, .actions-wrapper {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -236,6 +214,17 @@ body {
 .cyber-toggle-btn:hover {
     background: rgba(0, 240, 255, 0.1);
     box-shadow: var(--shadow-cyan);
+}
+
+.cyber-toggle-btn.pink-btn {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    text-shadow: var(--shadow-pink);
+}
+
+.cyber-toggle-btn.pink-btn:hover {
+    background: rgba(255, 0, 85, 0.15);
+    box-shadow: var(--shadow-pink);
 }
 
 /* Grid layout */
@@ -353,37 +342,7 @@ body {
     box-shadow: 0 0 15px var(--neon-cyan);
 }
 
-/* Random Game Picker FAB */
-.picker-container {
-    position: fixed;
-    bottom: 35px;
-    right: 35px;
-    z-index: 50;
-}
 
-.cyber-fab-btn {
-    background: rgba(3, 8, 18, 0.9);
-    border: 2px solid var(--neon-pink);
-    color: var(--neon-pink);
-    padding: 12px 25px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-shadow: var(--shadow-pink);
-    box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
-    transition: all 0.3s ease;
-}
-
-.cyber-fab-btn:hover {
-    background: var(--neon-pink);
-    color: #030812;
-    text-shadow: none;
-    box-shadow: 0 0 20px var(--neon-pink);
-    transform: scale(1.05);
-}
 
 /* Custom Pulsing Neon Scrollbar */
 ::-webkit-scrollbar {

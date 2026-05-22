@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBER_ARCADE // Unified Portfolio</title>
+    <title>PS_ARCADE // Unified Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="cyber-grid-bg">
-    <!-- Cyberpunk Scanline Overlays -->
-    <div class="scanlines"></div>
-    <div class="glow-overlay"></div>
 
     <div class="cyber-container">
         <!-- Futuristic Header -->
         <header class="cyber-header">
-            <h1 class="glitch-title" data-text="CYBER_ARCADE">CYBER_ARCADE</h1>
+            <h1 class="glitch-title" data-text="PS_ARCADE">PS_ARCADE</h1>
             <p class="subtitle">[v3.0.0-prod] // PREMIUM WEB GAME PORTFOLIO</p>
             
             <!-- Unified Stats HUD Panel -->
@@ -55,7 +52,8 @@
                 </div>
             </div>
             
-            <div class="audio-control">
+            <div class="actions-wrapper">
+                <button id="random-picker-btn" class="cyber-toggle-btn pink-btn">[RANDOM_CHALLENGE]</button>
                 <button id="sound-toggle" class="cyber-toggle-btn">[AUDIO: ON]</button>
             </div>
         </section>
@@ -154,10 +152,7 @@
         </main>
     </div>
 
-    <!-- Random Picker Floating Button -->
-    <div class="picker-container">
-        <button id="random-picker-btn" class="cyber-fab-btn">[RANDOM_CHALLENGE]</button>
-    </div>
+
 
     <script type="module" src="js/main.js"></script>
 </body>
