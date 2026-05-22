@@ -1,4 +1,4 @@
-<!-- Step 4: style: develop glassmorphic viewport wrappers and neon borders for dodger -->
+<!-- Step 5: feat: declare core game state manager object with default initializers -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +42,31 @@
             </div>
             <div class="canvas-wrapper">
                 <canvas id="game-canvas" width="800" height="500"></canvas>
+                <div id="menu-overlay" class="overlay-panel">
+                    <div class="overlay-inner">
+                        <h2 class="neon-title glow-cyan">SYSTEM_ONLINE</h2>
+                        <p class="instruction-text">Dodge incoming space anomalies. Fire laser charges to clear debris clusters.</p>
+                        <div class="control-legend">
+                            <div class="legend-row">
+                                <span class="key">W</span> / <span class="key">&uarr;</span>
+                                <span class="action">Thrust Vector (Up)</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="key">S</span> / <span class="key">&darr;</span>
+                                <span class="action">Drift Vector (Down)</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="key">A</span>/<span class="key">D</span> / <span class="key">&larr;</span>/<span class="key">&rarr;</span>
+                                <span class="action">Steer Vector (Left/Right)</span>
+                            </div>
+                            <div class="legend-row">
+                                <span class="key">SPACE</span>
+                                <span class="action">Fire Laser Charges</span>
+                            </div>
+                        </div>
+                        <button id="start-btn" class="menu-btn">[ENGAGE_THRUSTERS]</button>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
