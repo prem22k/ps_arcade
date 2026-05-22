@@ -1,4 +1,4 @@
-<!-- Step 3: feat: architect arcade cabinet interface skeleton in dodger index.html -->
+<!-- Step 4: style: develop glassmorphic viewport wrappers and neon borders for dodger -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +19,30 @@
             </div>
         </header>
         <main class="display-arena">
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">SCORE:</span>
+                    <span id="live-score" class="value cyan-text">0000</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">SHIELD:</span>
+                    <div class="shield-container">
+                        <div id="shield-bar" class="shield-fill" style="width: 100%"></div>
+                    </div>
+                    <span id="shield-text" class="value green-text">100%</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">SPEED_VEC:</span>
+                    <span id="vector-reading" class="value yellow-text">0.0 px/s</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">RECORD:</span>
+                    <span id="high-score" class="value pink-text">0000</span>
+                </div>
+            </div>
+            <div class="canvas-wrapper">
+                <canvas id="game-canvas" width="800" height="500"></canvas>
+            </div>
         </main>
     </div>
 </body>
