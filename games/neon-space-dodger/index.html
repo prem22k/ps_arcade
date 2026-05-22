@@ -1,4 +1,4 @@
-<!-- Step 5: feat: declare core game state manager object with default initializers -->
+<!-- Step 6: feat: bind high-precision canvas rendering contexts with scaling parameters -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,8 +67,23 @@
                         <button id="start-btn" class="menu-btn">[ENGAGE_THRUSTERS]</button>
                     </div>
                 </div>
+                <div id="game-over-overlay" class="overlay-panel hidden">
+                    <div class="overlay-inner">
+                        <h2 class="neon-title glow-pink">JET_DESTROYED</h2>
+                        <p class="final-report">System status: Reactor breach. Structural integrity compromised.</p>
+                        <div class="stats-summary">
+                            <p>FINAL_SCORE: <span id="final-score" class="cyan-text">0</span></p>
+                            <p>NEW_RECORD: <span id="record-status" class="pink-text">NO</span></p>
+                        </div>
+                        <button id="restart-btn" class="menu-btn pink-btn">[REBOOT_SYSTEM]</button>
+                    </div>
+                </div>
             </div>
+            <footer class="hud-footer">
+                <p class="sys-msg">[SYS_STATUS: READY] // PRESS [SPACEBAR] TO FIRE // ENJOY DRIFT PHYSICS</p>
+            </footer>
         </main>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
