@@ -33,7 +33,7 @@ export const scoreTracker = {
         let grandTotal = 0;
         
         Object.entries(gameRegistry).forEach(([game, key]) => {
-            const rawScore = parseScoreSafe(key);
+            const rawScore = parseScoreSafe(key) || 0;
             scores[game] = rawScore;
             grandTotal += rawScore;
             
