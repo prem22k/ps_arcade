@@ -1,4 +1,4 @@
-/* Step 9: feat: bind keyboard vector input event listeners with state maps */
+/* Step 10: feat: implement dynamic linear acceleration vectors on player controls */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -161,4 +161,38 @@ body.dodger-body {
     background-color: var(--neon-green);
     box-shadow: 0 0 10px var(--neon-green);
     transition: width 0.2s ease;
+}
+
+.canvas-wrapper {
+    position: relative;
+    border: 1px solid var(--border-cyan);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
+    background: #01040a;
+}
+
+#game-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 6, 18, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-panel.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
