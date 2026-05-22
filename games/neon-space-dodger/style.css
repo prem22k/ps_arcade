@@ -1,4 +1,4 @@
-/* Step 11: feat: configure coefficient of friction drag vectors for drift physics */
+/* Step 12: feat: implement elastic canvas border collision limits on player jet */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -269,4 +269,68 @@ body.dodger-body {
 .action {
     color: #cbd5e1;
     font-size: 0.85rem;
+}
+
+.menu-btn {
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 10px 30px;
+    border-radius: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-shadow: var(--shadow-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+    transition: all 0.25s ease;
+}
+
+.menu-btn:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-dark);
+    text-shadow: none;
+    box-shadow: var(--shadow-cyan);
+    transform: scale(1.03);
+}
+
+.menu-btn.pink-btn {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    text-shadow: var(--shadow-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.15);
+}
+
+.menu-btn.pink-btn:hover {
+    background: var(--neon-pink);
+    color: var(--bg-dark);
+    text-shadow: none;
+    box-shadow: var(--shadow-pink);
+}
+
+.stats-summary {
+    background: rgba(2, 6, 18, 0.5);
+    border: 1px solid rgba(255, 0, 85, 0.15);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 25px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+}
+
+.stats-summary p {
+    margin: 8px 0;
+}
+
+.hud-footer {
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    padding-top: 12px;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.sys-msg {
+    letter-spacing: 1px;
 }
