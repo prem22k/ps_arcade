@@ -1,4 +1,4 @@
-// Step 17: feat: engineer dynamic particle vector explosion pool arrays
+// Step 18: feat: configure particle color HSL spectrums and drag coefficients
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
