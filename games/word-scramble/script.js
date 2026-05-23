@@ -127,6 +127,7 @@ class CypherDecryptor {
         this.updateHUD();
         this.loadWord();
         this.setupEvents();
+        this.setupKeyboard();
         this.logMessage("DECIPHER GRID ONLINE // READY FOR CODES", "info");
     }
     
@@ -188,17 +189,43 @@ class CypherDecryptor {
         this.currentScrambleWord = this.scrambleWord(this.currentOriginalWord);
         
         this.renderLetters();
+        if (this.inputEl) {
+            this.inputEl.value = "";
+            this.inputEl.focus();
+        }
     }
     
     renderLetters() {
         if (!this.deckEl) return;
         this.deckEl.innerHTML = '';
         
-        this.currentScrambleWord.split('').forEach((char) => {
+        this.currentScrambleWord.split('').forEach((char, i) => {
             const capsule = document.createElement('span');
             capsule.className = 'letter-capsule';
             capsule.innerText = char.toUpperCase();
+            // Stagger animation delays for high-end organic floating loops
+            capsule.style.animationDelay = `${i * 0.08}s`;
             this.deckEl.appendChild(capsule);
+        });
+    }
+    
+    setupKeyboard() {
+        if (!this.inputEl) return;
+        this.inputEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.checkWord();
+            }
+        });
+        
+        // Auto focus loop
+        document.addEventListener('click', (e) => {
+            if (this.inputEl && document.activeElement !== this.inputEl) {
+                // Only refocus if not clicking on buttons
+                if (!e.target.closest('.upgrade-card') && !e.target.closest('.back-btn')) {
+                    this.inputEl.focus();
+                }
+            }
         });
     }
     
@@ -223,7 +250,8 @@ class CypherDecryptor {
     showHint() {
         this.synth.playHint();
         const firstLetter = this.currentOriginalWord.charAt(0).toUpperCase();
-        this.logMessage(`DECRYPTION INJECT OVERRIDE: FIRST CORE CHAR IS "${firstLetter}"`, "warning");
+        this.logMessage(`DECRYPTION INJECT OVERRIDE: FIRST CHAR IS "${firstLetter}"`, "warning");
+        if (this.inputEl) this.inputEl.focus();
     }
     
     skipWord() {
