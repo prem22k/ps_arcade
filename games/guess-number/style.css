@@ -697,3 +697,74 @@ body.guess-body {
     transform: translateY(1px) !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
 }
+
+/* --- MOBILE RESPONSIVE WRAP OVERRIDES --- */
+@media (max-width: 480px) {
+    .cabinet-container {
+        padding: 15px !important;
+    }
+    .game-header {
+        gap: 8px !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 15px !important;
+    }
+    .game-title {
+        font-size: 1.5rem !important;
+        letter-spacing: 2px !important;
+    }
+    .hud-bar {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px 8px !important;
+        padding: 10px !important;
+    }
+    .bounds-visualizer {
+        margin-top: 10px !important;
+        padding: 8px !important;
+    }
+    .bounds-labels {
+        font-size: 0.65rem !important;
+    }
+    .bound-val {
+        font-size: 0.75rem !important;
+        padding: 1px 4px !important;
+    }
+    .bounds-track {
+        height: 10px !important;
+    }
+    .keypad-container {
+        gap: 10px !important;
+    }
+    .keypad-matrix {
+        grid-gap: 8px !important;
+    }
+    .key-btn {
+        height: 44px !important;
+        font-size: 1.1rem !important;
+        border-radius: 6px !important;
+    }
+    .engage-btn {
+        height: 46px !important;
+        font-size: 0.9rem !important;
+        letter-spacing: 1.5px !important;
+    }
+    .input-zone {
+        margin: 8px 0 !important;
+        gap: 8px !important;
+    }
+    .input-bracket-left,
+    .input-bracket-right {
+        font-size: 1.5rem !important;
+    }
+    #user-guess-input {
+        font-size: 1.8rem !important;
+        width: 100px !important;
+        padding: 4px 8px !important;
+    }
+}
+
+/* GPU Optimization */
+.ambient-glow, .bounds-scanner-line, .bounds-bar-fill {
+    will-change: transform, left, width;
+    transform: translate3d(0, 0, 0);
+}

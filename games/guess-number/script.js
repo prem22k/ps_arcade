@@ -30,6 +30,7 @@ class PasscodeDecrypter {
     init() {
         this.loadHighScore();
         this.resetGame();
+        console.log("[SYSTEM] Passcode Decrypter engine initialized. Target boundaries active: [01 - 100]");
 
         // Keyboard binds
         document.addEventListener('keydown', (e) => {
@@ -137,41 +138,47 @@ class PasscodeDecrypter {
             
             if (type === 'click') {
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, this.audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, this.audioCtx.currentTime + 0.05);
-                gain.gain.setValueAtTime(0.04, this.audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.05);
-            } else if (type === 'high') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(600, this.audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(200, this.audioCtx.currentTime + 0.25);
-                gain.gain.setValueAtTime(0.06, this.audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.25);
-            } else if (type === 'low') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(150, this.audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(450, this.audioCtx.currentTime + 0.25);
-                gain.gain.setValueAtTime(0.08, this.audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.25);
-            } else if (type === 'win') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(300, this.audioCtx.currentTime);
-                osc.frequency.linearRampToValueAtTime(600, this.audioCtx.currentTime + 0.15);
-                osc.frequency.linearRampToValueAtTime(900, this.audioCtx.currentTime + 0.3);
-                gain.gain.setValueAtTime(0.08, this.audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.35);
-            } else if (type === 'reset') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(440, this.audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880, this.audioCtx.currentTime + 0.15);
+                osc.frequency.setValueAtTime(880, this.audioCtx.currentTime); // High-pitched mechanical deck click
+                osc.frequency.exponentialRampToValueAtTime(120, this.audioCtx.currentTime + 0.04);
                 gain.gain.setValueAtTime(0.03, this.audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.04);
+            } else if (type === 'high') {
+                // Dual high sweep
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(700, this.audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(350, this.audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.2);
+            } else if (type === 'low') {
+                // Dual low sweep
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(140, this.audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(400, this.audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.07, this.audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.2);
+            } else if (type === 'win') {
+                // Beautiful retro winning arpeggio
+                const now = this.audioCtx.currentTime;
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+            } else if (type === 'reset') {
+                // Sleek diagnostic chime
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, this.audioCtx.currentTime); // D5
+                osc.frequency.exponentialRampToValueAtTime(1174.66, this.audioCtx.currentTime + 0.12); // D6
+                gain.gain.setValueAtTime(0.02, this.audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + 0.12);
             }
             
             osc.connect(gain);
             gain.connect(this.audioCtx.destination);
             osc.start();
-            osc.stop(this.audioCtx.currentTime + 0.4);
+            osc.stop(this.audioCtx.currentTime + 0.5);
         } catch (e) {}
     }
 
