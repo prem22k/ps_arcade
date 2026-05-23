@@ -1,4 +1,4 @@
-// Step 20: feat: build Web Audio synth white-noise explosion crash generators
+// Step 21: feat: implement high-pass thruster thrust humming oscillator loops
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
