@@ -1,4 +1,4 @@
-// Step 16: feat: build circular collision vector overlap detection arithmetic
+// Step 17: feat: engineer dynamic particle vector explosion pool arrays
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
