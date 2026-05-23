@@ -1,4 +1,4 @@
-// Step 18: feat: configure particle color HSL spectrums and drag coefficients
+// Step 19: feat: integrate Web Audio synthesizer laser beeps on bullet spawns
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
