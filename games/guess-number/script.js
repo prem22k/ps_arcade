@@ -1,4 +1,3 @@
-// Step 5 (extra): fix: integrate score_guess localStorage high score sync and eliminate native popups
 class PasscodeDecrypter {
     constructor() {
         this.targetNum = 0;
@@ -6,6 +5,10 @@ class PasscodeDecrypter {
         this.highScore = 0;
         this.gameActive = true;
         this.audioCtx = null;
+
+        // Search Bounds Tracker
+        this.minBound = 1;
+        this.maxBound = 100;
 
         // DOM elements
         this.inputEl = document.getElementById('user-guess-input');
@@ -15,6 +18,11 @@ class PasscodeDecrypter {
         this.recordEl = document.getElementById('high-score');
         this.statusEl = document.getElementById('sys-status');
         this.displayPanelEl = document.querySelector('.display-panel');
+
+        // Bounds UI elements
+        this.minBoundEl = document.getElementById('bound-min-val');
+        this.maxBoundEl = document.getElementById('bound-max-val');
+        this.barFillEl = document.getElementById('bounds-bar-fill');
 
         this.init();
     }
@@ -59,6 +67,19 @@ class PasscodeDecrypter {
         }
     }
 
+    updateBoundsUI() {
+        if (this.minBoundEl) this.minBoundEl.innerText = this.minBound.toString().padStart(2, '0');
+        if (this.maxBoundEl) this.maxBoundEl.innerText = this.maxBound.toString().padStart(2, '0');
+        
+        if (this.barFillEl) {
+            // Percent calculations (1 to 100 track)
+            const leftPercent = Math.max(0, this.minBound - 1);
+            const widthPercent = Math.max(0, this.maxBound - this.minBound + 1);
+            this.barFillEl.style.left = `${leftPercent}%`;
+            this.barFillEl.style.width = `${widthPercent}%`;
+        }
+    }
+
     resetGame() {
         this.targetNum = Math.floor(Math.random() * 100) + 1;
         this.attempts = 0;
@@ -72,6 +93,12 @@ class PasscodeDecrypter {
         this.statusEl.innerText = "ONLINE";
         this.statusEl.className = "value cyan-text";
         this.displayPanelEl.style.borderColor = "var(--border-cyan)";
+        
+        // Reset search bounds
+        this.minBound = 1;
+        this.maxBound = 100;
+        this.updateBoundsUI();
+
         this.playTone('reset');
     }
 
@@ -169,6 +196,11 @@ class PasscodeDecrypter {
             this.feedbackEl.style.color = "var(--neon-pink)";
             this.feedbackEl.style.textShadow = "var(--shadow-pink)";
             this.displayPanelEl.style.borderColor = "var(--neon-pink)";
+            
+            // Shrink active bounds
+            this.maxBound = Math.min(this.maxBound, guess - 1);
+            this.updateBoundsUI();
+
             this.playTone('high');
             this.inputEl.value = "";
         } else if (guess < this.targetNum) {
@@ -176,6 +208,11 @@ class PasscodeDecrypter {
             this.feedbackEl.style.color = "var(--neon-yellow)";
             this.feedbackEl.style.textShadow = "0 0 10px var(--neon-yellow)";
             this.displayPanelEl.style.borderColor = "var(--neon-yellow)";
+            
+            // Shrink active bounds
+            this.minBound = Math.max(this.minBound, guess + 1);
+            this.updateBoundsUI();
+
             this.playTone('low');
             this.inputEl.value = "";
         } else {
@@ -187,6 +224,12 @@ class PasscodeDecrypter {
             this.statusEl.innerText = "CLEAR";
             this.statusEl.className = "value green-text";
             this.gameActive = false;
+            
+            // Perfect match on bounds
+            this.minBound = this.targetNum;
+            this.maxBound = this.targetNum;
+            this.updateBoundsUI();
+
             this.playTone('win');
             this.saveHighScore(scoreVal);
         }

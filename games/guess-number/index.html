@@ -51,6 +51,19 @@
                 <div class="display-panel">
                     <span class="label-hint">TARGET PATTERN RANGE: [01 - 100]</span>
                     <div id="decrypt-feedback" class="status-feed">INITIALIZING HACK SEQUENCE...</div>
+                    
+                    <!-- Dynamic Bounds Scanner Visualizer -->
+                    <div class="bounds-visualizer">
+                        <div class="bounds-labels">
+                            <span id="bound-min-val" class="bound-val min-bound-val">01</span>
+                            <span class="bound-title">ACTIVE SECTOR ANALYSIS</span>
+                            <span id="bound-max-val" class="bound-val max-bound-val">100</span>
+                        </div>
+                        <div class="bounds-track">
+                            <div id="bounds-bar-fill" class="bounds-bar-fill"></div>
+                            <div id="bounds-scanner-line" class="bounds-scanner-line"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="input-zone">
