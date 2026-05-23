@@ -11,6 +11,9 @@ class SerpentSynth {
         if (!this.ctx) {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
     }
     
     playFeed() {
@@ -89,6 +92,7 @@ class CyberGridSerpentine {
         this.synth = new SerpentSynth();
         
         this.loopInterval = null;
+        this.speedCoeff = 150;
         
         this.init();
     }
@@ -98,11 +102,21 @@ class CyberGridSerpentine {
         this.setupEvents();
         this.logMessage("CYBER_SERPENT GRID SECURED // STEER CORE ENGINES", "info");
         this.drawScene();
+        
+        // Sync mute status from global localStorage if available
+        const globalSound = localStorage.getItem('arcade_sound_enabled');
+        if (globalSound === 'false') {
+            this.synth.muted = true;
+        }
     }
     
     setupEvents() {
+        // Prevent key scrolls and steer serpent
         document.addEventListener('keydown', (e) => {
             const key = e.key.toLowerCase();
+            if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'w', 'a', 's', 'd'].indexOf(key) > -1) {
+                e.preventDefault();
+            }
             if ((key === 'arrowup' || key === 'w') && this.dy === 0) { this.dx = 0; this.dy = -this.gridSize; }
             else if ((key === 'arrowdown' || key === 's') && this.dy === 0) { this.dx = 0; this.dy = this.gridSize; }
             else if ((key === 'arrowleft' || key === 'a') && this.dx === 0) { this.dx = -this.gridSize; this.dy = 0; }
@@ -117,6 +131,7 @@ class CyberGridSerpentine {
     startSerpentine() {
         if (this.loopInterval) clearInterval(this.loopInterval);
         this.score = 0;
+        this.speedCoeff = 150;
         this.dx = this.gridSize;
         this.dy = 0;
         this.snake = [
@@ -130,7 +145,7 @@ class CyberGridSerpentine {
         this.logMessage("VECTOR SERPENT ENGAGED // COMMENCING GRID RUN", "warning");
         this.randomFood();
         
-        this.loopInterval = setInterval(() => this.gameStep(), 150);
+        this.loopInterval = setInterval(() => this.gameStep(), this.speedCoeff);
     }
     
     randomFood() {
@@ -164,6 +179,11 @@ class CyberGridSerpentine {
             this.synth.playFeed();
             this.logMessage(`HACKER NODE ENCRYPTED (+10)`, "success");
             this.randomFood();
+            
+            // Dynamic speed ramping
+            clearInterval(this.loopInterval);
+            this.speedCoeff = Math.max(70, 150 - this.score);
+            this.loopInterval = setInterval(() => this.gameStep(), this.speedCoeff);
         } else {
             this.snake.pop();
         }
