@@ -1,3 +1,4 @@
+// Step 28: feat: integrate space-dodger card module in portfolio main page
 const gameRegistry = {
     'rock-paper-scissors': 'score_rps',
     'guess-number': 'score_guess',
@@ -7,7 +8,8 @@ const gameRegistry = {
     'whack-a-mole': 'whack_high_score',
     'snake': 'snake_high_score',
     'simon-says': 'simon_high_score',
-    'block-stacker': 'block_high_score'
+    'block-stacker': 'block_high_score',
+    'neon-space-dodger': 'dodger_high_score'
 };
 
 const parseScoreSafe = (key) => {
