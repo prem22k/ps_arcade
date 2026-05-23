@@ -1,20 +1,18 @@
+<!-- Step 1: feat: initialize passcode-decrypter structural skeleton for guess-number -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Guess My Number</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS_ARCADE // Passcode Decrypter</title>
 </head>
-<body>
-    <div id="guess-game">
-        <h2>Guess My Number</h2>
-        <p>Try to guess the number between 1 and 100!</p>
-        <input type="number" id="user-guess-input" min="1" max="100" placeholder="1-100">
-        <button id="submit-guess-btn" onclick="submitGuess()">Submit</button>
-        <button onclick="resetGuessTarget()">New Secret Number</button>
-        <p id="last-guess">Last Guess: None</p>
-        <p id="guess-attempts">Attempts: 0</p>
-        <p id="guess-feedback" style="font-weight: bold;"></p>
+<body class="guess-body">
+    <div class="cabinet-container">
+        <header class="game-header">
+            <h1 class="game-title">DECRYPTER_X</h1>
+        </header>
+        <main class="display-arena">
+        </main>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
