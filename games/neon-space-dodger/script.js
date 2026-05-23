@@ -1,4 +1,4 @@
-// Step 19: feat: integrate Web Audio synthesizer laser beeps on bullet spawns
+// Step 20: feat: build Web Audio synth white-noise explosion crash generators
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
