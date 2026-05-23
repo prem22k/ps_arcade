@@ -1,28 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Whack-a-Mole</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS_ARCADE // Cyber Mole Disrupter</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="mole-game">
-        <h2>Whack-a-Mole</h2>
-        <div class="hud">
-            <span id="score-display">Score: 0</span> | 
-            <span id="time-display">Time: 30s</span>
-        </div>
-        <div class="grid-container">
-            <div class="hole" data-index="0"><div class="mole"></div></div>
-            <div class="hole" data-index="1"><div class="mole"></div></div>
-            <div class="hole" data-index="2"><div class="mole"></div></div>
-            <div class="hole" data-index="3"><div class="mole"></div></div>
-            <div class="hole" data-index="4"><div class="mole"></div></div>
-            <div class="hole" data-index="5"><div class="mole"></div></div>
-        </div>
-        <br>
-        <button id="start-btn" onclick="startGame()">Start Game</button>
-        <button id="stop-btn" onclick="stopGame()">Stop Game</button>
+<body class="mole-body">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-pink"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="cabinet-container">
+        <header class="game-header">
+            <div class="header-top-row">
+                <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
+                <div class="header-tags">
+                    <span class="tag cyan-tag">V5.0.0-DISRUPT</span>
+                    <span class="tag pink-tag">PREMIUM</span>
+                </div>
+            </div>
+            <div class="header-main-row">
+                <h1 class="game-title">CYBER_MOLE_DISRUPTER</h1>
+            </div>
+        </header>
+
+        <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">SYS:</span>
+                    <span id="system-status" class="value cyan-text">SYS_OK</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">SCORE:</span>
+                    <span id="score-display" class="value cyan-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">TIME:</span>
+                    <span id="time-display" class="value pink-text">30s</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">RECORD:</span>
+                    <span id="record-display" class="value yellow-text">0</span>
+                </div>
+            </div>
+
+            <!-- Arena Grid -->
+            <div class="matrix-container">
+                <div class="grid-container">
+                    <div class="hole" data-index="0">
+                        <div class="mole">
+                            <div class="mole-core"></div>
+                            <div class="mole-shield"></div>
+                        </div>
+                    </div>
+                    <div class="hole" data-index="1">
+                        <div class="mole">
+                            <div class="mole-core"></div>
+                            <div class="mole-shield"></div>
+                        </div>
+                    </div>
+                    <div class="hole" data-index="2">
+                        <div class="mole">
+                            <div class="mole-core"></div>
+                            <div class="mole-shield"></div>
+                        </div>
+                    </div>
+                    <div class="hole" data-index="3">
+                        <div class="mole">
+                            <div class="mole-core"></div>
+                            <div class="mole-shield"></div>
+                        </div>
+                    </div>
+                    <div class="hole" data-index="4">
+                        <div class="mole">
+                            <div class="mole-core"></div>
+                            <div class="mole-shield"></div>
+                        </div>
+                    </div>
+                    <div class="hole" data-index="5">
+                        <div class="mole">
+                            <div class="mole-core"></div>
+                            <div class="mole-shield"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls bar -->
+            <div class="controls-bar">
+                <button id="start-btn" class="menu-btn cyan-btn">START_MATRIX</button>
+                <button id="stop-btn" class="menu-btn pink-btn">STOP_MATRIX</button>
+            </div>
+
+            <!-- Terminal Screen logs -->
+            <div class="terminal-display">
+                <div class="crt-screen log-screen">
+                    <span class="label-hint">NEXUS SECURE TERMINAL DATA FEED</span>
+                    <div id="terminal-logs" class="terminal-logs">
+                        <!-- Scrolling cyber logs -->
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">GRID SYNC INTEGRATION ACTIVE // SECURE QUANTUM VAULT STANDARDS</p>
+            </footer>
+        </main>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
