@@ -1,20 +1,23 @@
-// Reactor Clicker Scriptor
-// Implement auto-generation fusion loops, cost multipliers, Web Audio click / level up oscillators
+// Premium Reactor Fusion Core clicker engine
+// Complete implementation of automated fusion generator cycles, core level indicators, custom oscillator arrays, and scoreTracker-compliant localStorage sync.
+
 class QuantumReactor {
     constructor() {
         this.energy = 0;
         this.highScore = 0;
-        this.mps = 0;
+        this.mps = 0; // Megawatts per second
         this.clickPower = 1;
         this.coreLevel = 1;
         this.audioCtx = null;
 
+        // Upgrade Costs and levels
         this.upgrades = {
             click: { count: 0, baseCost: 15, costMult: 1.25, mpc: 1 },
             auto: { count: 0, baseCost: 50, costMult: 1.25, mps: 1 },
             turbo: { count: 0, baseCost: 250, costMult: 1.30, mps: 8 }
         };
 
+        // DOM Elements
         this.statusEl = document.getElementById('reactor-status');
         this.yieldEl = document.getElementById('reactor-yield');
         this.mpsEl = document.getElementById('reactor-mps');
@@ -26,8 +29,55 @@ class QuantumReactor {
     }
 
     init() {
+        this.loadGameData();
         this.updateHUD();
         this.startFusionCycle();
+    }
+
+    loadGameData() {
+        try {
+            // Load clicks count
+            const savedEnergy = localStorage.getItem('cookieClicks');
+            this.energy = savedEnergy ? parseInt(savedEnergy, 10) || 0 : 0;
+
+            // Load high score
+            const savedHigh = localStorage.getItem('cookieCount'); // high score maps to cookieCount
+            this.highScore = savedHigh ? parseInt(savedHigh, 10) || 0 : 0;
+
+            // Load upgrade states
+            const savedClickCount = localStorage.getItem('upg_click_count');
+            const savedAutoCount = localStorage.getItem('upg_auto_count');
+            const savedTurboCount = localStorage.getItem('upg_turbo_count');
+
+            if (savedClickCount) this.upgrades.click.count = parseInt(savedClickCount, 10) || 0;
+            if (savedAutoCount) this.upgrades.auto.count = parseInt(savedAutoCount, 10) || 0;
+            if (savedTurboCount) this.upgrades.turbo.count = parseInt(savedTurboCount, 10) || 0;
+
+            // Calculate multipliers and automatic speeds
+            this.clickPower = 1 + (this.upgrades.click.count * this.upgrades.click.mpc);
+            this.mps = (this.upgrades.auto.count * this.upgrades.auto.mps) + (this.upgrades.turbo.count * this.upgrades.turbo.mps);
+        } catch (e) {
+            console.error('[STORAGE_ERROR] Reactor data load failure:', e);
+        }
+    }
+
+    saveGameData() {
+        try {
+            localStorage.setItem('cookieClicks', Math.floor(this.energy));
+            
+            // Check & save high score
+            if (this.energy > this.highScore) {
+                this.highScore = Math.floor(this.energy);
+                localStorage.setItem('cookieCount', this.highScore);
+            }
+
+            // Save upgrades
+            localStorage.setItem('upg_click_count', this.upgrades.click.count);
+            localStorage.setItem('upg_auto_count', this.upgrades.auto.count);
+            localStorage.setItem('upg_turbo_count', this.upgrades.turbo.count);
+        } catch (e) {
+            console.warn('[STORAGE_WARNING] Reactor save failure:', e);
+        }
     }
 
     initAudio() {
@@ -86,6 +136,7 @@ class QuantumReactor {
         }, 80);
 
         this.checkCoreLevel();
+        this.saveGameData();
         this.updateHUD();
     }
 
@@ -100,6 +151,12 @@ class QuantumReactor {
         if (this.coreLevel > prevLevel) {
             this.playTone('level');
             this.feedbackEl.innerText = `[LEVEL_UP] // REACTOR ADVANCED TO LEVEL ${this.coreLevel}!`;
+            this.feedbackEl.style.color = "var(--neon-green)";
+            this.feedbackEl.style.textShadow = "0 0 10px var(--neon-green)";
+            setTimeout(() => {
+                this.feedbackEl.style.color = "";
+                this.feedbackEl.style.textShadow = "";
+            }, 3000);
         }
     }
 
@@ -121,6 +178,7 @@ class QuantumReactor {
 
             this.feedbackEl.innerText = `[SUCCESS] // UPGRADED ${type.toUpperCase()} SYSTEM TO LVL ${this.upgrades[type].count}`;
             
+            this.saveGameData();
             this.updateHUD();
         } else {
             this.feedbackEl.innerText = `[ABORTED] // INSUFFICIENT ENERGY. REQUIRE ${cost} MW.`;
@@ -132,6 +190,7 @@ class QuantumReactor {
             if (this.mps > 0) {
                 this.energy += (this.mps / 10);
                 this.checkCoreLevel();
+                this.saveGameData();
                 this.updateHUD();
             }
         }, 100);
@@ -141,8 +200,16 @@ class QuantumReactor {
         this.yieldEl.innerText = Math.floor(this.energy) + " MW";
         this.mpsEl.innerText = this.mps + " MW/s";
         this.recordEl.innerText = this.highScore + " MW";
-        this.statusEl.innerText = `LVL_${this.coreLevel}`;
 
+        // Update levels status
+        this.statusEl.innerText = `LVL_${this.coreLevel}`;
+        if (this.mps > 0) {
+            this.statusEl.className = "value green-text";
+        } else {
+            this.statusEl.className = "value cyan-text";
+        }
+
+        // Update shop costs and buyability styling
         Object.keys(this.upgrades).forEach(type => {
             const cost = this.getUpgradeCost(type);
             const costEl = document.getElementById(`upg-${type}-cost`);
@@ -170,6 +237,8 @@ class QuantumReactor {
         this.upgrades.turbo.count = 0;
 
         this.feedbackEl.innerText = "[REBOOT] // FUSION MATRIX ZEROED OUT.";
+        
+        this.saveGameData();
         this.updateHUD();
     }
 }
@@ -179,13 +248,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function triggerCoreFusion() {
-    if (window.reactorEngine) window.reactorEngine.triggerFusion();
+    if (window.reactorEngine) {
+        window.reactorEngine.triggerFusion();
+    }
 }
 
 function buyUpgrade(type) {
-    if (window.reactorEngine) window.reactorEngine.buyUpgrade(type);
+    if (window.reactorEngine) {
+        window.reactorEngine.buyUpgrade(type);
+    }
 }
 
 function resetReactor() {
-    if (window.reactorEngine) window.reactorEngine.reset();
+    if (window.reactorEngine) {
+        window.reactorEngine.reset();
+    }
 }

@@ -4,15 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS_ARCADE // Quantum Reactor Core</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="reactor-body">
+    <div class="grid-overlay"></div>
     <div class="cabinet-container">
         <header class="game-header">
             <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
             <h1 class="game-title">CORE_FUSION</h1>
+            <div class="header-tags">
+                <span class="tag cyan-tag">V3.0.0-PROD</span>
+                <span class="tag pink-tag">PREMIUM</span>
+            </div>
         </header>
+
         <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">SYS:</span>
+                    <span id="reactor-status" class="value cyan-text">STABLE</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">OUTPUT:</span>
+                    <span id="reactor-yield" class="value pink-text">0 MW</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">GEN RATE:</span>
+                    <span id="reactor-mps" class="value yellow-text">0 MW/s</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">RECORD:</span>
+                    <span id="high-score" class="value green-text">0 MW</span>
+                </div>
+            </div>
+
+            <!-- Terminal status feed -->
+            <div class="terminal-display">
+                <div class="crt-screen">
+                    <span class="label-hint">CORE INFUSION HARVESTER STATUS</span>
+                    <div id="reactor-feedback" class="status-feed">INITIATING QUANTUM INJECTION HARVESTER...</div>
+                </div>
+            </div>
+
+            <!-- Reactor Core Area -->
+            <div class="core-chamber">
+                <button id="reactor-btn" class="core-trigger-btn" onclick="triggerCoreFusion()">
+                    <div class="core-outer-ring"></div>
+                    <div class="core-inner-sphere"></div>
+                    <div class="core-pulse-wave"></div>
+                </button>
+            </div>
+
+            <!-- Upgrades Grid -->
+            <div class="shop-title">[SYSTEM_UPGRADES]</div>
+            <div class="upgrades-grid">
+                <button class="upgrade-card" id="upg-click" onclick="buyUpgrade('click')">
+                    <span class="card-emoji">⚡</span>
+                    <span class="card-title">Infusion Rods</span>
+                    <span class="card-desc">+1 Yield Per Click</span>
+                    <span class="card-cost" id="upg-click-cost">15 MW</span>
+                </button>
+                <button class="upgrade-card" id="upg-auto" onclick="buyUpgrade('auto')">
+                    <span class="card-emoji">🌀</span>
+                    <span class="card-title">Plasma Pumps</span>
+                    <span class="card-desc">+1 MW / sec automatic</span>
+                    <span class="card-cost" id="upg-auto-cost">50 MW</span>
+                </button>
+                <button class="upgrade-card" id="upg-turbo" onclick="buyUpgrade('turbo')">
+                    <span class="card-emoji">⚛️</span>
+                    <span class="card-title">Fusion Core</span>
+                    <span class="card-desc">+8 MW / sec automatic</span>
+                    <span class="card-cost" id="upg-turbo-cost">250 MW</span>
+                </button>
+            </div>
+
+            <!-- Controls bar -->
+            <div class="controls-bar">
+                <button id="resetBtn" class="menu-btn pink-btn" onclick="resetReactor()">[REBOOT_CORE]</button>
+            </div>
+
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">GRID SYNC INTEGRATION ACTIVE // SECURE QUANTUM VAULT STANDARDS</p>
+            </footer>
         </main>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
