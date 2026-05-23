@@ -1,4 +1,4 @@
-// Step 10: feat: implement Web Audio real-time tone synthesis click and win sweeps
+// Step 11: fix: resolve pop-up alert blocking dependencies using non-blocking inline readouts
 // Premium Cyberpunk Rock-Paper-Scissors Engine
 // Encapsulates non-blocking status logs, dynamic DOM updates, Web Audio synthesizers and high-score registry hookups.
 
