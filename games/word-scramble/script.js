@@ -123,10 +123,35 @@ class CypherDecryptor {
     }
     
     init() {
+        this.loadScores();
         this.updateHUD();
         this.loadWord();
         this.setupEvents();
         this.logMessage("DECIPHER GRID ONLINE // READY FOR CODES", "info");
+    }
+    
+    loadScores() {
+        try {
+            const raw = localStorage.getItem('score_word');
+            const scoreVal = parseInt(raw, 10);
+            this.highScore = isNaN(scoreVal) ? 0 : scoreVal;
+        } catch (e) {
+            console.error("Score load aborted:", e);
+            this.highScore = 0;
+        }
+        this.score = 0; // Starts session score at 0
+    }
+    
+    saveHighScore() {
+        try {
+            if (this.score > this.highScore) {
+                this.highScore = this.score;
+                localStorage.setItem('score_word', this.highScore.toString());
+                this.logMessage(`NEW HIGH RECORD SYNCHRONIZED: ${this.highScore} CODES`, "success");
+            }
+        } catch (e) {
+            console.error("Score sync error:", e);
+        }
     }
     
     updateHUD() {
@@ -178,18 +203,39 @@ class CypherDecryptor {
     }
     
     checkWord() {
-        this.synth.playSuccess();
-        this.logMessage("Correct word guess checks registered", "success");
+        if (!this.inputEl) return;
+        const guess = this.inputEl.value.trim().toLowerCase();
+        
+        if (guess === this.currentOriginalWord.toLowerCase()) {
+            this.score++;
+            this.synth.playSuccess();
+            this.logMessage(`ACCESS GRANTED // CYPHER DECRYPTED: ${this.currentOriginalWord.toUpperCase()}`, "success");
+            this.inputEl.value = "";
+            this.saveHighScore();
+            this.updateHUD();
+            this.loadWord();
+        } else {
+            this.synth.playError();
+            this.logMessage(`ACCESS DENIED // KEY MATCH MISMATCH`, "error");
+        }
     }
     
     showHint() {
         this.synth.playHint();
-        this.logMessage("Override hint sweeps active", "warning");
+        const firstLetter = this.currentOriginalWord.charAt(0).toUpperCase();
+        this.logMessage(`DECRYPTION INJECT OVERRIDE: FIRST CORE CHAR IS "${firstLetter}"`, "warning");
     }
     
     skipWord() {
         this.synth.playSkip();
-        this.logMessage("Bypass sequence bypassed", "info");
+        const oldWord = this.currentOriginalWord.toUpperCase();
+        if (this.score > 0) {
+            this.score--;
+        }
+        this.logMessage(`BYPASS TRIPPED // DUMPED CYPHER: ${oldWord} // -1 DECRYPT YIELD`, "warning");
+        this.updateHUD();
+        this.inputEl.value = "";
+        this.loadWord();
     }
     
     logMessage(message, type = 'info') {
