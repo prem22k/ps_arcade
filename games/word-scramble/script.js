@@ -8,12 +8,111 @@ const wordList = [
     "matrix", "terminal", "reactor", "algorithm", "protocol"
 ];
 
+class CypherSynth {
+    constructor() {
+        this.ctx = null;
+        this.muted = false;
+    }
+    
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+    
+    playSuccess() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5 arpeggio
+        notes.forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + i * 0.07);
+            
+            gain.gain.setValueAtTime(0.12, now + i * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.25);
+            
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            
+            osc.start(now + i * 0.07);
+            osc.stop(now + i * 0.07 + 0.25);
+        });
+    }
+    
+    playHint() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(550, now);
+        osc.frequency.exponentialRampToValueAtTime(1100, now + 0.2);
+        
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 0.2);
+    }
+    
+    playSkip() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(750, now);
+        osc.frequency.linearRampToValueAtTime(250, now + 0.28);
+        
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 0.28);
+    }
+    
+    playError() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(125, now);
+        osc.frequency.linearRampToValueAtTime(65, now + 0.22);
+        
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 0.22);
+    }
+}
+
 class CypherDecryptor {
     constructor() {
         this.score = 0;
         this.highScore = 0;
         this.currentOriginalWord = "";
         this.currentScrambleWord = "";
+        this.synth = new CypherSynth();
         
         this.scoreEl = document.getElementById('scramble-score');
         this.highScoreEl = document.getElementById('high-score');
@@ -27,6 +126,7 @@ class CypherDecryptor {
         this.updateHUD();
         this.loadWord();
         this.setupEvents();
+        this.logMessage("DECIPHER GRID ONLINE // READY FOR CODES", "info");
     }
     
     updateHUD() {
@@ -78,15 +178,36 @@ class CypherDecryptor {
     }
     
     checkWord() {
-        console.log("Engage triggered");
+        this.synth.playSuccess();
+        this.logMessage("Correct word guess checks registered", "success");
     }
     
     showHint() {
-        console.log("Hint triggered");
+        this.synth.playHint();
+        this.logMessage("Override hint sweeps active", "warning");
     }
     
     skipWord() {
-        console.log("Skip triggered");
+        this.synth.playSkip();
+        this.logMessage("Bypass sequence bypassed", "info");
+    }
+    
+    logMessage(message, type = 'info') {
+        const logsEl = document.getElementById('terminal-logs');
+        if (!logsEl) return;
+        
+        const time = new Date().toLocaleTimeString().split(' ')[0];
+        const line = document.createElement('div');
+        line.className = `log-line log-${type}`;
+        
+        let prefix = '[SYS_INFO]';
+        if (type === 'success') prefix = '[SEC_OK]  ';
+        if (type === 'error')   prefix = '[ALERT]   ';
+        if (type === 'warning') prefix = '[WARN]    ';
+        
+        line.innerText = `${time} - ${prefix} > ${message}`;
+        logsEl.appendChild(line);
+        logsEl.scrollTop = logsEl.scrollHeight;
     }
 }
 
