@@ -11,6 +11,9 @@ class CyberMoleSynth {
         if (!this.ctx) {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
     }
     
     playPop() {
@@ -81,6 +84,7 @@ class CyberMoleDisruptor {
         this.gameInterval = null;
         this.countdownInterval = null;
         this.moleClicked = false;
+        this.speedCoeff = 1000;
         
         this.init();
     }
@@ -89,6 +93,12 @@ class CyberMoleDisruptor {
         this.recordDisplay.innerText = this.highScore;
         this.setupEvents();
         this.logMessage("CYBER_DISRUPTER SYS_INIT ACTIVE // RADAR STANDBY", "info");
+        
+        // Sync mute status from global localStorage if available
+        const globalSound = localStorage.getItem('arcade_sound_enabled');
+        if (globalSound === 'false') {
+            this.synth.muted = true;
+        }
     }
     
     setupEvents() {
@@ -122,6 +132,11 @@ class CyberMoleDisruptor {
         const activeHole = this.randomHole();
         activeHole.classList.add('active');
         this.synth.playPop();
+        
+        // Speed scaling based on score
+        clearInterval(this.gameInterval);
+        this.speedCoeff = Math.max(500, 1000 - (this.score * 5));
+        this.gameInterval = setInterval(() => this.showMole(), this.speedCoeff);
     }
     
     startGame() {
@@ -134,9 +149,10 @@ class CyberMoleDisruptor {
         this.gameActive = true;
         this.scoreDisplay.innerText = this.score;
         this.updateTimeDisplay();
+        this.synth.init();
         
         this.showMole();
-        this.gameInterval = setInterval(() => this.showMole(), 1000);
+        this.gameInterval = setInterval(() => this.showMole(), this.speedCoeff);
         
         this.countdownInterval = setInterval(() => {
             this.timeLeft--;
