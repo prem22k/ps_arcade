@@ -73,6 +73,9 @@ class HolographicRecall {
         this.playingSequence = false;
         this.synth = new SimonSynth();
         
+        this.seqInterval = null;
+        this.nextLevelTimeout = null;
+        
         this.init();
     }
     
@@ -103,7 +106,28 @@ class HolographicRecall {
         setTimeout(() => panel.classList.remove('active'), 250);
     }
     
+    playSequence() {
+        this.playingSequence = true;
+        if (this.seqInterval) clearInterval(this.seqInterval);
+        
+        let i = 0;
+        this.logMessage("TRANSMITTING OSCILLATORY PATTERNS...", "info");
+        this.seqInterval = setInterval(() => {
+            this.lightUp(this.sequence[i]);
+            i++;
+            if (i >= this.sequence.length) {
+                clearInterval(this.seqInterval);
+                this.seqInterval = null;
+                this.playingSequence = false;
+                this.logMessage("INTERFACING TARGET INPUT READY", "warning");
+            }
+        }, 600);
+    }
+    
     startGame() {
+        if (this.seqInterval) clearInterval(this.seqInterval);
+        if (this.nextLevelTimeout) clearTimeout(this.nextLevelTimeout);
+        
         this.sequence = [];
         this.level = 0;
         this.gameActive = true;
@@ -119,6 +143,8 @@ class HolographicRecall {
         const colors = ['green', 'red', 'yellow', 'blue'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         this.sequence.push(randomColor);
+        
+        this.playSequence();
     }
     
     checkUserSequence(index) {
@@ -129,17 +155,31 @@ class HolographicRecall {
         
         if (this.userSequence.length === this.sequence.length) {
             this.logMessage(`MATRIX LEVEL_${this.level} DECIPHERED`, "success");
-            setTimeout(() => this.nextLevel(), 1000);
+            this.playingSequence = true; // lock clicks during wait
+            this.nextLevelTimeout = setTimeout(() => this.nextLevel(), 1000);
         }
     }
     
     triggerGameOver() {
         this.gameActive = false;
+        this.playingSequence = false;
+        
+        if (this.seqInterval) clearInterval(this.seqInterval);
+        if (this.nextLevelTimeout) clearTimeout(this.nextLevelTimeout);
+        
+        const score = this.level - 1;
+        if (score > this.highScore) {
+            this.highScore = score;
+            localStorage.setItem('simon_high_score', this.highScore);
+            this.recordDisplay.innerText = this.highScore;
+            this.logMessage(`NEW HIGH RECORD PERSISTED: ${this.highScore}`, "success");
+        }
+        
         this.sequence = [];
         this.level = 0;
         this.statusIndicator.innerText = "0";
         this.synth.playFail();
-        this.logMessage("FREQUENCY DISSONANCE DETECTED // DUMP", "error");
+        this.logMessage(`FREQUENCY DISSONANCE DETECTED // FINAL: ${score}`, "error");
     }
     
     logMessage(message, type = 'info') {
