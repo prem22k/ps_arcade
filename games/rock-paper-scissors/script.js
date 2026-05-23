@@ -1,4 +1,4 @@
-// Step 9: feat: integrate unified high-score registry tracking under score_rps key
+// Step 10: feat: implement Web Audio real-time tone synthesis click and win sweeps
 // Premium Cyberpunk Rock-Paper-Scissors Engine
 // Encapsulates non-blocking status logs, dynamic DOM updates, Web Audio synthesizers and high-score registry hookups.
 
