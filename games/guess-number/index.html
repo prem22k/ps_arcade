@@ -67,23 +67,28 @@
                 </div>
 
                 <div class="input-zone">
+                    <div class="input-bracket-left">[</div>
                     <input type="number" id="user-guess-input" min="1" max="100" placeholder="00" readonly>
+                    <div class="input-bracket-right">]</div>
                 </div>
 
-                <!-- Keypad Matrix -->
-                <div class="keypad-matrix">
-                    <button class="key-btn" onclick="pressKey('1')">1</button>
-                    <button class="key-btn" onclick="pressKey('2')">2</button>
-                    <button class="key-btn" onclick="pressKey('3')">3</button>
-                    <button class="key-btn" onclick="pressKey('4')">4</button>
-                    <button class="key-btn" onclick="pressKey('5')">5</button>
-                    <button class="key-btn" onclick="pressKey('6')">6</button>
-                    <button class="key-btn" onclick="pressKey('7')">7</button>
-                    <button class="key-btn" onclick="pressKey('8')">8</button>
-                    <button class="key-btn" onclick="pressKey('9')">9</button>
-                    <button class="key-btn control-btn" onclick="pressKey('CLEAR')">CLR</button>
-                    <button class="key-btn" onclick="pressKey('0')">0</button>
-                    <button class="key-btn action-btn" onclick="submitGuess()">ENGAGE</button>
+                <!-- Cyberpad Deck -->
+                <div class="keypad-container">
+                    <div class="keypad-matrix">
+                        <button class="key-btn" onclick="pressKey('1')">1</button>
+                        <button class="key-btn" onclick="pressKey('2')">2</button>
+                        <button class="key-btn" onclick="pressKey('3')">3</button>
+                        <button class="key-btn" onclick="pressKey('4')">4</button>
+                        <button class="key-btn" onclick="pressKey('5')">5</button>
+                        <button class="key-btn" onclick="pressKey('6')">6</button>
+                        <button class="key-btn" onclick="pressKey('7')">7</button>
+                        <button class="key-btn" onclick="pressKey('8')">8</button>
+                        <button class="key-btn" onclick="pressKey('9')">9</button>
+                        <button class="key-btn control-btn clear-btn" onclick="pressKey('CLEAR')">CLR</button>
+                        <button class="key-btn" onclick="pressKey('0')">0</button>
+                        <button class="key-btn control-btn delete-btn" onclick="pressKey('DELETE')">DEL</button>
+                    </div>
+                    <button class="key-btn action-btn engage-btn" onclick="submitGuess()">[ ENGAGE DECRYPTION CORE ]</button>
                 </div>
             </div>
 

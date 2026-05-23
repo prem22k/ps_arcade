@@ -37,7 +37,7 @@ class PasscodeDecrypter {
             if (e.key >= '0' && e.key <= '9') {
                 this.pressDigit(e.key);
             } else if (e.key === 'Backspace' || e.key === 'Delete') {
-                this.clearInput();
+                this.deleteLastDigit();
             } else if (e.key === 'Enter') {
                 this.submitGuess();
             }
@@ -112,6 +112,11 @@ class PasscodeDecrypter {
     clearInput() {
         this.playTone('click');
         this.inputEl.value = "";
+    }
+
+    deleteLastDigit() {
+        this.playTone('click');
+        this.inputEl.value = this.inputEl.value.slice(0, -1);
     }
 
     initAudio() {
@@ -244,6 +249,8 @@ function pressKey(val) {
     if (!window.decrypterEngine) return;
     if (val === 'CLEAR') {
         window.decrypterEngine.clearInput();
+    } else if (val === 'DELETE') {
+        window.decrypterEngine.deleteLastDigit();
     } else {
         window.decrypterEngine.pressDigit(val);
     }

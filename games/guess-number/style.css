@@ -614,3 +614,86 @@ body.guess-body {
     50% { left: 100%; }
     100% { left: 0%; }
 }
+
+/* Symmetrical key deck wrappers */
+.keypad-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.keypad-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-gap: 12px !important;
+    width: 100% !important;
+}
+
+/* Symmetrical Bracket Frame Styling */
+.input-bracket-left,
+.input-bracket-right {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--neon-cyan);
+    text-shadow: var(--shadow-cyan);
+    animation: bracketPulse 2.5s infinite ease-in-out;
+    user-select: none;
+}
+
+.input-bracket-right {
+    animation-delay: 1.25s;
+}
+
+@keyframes bracketPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Specific yellow glow backspace button override */
+.key-btn.control-btn.delete-btn {
+    border-color: rgba(241, 196, 15, 0.4);
+    color: var(--neon-yellow);
+    background: linear-gradient(135deg, rgba(40, 30, 4, 0.8) 0%, rgba(10, 8, 2, 0.9) 100%);
+    text-shadow: 0 0 5px rgba(241, 196, 15, 0.5);
+}
+
+.key-btn.control-btn.delete-btn:hover {
+    border-color: var(--neon-yellow);
+    color: #fff;
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.2) 0%, rgba(10, 8, 2, 0.9) 100%);
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.35);
+}
+
+/* Wide control-deck Engage button override */
+.engage-btn {
+    width: 100% !important;
+    height: 54px !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 2px !important;
+    border-color: rgba(57, 255, 20, 0.4) !important;
+    color: var(--neon-green) !important;
+    background: linear-gradient(180deg, rgba(6, 40, 10, 0.7) 0%, rgba(2, 12, 4, 0.9) 100%) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(57, 255, 20, 0.1) !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.engage-btn:hover {
+    border-color: var(--neon-green) !important;
+    color: #fff !important;
+    background: linear-gradient(180deg, rgba(57, 255, 20, 0.2) 0%, rgba(2, 15, 4, 0.95) 100%) !important;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.45) !important;
+    transform: translateY(-2px) !important;
+}
+
+.engage-btn:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
+}
