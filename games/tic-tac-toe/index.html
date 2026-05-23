@@ -1,27 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tic-Tac-Toe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS_ARCADE // Grid Nexus</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="ttt-game">
-        <h2>Tic-Tac-Toe</h2>
-        <p id="player-turn">Player X's Turn</p>
-        <div class="grid-container">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
-        <br>
-        <button id="reset-btn" onclick="resetBoard()">Reset Board</button>
+<body class="ttt-body">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-pink"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="cabinet-container">
+        <header class="game-header">
+            <div class="header-top-row">
+                <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
+                <div class="header-tags">
+                    <span class="tag cyan-tag">V5.0.0-MATRIX</span>
+                    <span class="tag pink-tag">PREMIUM</span>
+                </div>
+            </div>
+            <div class="header-main-row">
+                <h1 class="game-title">GRID_NEXUS</h1>
+            </div>
+        </header>
+
+        <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">SYS:</span>
+                    <span id="system-status" class="value cyan-text">SYS_OK</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">PLAYER_X:</span>
+                    <span id="score-x" class="value cyan-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">PLAYER_O:</span>
+                    <span id="score-o" class="value pink-text">0</span>
+                </div>
+            </div>
+
+            <!-- Turn Indicator Board -->
+            <div class="crt-screen status-screen">
+                <span class="label-hint">DECIPHER CORE ACTIVE TARGET</span>
+                <div id="player-turn" class="turn-indicator cyan-text">Player X's Turn</div>
+            </div>
+
+            <!-- Grid Matrix -->
+            <div class="matrix-container">
+                <div class="grid-container">
+                    <div class="cell" data-index="0"></div>
+                    <div class="cell" data-index="1"></div>
+                    <div class="cell" data-index="2"></div>
+                    <div class="cell" data-index="3"></div>
+                    <div class="cell" data-index="4"></div>
+                    <div class="cell" data-index="5"></div>
+                    <div class="cell" data-index="6"></div>
+                    <div class="cell" data-index="7"></div>
+                    <div class="cell" data-index="8"></div>
+                </div>
+            </div>
+
+            <!-- Controls bar -->
+            <div class="controls-bar">
+                <button id="reset-btn" class="menu-btn pink-btn">RESET_MATRIX</button>
+            </div>
+
+            <!-- Terminal Screen logs -->
+            <div class="terminal-display">
+                <div class="crt-screen log-screen">
+                    <span class="label-hint">NEXUS SECURE TERMINAL DATA FEED</span>
+                    <div id="terminal-logs" class="terminal-logs">
+                        <!-- Scrolling cyber logs -->
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">GRID SYNC INTEGRATION ACTIVE // SECURE QUANTUM VAULT STANDARDS</p>
+            </footer>
+        </main>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
