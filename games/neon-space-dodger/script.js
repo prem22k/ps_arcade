@@ -1,4 +1,4 @@
-// Step 23: fix: resolve canvas coordinate offset bugs during resize handlers
+// Step 24: fix: implement keyboard focus checks to prevent default window scrolling
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
