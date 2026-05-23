@@ -19,14 +19,11 @@ class StackerSynth {
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(800, now);
         osc.frequency.linearRampToValueAtTime(300, now + 0.12);
-        
         gain.gain.setValueAtTime(0.08, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-        
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
@@ -37,16 +34,13 @@ class StackerSynth {
         this.init();
         if (this.muted || !this.ctx) return;
         const now = this.ctx.currentTime;
-        const baseFreq = isPerfect ? 587.33 : 440.00; // D5 arpeggio or A4
+        const baseFreq = isPerfect ? 587.33 : 440.00;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        
         osc.type = 'sine';
         osc.frequency.setValueAtTime(baseFreq + score * 10, now);
-        
         gain.gain.setValueAtTime(0.08, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-        
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
@@ -59,14 +53,11 @@ class StackerSynth {
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(200, now);
         osc.frequency.linearRampToValueAtTime(60, now + 0.5);
-        
         gain.gain.setValueAtTime(0.16, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-        
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
@@ -165,10 +156,117 @@ class QuantumStacker {
         return parseFloat(computed.left) || 0;
     }
     
+    spawnSlice(left, width, color) {
+        if (width <= 0) return;
+        const slice = document.createElement('div');
+        slice.className = 'falling-block';
+        slice.style.left = left + 'px';
+        slice.style.width = width + 'px';
+        slice.style.backgroundColor = color;
+        slice.style.bottom = (this.stack.length * 35) + 'px';
+        this.towerContainer.appendChild(slice);
+        setTimeout(() => slice.remove(), 800);
+    }
+    
     dropBlock() {
         if (!this.gameActive || this.dropping) return;
         this.dropping = true;
         this.synth.playDrop();
+        
+        const droppedLeft = this.getCurrentLeft();
+        
+        this.craneBlock.style.animation = 'none';
+        this.craneBlock.style.left = droppedLeft + 'px';
+        this.craneLine.style.display = 'none';
+        
+        const prevBlock = this.stack[this.stack.length - 1];
+        const isPerfect = Math.abs(droppedLeft - prevBlock.left) < 6;
+        let correctLeft = isPerfect ? prevBlock.left : droppedLeft;
+        
+        const overlapLeft = Math.max(correctLeft, prevBlock.left);
+        const overlapRight = Math.min(correctLeft + this.activeBlockWidth, prevBlock.left + prevBlock.width);
+        const overlapWidth = overlapRight - overlapLeft;
+        
+        const targetBottom = this.stack.length * 35 + 25;
+        const cameraOffset = Math.max(0, (this.stack.length - 4) * 35);
+        const dropStartY = 305 + cameraOffset;
+        
+        if (overlapWidth <= 0) {
+            this.craneBlock.style.display = 'none';
+            const blockEl = document.createElement('div');
+            blockEl.className = 'falling-block';
+            blockEl.style.left = droppedLeft + 'px';
+            blockEl.style.width = this.activeBlockWidth + 'px';
+            blockEl.style.backgroundColor = this.currentColor;
+            blockEl.style.bottom = dropStartY + 'px';
+            this.towerContainer.appendChild(blockEl);
+            
+            this.synth.playFail();
+            this.dropTimeout = setTimeout(() => this.triggerGameOver(), 800);
+            
+        } else {
+            const blockEl = document.createElement('div');
+            blockEl.className = 'stacked-block';
+            blockEl.style.left = droppedLeft + 'px';
+            blockEl.style.width = this.activeBlockWidth + 'px';
+            blockEl.style.backgroundColor = this.currentColor;
+            blockEl.style.bottom = dropStartY + 'px';
+            blockEl.style.color = this.currentColor;
+            this.towerContainer.appendChild(blockEl);
+            
+            this.craneBlock.style.display = 'none';
+            setTimeout(() => { blockEl.style.bottom = targetBottom + 'px'; }, 10);
+            
+            this.dropTimeout = setTimeout(() => {
+                this.synth.playSuccess(isPerfect, this.score);
+                blockEl.style.left = overlapLeft + 'px';
+                blockEl.style.width = overlapWidth + 'px';
+                
+                if (isPerfect) {
+                    this.logMessage("PERFECT RESONANT ALIGNMENT MATCH!", "success");
+                    blockEl.style.filter = 'brightness(1.8)';
+                    setTimeout(() => { blockEl.style.filter = 'none'; }, 100);
+                } else {
+                    this.logMessage(`COMPRESSION COMPLETED // SLICED`, "info");
+                }
+                
+                let slicedLeft = 0;
+                let slicedWidth = 0;
+                if (droppedLeft < prevBlock.left) {
+                    slicedLeft = droppedLeft;
+                    slicedWidth = prevBlock.left - droppedLeft;
+                } else if (droppedLeft + this.activeBlockWidth > prevBlock.left + prevBlock.width) {
+                    slicedLeft = prevBlock.left + prevBlock.width;
+                    slicedWidth = (droppedLeft + this.activeBlockWidth) - (prevBlock.left + prevBlock.width);
+                }
+                
+                if (slicedWidth > 0) {
+                    this.spawnSlice(slicedLeft, slicedWidth, this.currentColor);
+                }
+                
+                this.stack.push({ left: overlapLeft, width: overlapWidth });
+                this.activeBlockWidth = overlapWidth;
+                this.score++;
+                this.scoreEl.innerText = this.score;
+                
+                if (this.score > this.highScore) {
+                    this.highScore = this.score;
+                    localStorage.setItem('block_high_score', this.highScore);
+                    this.highScoreEl.innerText = this.highScore;
+                }
+                
+                const offset = Math.max(0, (this.stack.length - 4) * 35);
+                this.towerContainer.style.transform = `translateY(${offset}px)`;
+                
+                this.dropTimeout = setTimeout(() => this.spawnNewSwinger(), 400);
+            }, 150);
+        }
+    }
+    
+    triggerGameOver() {
+        this.gameActive = false;
+        this.logMessage(`CRITICAL STABILIZER FAILS // COLLAPSED // SCORE: ${this.score}`, "error");
+        this.actionBtn.innerText = "RESTART_ENGINE";
     }
     
     logMessage(message, type = 'info') {
