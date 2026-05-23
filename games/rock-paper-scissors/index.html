@@ -1,4 +1,4 @@
-<!-- Step 2: feat: architect arcade cabinet interface panel in rps index.html -->
+<!-- Step 3: style: develop glassmorphic display zones and arena sections in rps -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +19,35 @@
             </div>
         </header>
         <main class="display-arena">
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">PILOT:</span>
+                    <span id="pilot-name" class="value cyan-text">PILOT_D01</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">STREAK:</span>
+                    <span id="live-streak" class="value pink-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">SCORE:</span>
+                    <span id="live-score" class="value yellow-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">RECORD:</span>
+                    <span id="high-score" class="value green-text">0</span>
+                </div>
+            </div>
+            <div class="battleground">
+                <div class="fighter-zone" id="player-zone">
+                    <span class="zone-label">[PILOT_DECK]</span>
+                    <div class="choice-visualizer" id="player-visualizer">READY</div>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="fighter-zone" id="cpu-zone">
+                    <span class="zone-label">[CPU_DECK]</span>
+                    <div class="choice-visualizer" id="cpu-visualizer">READY</div>
+                </div>
+            </div>
         </main>
     </div>
 </body>
