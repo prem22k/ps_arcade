@@ -1,4 +1,4 @@
-// Step 25: refactor: modularize particle dynamics into discrete vector update loops
+// Step 26: perf: throttle collision checks using spatial grid boundaries
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
