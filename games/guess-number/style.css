@@ -1,34 +1,322 @@
-body {
-    background-color: lightblue;
-    color: red;
-    text-align: center;
-    font-family: sans-serif;
-    text-shadow: 1px 1px 2px gray;
+/* Step 2: style: develop glassmorphic inputs and passcode numeric keypads for decrypter */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+    --bg-dark: #020612;
+    --cabinet-bg: rgba(6, 12, 28, 0.85);
+    --border-cyan: rgba(0, 240, 255, 0.25);
+    --border-pink: rgba(255, 0, 85, 0.25);
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff0055;
+    --neon-green: #39ff14;
+    --neon-yellow: #f1c40f;
+    --shadow-cyan: 0 0 15px rgba(0, 240, 255, 0.4);
+    --shadow-pink: 0 0 15px rgba(255, 0, 85, 0.4);
 }
-button {
-    background: yellow;
-    border: 3px solid black;
-    font-size: 20px;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.guess-body {
+    background-color: var(--bg-dark);
+    color: #f1f5f9;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cabinet-container {
+    width: 500px;
+    max-width: 95vw;
+    background: var(--cabinet-bg);
+    border: 1px solid var(--border-cyan);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 240, 255, 0.05);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-cyan);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    color: #fff;
+    text-shadow: var(--shadow-cyan);
+    transform: translateX(-3px);
+}
+
+.game-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.header-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.cyan-tag {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+}
+
+.pink-tag {
+    background: rgba(255, 0, 85, 0.1);
+    border: 1px solid var(--neon-pink);
+    color: var(--neon-pink);
+}
+
+.display-arena {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hud-bar {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(4, 8, 20, 0.7);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.hud-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hud-item .label {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.hud-item .value {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.cyan-text { color: var(--neon-cyan); text-shadow: 0 0 5px rgba(0, 240, 255, 0.5); }
+.pink-text { color: var(--neon-pink); text-shadow: 0 0 5px rgba(255, 0, 85, 0.5); }
+.yellow-text { color: var(--neon-yellow); text-shadow: 0 0 5px rgba(241, 196, 15, 0.5); }
+.green-text { color: var(--neon-green); text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); }
+
+.terminal-core {
+    background: rgba(2, 6, 18, 0.6);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    border-radius: 8px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.display-panel {
+    width: 100%;
+    background: rgba(4, 12, 32, 0.8);
+    border: 1px solid var(--border-cyan);
+    border-radius: 6px;
     padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
+    text-align: center;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+    transition: border-color 0.25s ease;
 }
-#guess-game {
-    border: 2px dashed red;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: lightgreen;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
+
+.label-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #64748b;
+    letter-spacing: 1px;
 }
+
+.status-feed {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--neon-cyan);
+    text-shadow: var(--shadow-cyan);
+    margin-top: 5px;
+    min-height: 28px;
+}
+
+.input-zone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 #user-guess-input {
-    font-size: 18px;
-    padding: 10px;
-    width: 150px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 10px;
+    background: transparent;
+    border: 2px solid rgba(0, 240, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: center;
+    width: 120px;
+    padding: 8px;
+    letter-spacing: 2px;
+    text-shadow: var(--shadow-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
+    outline: none;
 }
-/* polish margins */
+
+.keypad-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-gap: 15px;
+    justify-content: center;
+}
+
+.key-btn {
+    background: rgba(4, 12, 32, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #94a3b8;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    height: 50px;
+    transition: all 0.2s ease;
+}
+
+.key-btn:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    text-shadow: var(--shadow-cyan);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.key-btn:active {
+    transform: translateY(1px);
+}
+
+.key-btn.control-btn {
+    border-color: var(--border-pink);
+    color: var(--neon-pink);
+}
+
+.key-btn.control-btn:hover {
+    background: rgba(255, 0, 85, 0.1);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.25);
+}
+
+.key-btn.action-btn {
+    border-color: rgba(57, 255, 20, 0.3);
+    color: var(--neon-green);
+}
+
+.key-btn.action-btn:hover {
+    background: rgba(57, 255, 20, 0.1);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
+}
+
+.controls-bar {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-btn {
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 8px 24px;
+    border-radius: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-shadow: var(--shadow-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+    transition: all 0.25s ease;
+}
+
+.menu-btn:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-dark);
+    text-shadow: none;
+    box-shadow: var(--shadow-cyan);
+    transform: scale(1.03);
+}
+
+.menu-btn.pink-btn {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    text-shadow: var(--shadow-pink);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.15);
+}
+
+.menu-btn.pink-btn:hover {
+    background: var(--neon-pink);
+    color: var(--bg-dark);
+    text-shadow: none;
+    box-shadow: var(--shadow-pink);
+}
+
+.hud-footer {
+    border-top: 1px solid rgba(0, 240, 255, 0.15);
+    padding-top: 12px;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.sys-msg {
+    letter-spacing: 1px;
+}
