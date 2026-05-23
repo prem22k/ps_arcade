@@ -1,4 +1,3 @@
-<!-- Step 5: fix: integrate score_guess localStorage high score sync and eliminate native popups -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="guess-body">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-pink"></div>
     <div class="grid-overlay"></div>
     <div class="cabinet-container">
         <header class="game-header">
-            <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
-            <h1 class="game-title">DECRYPTER_X</h1>
-            <div class="header-tags">
-                <span class="tag cyan-tag">V3.0.0-PROD</span>
-                <span class="tag pink-tag">PREMIUM</span>
+            <div class="header-top-row">
+                <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
+                <div class="header-tags">
+                    <span class="tag cyan-tag">V3.0.0-PROD</span>
+                    <span class="tag pink-tag">PREMIUM</span>
+                </div>
+            </div>
+            <div class="header-main-row">
+                <h1 class="game-title">DECRYPTER_X</h1>
             </div>
         </header>
 
@@ -23,6 +28,7 @@
             <!-- HUD -->
             <div class="hud-bar">
                 <div class="hud-item">
+                    <span class="status-indicator"></span>
                     <span class="label">STATUS:</span>
                     <span id="sys-status" class="value cyan-text">ONLINE</span>
                 </div>

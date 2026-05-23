@@ -1,4 +1,3 @@
-/* Step 2: style: develop glassmorphic inputs and passcode numeric keypads for decrypter */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
 
 :root {
@@ -30,6 +29,37 @@ body.guess-body {
     align-items: center;
     overflow-x: hidden;
     position: relative;
+}
+
+/* Ambient glows */
+.ambient-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    animation: floatGlow 15s infinite ease-in-out;
+}
+
+.glow-cyan {
+    background: var(--neon-cyan);
+    top: 10%;
+    left: 10%;
+}
+
+.glow-pink {
+    background: var(--neon-pink);
+    bottom: 10%;
+    right: 10%;
+    animation-delay: -5s;
+}
+
+@keyframes floatGlow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.1); }
 }
 
 .grid-overlay {
@@ -93,13 +123,30 @@ body.guess-body {
     box-shadow: var(--shadow-cyan);
 }
 
+/* Two-Row Anti-Overflow Header styling */
 .game-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 1px solid var(--border-cyan);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.header-top-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-cyan);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+    width: 100%;
+}
+
+.header-main-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2px;
 }
 
 .back-btn {
@@ -119,11 +166,11 @@ body.guess-body {
 
 .game-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem;
+    font-size: 2.1rem;
     font-weight: 900;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     color: #fff;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.4), 0 0 20px rgba(0, 240, 255, 0.2);
 }
 
 .header-tags {
@@ -164,12 +211,28 @@ body.guess-body {
     border-radius: 6px;
     padding: 12px 20px;
     font-family: 'Share Tech Mono', monospace;
+    align-items: center;
 }
 
 .hud-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: var(--neon-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--neon-green);
+    display: inline-block;
+    animation: pulseIndicator 1.5s infinite;
+}
+
+@keyframes pulseIndicator {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; box-shadow: 0 0 12px var(--neon-green); }
 }
 
 .hud-item .label {
@@ -211,7 +274,6 @@ body.guess-body {
     overflow: hidden;
 }
 
-/* Authentic retro CRT Scanlines effect */
 .display-panel::before {
     content: " ";
     display: block;
@@ -412,7 +474,6 @@ body.guess-body {
     letter-spacing: 1.5px;
 }
 
-/* Animations definition */
 @keyframes inputPulse {
     0%, 100% {
         box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1), 0 0 15px rgba(0, 240, 255, 0.05);
@@ -424,15 +485,10 @@ body.guess-body {
 }
 
 @keyframes screenPulse {
-    0%, 100% {
-        opacity: 0.95;
-    }
-    50% {
-        opacity: 1;
-    }
+    0%, 100% { opacity: 0.95; }
+    50% { opacity: 1; }
 }
 
-/* Responsive design styles */
 @media (max-width: 480px) {
     .cabinet-container {
         padding: 18px;
@@ -442,8 +498,8 @@ body.guess-body {
         margin-bottom: 15px;
     }
     .game-title {
-        font-size: 1.4rem;
-        letter-spacing: 1.5px;
+        font-size: 1.5rem;
+        letter-spacing: 2px;
     }
     .header-tags {
         gap: 6px;
@@ -470,28 +526,5 @@ body.guess-body {
     .terminal-core {
         padding: 15px;
         gap: 15px;
-    }
-    .keypad-matrix {
-        grid-template-columns: repeat(3, 85px);
-        grid-gap: 10px;
-    }
-    .key-btn {
-        height: 46px;
-        font-size: 1.1rem;
-        border-radius: 6px;
-    }
-    .key-btn.action-btn {
-        font-size: 0.8rem;
-    }
-    .display-panel {
-        padding: 10px;
-    }
-    .status-feed {
-        font-size: 0.95rem;
-    }
-    #user-guess-input {
-        font-size: 1.9rem;
-        width: 105px;
-        padding: 4px 8px;
     }
 }
