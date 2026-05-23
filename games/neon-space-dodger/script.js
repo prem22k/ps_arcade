@@ -1,4 +1,4 @@
-// Step 21: feat: implement high-pass thruster thrust humming oscillator loops
+// Step 22: feat: connect dodger high scores to unified localStorage registry keys
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
