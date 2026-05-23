@@ -1,4 +1,4 @@
-// Step 22: feat: connect dodger high scores to unified localStorage registry keys
+// Step 23: fix: resolve canvas coordinate offset bugs during resize handlers
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
