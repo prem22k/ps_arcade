@@ -1,26 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Word Scramble</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS_ARCADE // Cypher Decryptor</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="word-game">
-        <h2>Word Scramble</h2>
-        <p id="scramble-score">Score: 0</p>
-        <p id="scrambled-word" style="font-size: 24px; font-weight: bold; color: darkblue;"></p>
-        <input type="text" id="guess-input" placeholder="Type your guess here">
-        <br><br>
-        <button onclick="checkWord()">Submit</button>
-        <button onclick="showScrambleHint()">Hint</button>
-        <button onclick="skipScrambleWord()">Skip Word</button>
-        <p id="scramble-err" style="color: red; font-weight: bold;"></p>
-        
-        <div class="info">
-            <h3>Word Scramble Help:</h3>
-            <p>Try to unscramble the letters. Use hint to get first letter.</p>
-        </div>
+<body class="cypher-body">
+    <div class="ambient-glow glow-green"></div>
+    <div class="ambient-glow glow-emerald"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="cabinet-container">
+        <header class="game-header">
+            <div class="header-top-row">
+                <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
+                <div class="header-tags">
+                    <span class="tag green-tag">V4.0.0-DECRYPT</span>
+                    <span class="tag emerald-tag">PREMIUM</span>
+                </div>
+            </div>
+            <div class="header-main-row">
+                <h1 class="game-title">CYPHER_DECRYPTOR</h1>
+            </div>
+        </header>
+
+        <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">STATUS:</span>
+                    <span id="system-status" class="value green-text">ACTIVE_SCAN</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">DECRYPTED:</span>
+                    <span id="scramble-score" class="value emerald-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">HIGH_RECORD:</span>
+                    <span id="high-score" class="value yellow-text">0</span>
+                </div>
+            </div>
+
+            <!-- Letter Deck Container -->
+            <div class="letter-deck-container">
+                <div class="crt-screen letter-screen">
+                    <span class="label-hint">ENCRYPTED CYPHER VECTOR</span>
+                    <div id="letter-deck" class="letter-deck">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Cyber Deck -->
+            <div class="input-panel">
+                <span class="input-bracket-left">[</span>
+                <input type="text" id="guess-input" placeholder="ENTER DECRYPTION KEY..." autocomplete="off">
+                <span class="input-bracket-right">]</span>
+            </div>
+
+            <!-- Command Controls Grid -->
+            <div class="upgrades-grid">
+                <button class="upgrade-card engage-card" id="btn-engage">
+                    <span class="card-emoji">🔑</span>
+                    <span class="card-title">ENGAGE_DECRYPTION</span>
+                </button>
+                <button class="upgrade-card hint-card" id="btn-hint">
+                    <span class="card-emoji">💡</span>
+                    <span class="card-title">HINT_OVERRIDE</span>
+                </button>
+                <button class="upgrade-card skip-card" id="btn-skip">
+                    <span class="card-emoji">⏭️</span>
+                    <span class="card-title">BYPASS_CYPHER</span>
+                </button>
+            </div>
+
+            <!-- Terminal Screen logs -->
+            <div class="terminal-display">
+                <div class="crt-screen log-screen">
+                    <span class="label-hint">DECIPHER CORE CONSOLE LOGS</span>
+                    <div id="terminal-logs" class="terminal-logs">
+                        <!-- Scrolling cyber logs -->
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">GRID SYNC INTEGRATION ACTIVE // SECURE QUANTUM VAULT STANDARDS</p>
+            </footer>
+        </main>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>

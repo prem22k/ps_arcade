@@ -1,53 +1,11 @@
-var wordList = ["javascript", "arcade", "cookie", "scramble", "computer"];
-function scrambleWord(word) {
-    var chars = word.split('');
-    var scrambled = word;
-    var attempts = 0;
-    while (scrambled === word && attempts < 10) {
-        chars.sort(function() { return Math.random() - 0.5; });
-        scrambled = chars.join('');
-        attempts++;
-    }
-    return scrambled;
-}
+// Cypher Decryptor Scriptor Module
+console.log('[SYS_INIT] Cypher Decryptor core initializing...');
 
-var currentScrambleWord = "";
-var currentOriginalWord = "";
-var scrambleScore = 0;
-
-function loadScrambleWord() {
-    var randomIndex = Math.floor(Math.random() * 5);
-    currentOriginalWord = wordList[randomIndex];
-    currentScrambleWord = scrambleWord(currentOriginalWord);
-    document.getElementById('scrambled-word').innerText = currentScrambleWord;
-}
-
-function checkWord() {
-    var playerGuess = document.getElementById('guess-input').value;
-    if (playerGuess.trim().toLowerCase() === currentOriginalWord.toLowerCase()) {
-        scrambleScore++;
-        document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
-        alert("Correct!");
-        document.getElementById('guess-input').value = "";
-        document.getElementById('scramble-err').innerText = "";
-        loadScrambleWord();
-    } else {
-        document.getElementById('scramble-err').innerText = "Wrong, try again!";
+class CypherDecryptor {
+    constructor() {
+        console.log('[SYS_INIT] Decryptor modules active.');
     }
 }
 
-function showScrambleHint() {
-    var firstLetter = currentOriginalWord.charAt(0);
-    alert("The first letter is: " + firstLetter);
-}
-
-function skipScrambleWord() {
-    if (scrambleScore > 0) {
-        scrambleScore--;
-    }
-    document.getElementById('scramble-score').innerText = "Score: " + scrambleScore;
-    loadScrambleWord();
-}
-
-// Load on start
-setTimeout(loadScrambleWord, 200);
+const decryptor = new CypherDecryptor();
+window.decryptor = decryptor;
