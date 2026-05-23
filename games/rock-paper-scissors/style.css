@@ -1,26 +1,15 @@
-body {
-    background-color: lightblue;
-    color: red;
-    text-align: center;
-    font-family: sans-serif;
-    text-shadow: 1px 1px 2px gray;
+/* Step 5: style: design cyber-neon utility tokens and root variables for rps */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+    --bg-dark: #020612;
+    --cabinet-bg: rgba(6, 12, 28, 0.85);
+    --border-cyan: rgba(0, 240, 255, 0.25);
+    --border-pink: rgba(255, 0, 85, 0.25);
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff0055;
+    --neon-green: #39ff14;
+    --neon-yellow: #f1c40f;
+    --shadow-cyan: 0 0 15px rgba(0, 240, 255, 0.4);
+    --shadow-pink: 0 0 15px rgba(255, 0, 85, 0.4);
 }
-button {
-    background: yellow;
-    border: 3px solid black;
-    font-size: 20px;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
-}
-#resetBtn {
-    background: orange;
-    font-size: 15px;
-    padding: 10px;
-}
-.info {
-    margin-top: 30px;
-    font-size: 12px;
-    color: gray;
-}
-/* alignment edit */
