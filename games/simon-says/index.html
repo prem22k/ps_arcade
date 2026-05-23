@@ -1,23 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Simon Says</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS_ARCADE // Holographic Recall</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="simon-game">
-        <h2>Simon Says</h2>
-        <div id="status-indicator">Press Start to Play</div>
-        <div class="board">
-            <div class="panel green" data-color="green"></div>
-            <div class="panel red" data-color="red"></div>
-            <div class="panel yellow" data-color="yellow"></div>
-            <div class="panel blue" data-color="blue"></div>
-            <div class="center-circle"></div>
-        </div>
-        <br>
-        <button id="start-btn">Start Game</button>
+<body class="simon-body">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-pink"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="cabinet-container">
+        <header class="game-header">
+            <div class="header-top-row">
+                <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
+                <div class="header-tags">
+                    <span class="tag cyan-tag">V5.0.0-RECALL</span>
+                    <span class="tag pink-tag">PREMIUM</span>
+                </div>
+            </div>
+            <div class="header-main-row">
+                <h1 class="game-title">HOLOGRAPHIC_RECALL</h1>
+            </div>
+        </header>
+
+        <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">SYS:</span>
+                    <span id="system-status" class="value cyan-text">SYS_OK</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">LEVEL:</span>
+                    <span id="status-indicator" class="value cyan-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">MAX_RECORD:</span>
+                    <span id="record-display" class="value yellow-text">0</span>
+                </div>
+            </div>
+
+            <!-- Quadrant Board -->
+            <div class="matrix-container">
+                <div class="board">
+                    <div class="panel green" data-color="green"></div>
+                    <div class="panel red" data-color="red"></div>
+                    <div class="panel yellow" data-color="yellow"></div>
+                    <div class="panel blue" data-color="blue"></div>
+                    <div class="center-circle">
+                        <div class="core-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls bar -->
+            <div class="controls-bar">
+                <button id="start-btn" class="menu-btn cyan-btn">START_HARMONIC</button>
+            </div>
+
+            <!-- Terminal Screen logs -->
+            <div class="terminal-display">
+                <div class="crt-screen log-screen">
+                    <span class="label-hint">NEXUS SECURE TERMINAL DATA FEED</span>
+                    <div id="terminal-logs" class="terminal-logs">
+                        <!-- Scrolling cyber logs -->
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">GRID SYNC INTEGRATION ACTIVE // SECURE QUANTUM VAULT STANDARDS</p>
+            </footer>
+        </main>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
