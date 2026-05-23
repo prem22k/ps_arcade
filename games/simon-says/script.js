@@ -17,6 +17,9 @@ class SimonSynth {
         if (!this.ctx) {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
     }
     
     playBeep(color) {
@@ -83,6 +86,12 @@ class HolographicRecall {
         this.recordDisplay.innerText = this.highScore;
         this.setupEvents();
         this.logMessage("HARMONIC MATRIX ONLINE // CORE CALIBRATED", "info");
+        
+        // Sync mute status from global localStorage if available
+        const globalSound = localStorage.getItem('arcade_sound_enabled');
+        if (globalSound === 'false') {
+            this.synth.muted = true;
+        }
     }
     
     setupEvents() {
@@ -131,6 +140,7 @@ class HolographicRecall {
         this.sequence = [];
         this.level = 0;
         this.gameActive = true;
+        this.synth.init();
         this.logMessage("RESONANCE CHANNELS ALIGNED // ENGAGING", "warning");
         this.nextLevel();
     }
