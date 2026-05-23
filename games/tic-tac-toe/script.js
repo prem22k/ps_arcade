@@ -147,6 +147,7 @@ class GridNexus {
         this.loadScores();
         this.updateHUD();
         this.setupEvents();
+        this.setupKeyboard();
         this.logMessage("GRID NEXUS MATRIX SECURED // SYS_ACTIVE", "info");
     }
     
@@ -188,6 +189,14 @@ class GridNexus {
         
         const resetBtn = document.getElementById('reset-btn');
         if (resetBtn) resetBtn.addEventListener('click', () => this.resetMatrix());
+    }
+    
+    setupKeyboard() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                this.resetMatrix();
+            }
+        });
     }
     
     checkWin() {
