@@ -78,6 +78,10 @@ class CyberMoleDisruptor {
         this.gameActive = false;
         this.synth = new CyberMoleSynth();
         
+        this.gameInterval = null;
+        this.countdownInterval = null;
+        this.moleClicked = false;
+        
         this.init();
     }
     
@@ -92,6 +96,7 @@ class CyberMoleDisruptor {
             hole.addEventListener('click', () => {
                 if (!this.gameActive) return;
                 if (hole.classList.contains('active')) {
+                    if (this.moleClicked) return;
                     this.registerHit(hole);
                 }
             });
@@ -101,11 +106,46 @@ class CyberMoleDisruptor {
         document.getElementById('stop-btn').addEventListener('click', () => this.stopGame());
     }
     
+    randomHole() {
+        let index = Math.floor(Math.random() * this.holes.length);
+        while (index === this.lastHoleIndex) {
+            index = Math.floor(Math.random() * this.holes.length);
+        }
+        this.lastHoleIndex = index;
+        return this.holes[index];
+    }
+    
+    showMole() {
+        this.holes.forEach(hole => hole.classList.remove('active'));
+        this.moleClicked = false;
+        
+        const activeHole = this.randomHole();
+        activeHole.classList.add('active');
+        this.synth.playPop();
+    }
+    
     startGame() {
+        clearInterval(this.gameInterval);
+        clearInterval(this.countdownInterval);
+        this.holes.forEach(hole => hole.classList.remove('active'));
+        
         this.score = 0;
         this.timeLeft = 30;
         this.gameActive = true;
         this.scoreDisplay.innerText = this.score;
+        this.updateTimeDisplay();
+        
+        this.showMole();
+        this.gameInterval = setInterval(() => this.showMole(), 1000);
+        
+        this.countdownInterval = setInterval(() => {
+            this.timeLeft--;
+            this.updateTimeDisplay();
+            if (this.timeLeft <= 0) {
+                this.endGame();
+            }
+        }, 1000);
+        
         this.logMessage("GRID DISRUPTION INITIATED // ENGAGE VECTORS", "warning");
     }
     
@@ -113,14 +153,36 @@ class CyberMoleDisruptor {
         this.score += 10;
         this.scoreDisplay.innerText = this.score;
         this.synth.playZap();
-        this.logMessage(`VECTOR TARGET SECTOR DISRUPTED (+10)`, "success");
+        this.moleClicked = true;
+        this.logMessage(`VECTOR SECTOR DISRUPTED (+10)`, "success");
         hole.classList.remove('active');
     }
     
-    stopGame() {
+    updateTimeDisplay() {
+        const timeEl = document.getElementById('time-display');
+        if (timeEl) timeEl.innerText = `${this.timeLeft}s`;
+    }
+    
+    endGame() {
+        clearInterval(this.gameInterval);
+        clearInterval(this.countdownInterval);
         this.gameActive = false;
+        this.holes.forEach(hole => hole.classList.remove('active'));
+        
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            localStorage.setItem('whack_high_score', this.highScore);
+            this.recordDisplay.innerText = this.highScore;
+            this.logMessage(`NEW HIGH RECORD ESTABLISHED: ${this.highScore} POINTS`, "success");
+        }
+        
         this.synth.playWarning();
-        this.logMessage("SECURITY SEQUENCE HALTED // DISRUPTER CORE SAFE", "error");
+        this.logMessage(`GRID TERMINATED // FINAL SCORE: ${this.score}`, "error");
+    }
+    
+    stopGame() {
+        if (!this.gameActive) return;
+        this.endGame();
     }
     
     logMessage(message, type = 'info') {
