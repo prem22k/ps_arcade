@@ -1,4 +1,4 @@
-// Step 15: feat: design neon asteroid vector drawing loops and random vertex offsets
+// Step 16: feat: build circular collision vector overlap detection arithmetic
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
