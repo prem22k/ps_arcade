@@ -1,4 +1,4 @@
-// Step 26: perf: throttle collision checks using spatial grid boundaries
+// Step 27: feat: update scoreTracker registry matrix to support neon-space-dodger
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
