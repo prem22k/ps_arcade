@@ -3,38 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Block Stacker</title>
+    <title>PS_ARCADE // Quantum Stacker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="game-container">
-        <h2>Block Stacker</h2>
-        
-        <div id="hud">
-            <div class="hud-item">Score: <span id="score">0</span></div>
-            <div class="hud-item">High: <span id="high-score">0</span></div>
-        </div>
-
-        <div id="viewport">
-            <div id="crane-line"></div>
-            <div id="crane-block"></div>
-            <div id="tower-container">
-                <div class="base-platform"></div>
+<body class="stack-body">
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-pink"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="cabinet-container">
+        <header class="game-header">
+            <div class="header-top-row">
+                <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
+                <div class="header-tags">
+                    <span class="tag cyan-tag">V5.0.0-STACK</span>
+                    <span class="tag pink-tag">PREMIUM</span>
+                </div>
             </div>
-        </div>
-
-        <div id="controls">
-            <button id="action-btn">Drop Block</button>
-        </div>
-
-        <div id="game-over-modal" class="hidden">
-            <div class="modal-content">
-                <h3>Game Over!</h3>
-                <p>Final Score: <span id="final-score">0</span></p>
-                <button id="restart-btn">Play Again</button>
+            <div class="header-main-row">
+                <h1 class="game-title">QUANTUM_STACKER</h1>
             </div>
-        </div>
+        </header>
+
+        <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">SYS:</span>
+                    <span id="system-status" class="value cyan-text">SYS_OK</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">BLOCKS:</span>
+                    <span id="score" class="value cyan-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">MAX_RECORD:</span>
+                    <span id="high-score" class="value yellow-text">0</span>
+                </div>
+            </div>
+
+            <!-- Stacker Chamber -->
+            <div class="matrix-container">
+                <div id="viewport" class="reactor-viewport">
+                    <div id="crane-line"></div>
+                    <div id="crane-block"></div>
+                    <div id="tower-container">
+                        <div class="base-platform"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls bar -->
+            <div class="controls-bar">
+                <button id="action-btn" class="menu-btn cyan-btn">START_ENGINE</button>
+            </div>
+
+            <!-- Terminal Screen logs -->
+            <div class="terminal-display">
+                <div class="crt-screen log-screen">
+                    <span class="label-hint">NEXUS SECURE TERMINAL DATA FEED</span>
+                    <div id="terminal-logs" class="terminal-logs">
+                        <!-- Scrolling cyber logs -->
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">GRID SYNC INTEGRATION ACTIVE // SECURE QUANTUM VAULT STANDARDS</p>
+            </footer>
+        </main>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
