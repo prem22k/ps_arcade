@@ -1,18 +1,82 @@
-<!-- Step 1: feat: initialize passcode-decrypter structural skeleton for guess-number -->
+<!-- Step 5: fix: integrate score_guess localStorage high score sync and eliminate native popups -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS_ARCADE // Passcode Decrypter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="guess-body">
+    <div class="grid-overlay"></div>
     <div class="cabinet-container">
         <header class="game-header">
+            <a href="../../index.html" class="back-btn">&lt;&lt; [PORTAL]</a>
             <h1 class="game-title">DECRYPTER_X</h1>
+            <div class="header-tags">
+                <span class="tag cyan-tag">V3.0.0-PROD</span>
+                <span class="tag pink-tag">PREMIUM</span>
+            </div>
         </header>
+
         <main class="display-arena">
+            <!-- HUD -->
+            <div class="hud-bar">
+                <div class="hud-item">
+                    <span class="label">STATUS:</span>
+                    <span id="sys-status" class="value cyan-text">ONLINE</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">ATTEMPTS:</span>
+                    <span id="guess-attempts" class="value pink-text">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">LAST:</span>
+                    <span id="last-guess" class="value yellow-text">NONE</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">RECORD:</span>
+                    <span id="high-score" class="value green-text">0</span>
+                </div>
+            </div>
+
+            <!-- Main Input Terminal -->
+            <div class="terminal-core">
+                <div class="display-panel">
+                    <span class="label-hint">TARGET PATTERN RANGE: [01 - 100]</span>
+                    <div id="decrypt-feedback" class="status-feed">INITIALIZING HACK SEQUENCE...</div>
+                </div>
+
+                <div class="input-zone">
+                    <input type="number" id="user-guess-input" min="1" max="100" placeholder="00" readonly>
+                </div>
+
+                <!-- Keypad Matrix -->
+                <div class="keypad-matrix">
+                    <button class="key-btn" onclick="pressKey('1')">1</button>
+                    <button class="key-btn" onclick="pressKey('2')">2</button>
+                    <button class="key-btn" onclick="pressKey('3')">3</button>
+                    <button class="key-btn" onclick="pressKey('4')">4</button>
+                    <button class="key-btn" onclick="pressKey('5')">5</button>
+                    <button class="key-btn" onclick="pressKey('6')">6</button>
+                    <button class="key-btn" onclick="pressKey('7')">7</button>
+                    <button class="key-btn" onclick="pressKey('8')">8</button>
+                    <button class="key-btn" onclick="pressKey('9')">9</button>
+                    <button class="key-btn control-btn" onclick="pressKey('CLEAR')">CLR</button>
+                    <button class="key-btn" onclick="pressKey('0')">0</button>
+                    <button class="key-btn action-btn" onclick="submitGuess()">ENGAGE</button>
+                </div>
+            </div>
+
+            <div class="controls-bar">
+                <button id="resetBtn" class="menu-btn pink-btn" onclick="resetGuessTarget()">[RESET_CIPHER]</button>
+            </div>
+
+            <footer class="hud-footer">
+                <p id="sys-meta" class="sys-msg">CIPHER CORE LOCKOUT PREVENTATIVE MODULE SHIELDED</p>
+            </footer>
         </main>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
