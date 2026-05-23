@@ -125,17 +125,54 @@ class GridNexus {
         this.board = ["", "", "", "", "", "", "", "", ""];
         this.currentPlayer = "X";
         this.gameActive = true;
+        this.scoreX = 0;
+        this.scoreO = 0;
         this.synth = new GridNexusSynth();
+        
+        this.winConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
         
         this.cells = document.querySelectorAll('.cell');
         this.turnEl = document.getElementById('player-turn');
+        this.scoreXEl = document.getElementById('score-x');
+        this.scoreOEl = document.getElementById('score-o');
         
         this.init();
     }
     
     init() {
+        this.loadScores();
+        this.updateHUD();
         this.setupEvents();
         this.logMessage("GRID NEXUS MATRIX SECURED // SYS_ACTIVE", "info");
+    }
+    
+    loadScores() {
+        try {
+            const raw = localStorage.getItem('ttt_score_x');
+            const parsed = parseInt(raw, 10);
+            this.scoreX = isNaN(parsed) ? 0 : parsed;
+        } catch (e) {
+            console.error("Score load error:", e);
+        }
+        this.scoreO = 0; // Local multiplayer session score starts at 0
+    }
+    
+    saveScoreX() {
+        try {
+            localStorage.setItem('ttt_score_x', this.scoreX.toString());
+            this.logMessage(`PLAYER_X DECRYPTION HIGH RECORD PERSISTED: ${this.scoreX}`, "success");
+        } catch (e) {
+            console.error("Score save error:", e);
+        }
+    }
+    
+    updateHUD() {
+        if (this.scoreXEl) this.scoreXEl.innerText = this.scoreX;
+        if (this.scoreOEl) this.scoreOEl.innerText = this.scoreO;
     }
     
     setupEvents() {
@@ -153,6 +190,22 @@ class GridNexus {
         if (resetBtn) resetBtn.addEventListener('click', () => this.resetMatrix());
     }
     
+    checkWin() {
+        for (let i = 0; i < this.winConditions.length; i++) {
+            const cond = this.winConditions[i];
+            if (this.board[cond[0]] !== "" && 
+                this.board[cond[0]] === this.board[cond[1]] && 
+                this.board[cond[0]] === this.board[cond[2]]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    checkTie() {
+        return this.board.every(cell => cell !== "");
+    }
+    
     makeMove(cell, idx) {
         this.board[idx] = this.currentPlayer;
         cell.innerText = this.currentPlayer;
@@ -160,10 +213,41 @@ class GridNexus {
         
         if (this.currentPlayer === "X") {
             this.synth.playX();
-            this.logMessage(`SECTOR_${idx} DECRYPTED BY PLAYER_X`, "info");
+            this.logMessage(`SECTOR_${idx} MARKED BY PLAYER_X`, "info");
         } else {
             this.synth.playO();
-            this.logMessage(`SECTOR_${idx} DECRYPTED BY PLAYER_O`, "warning");
+            this.logMessage(`SECTOR_${idx} MARKED BY PLAYER_O`, "warning");
+        }
+        
+        if (this.checkWin()) {
+            this.synth.playSuccess();
+            this.logMessage(`GRID NEXUS CAPTURED // PLAYER_${this.currentPlayer} WINS!`, "success");
+            
+            if (this.currentPlayer === "X") {
+                this.scoreX++;
+                this.saveScoreX();
+            } else {
+                this.scoreO++;
+            }
+            
+            if (this.turnEl) {
+                this.turnEl.innerText = `Player ${this.currentPlayer} Wins!`;
+                this.turnEl.className = `turn-indicator ${this.currentPlayer === "X" ? "cyan-text" : "pink-text"}`;
+            }
+            this.updateHUD();
+            this.gameActive = false;
+            return;
+        }
+        
+        if (this.checkTie()) {
+            this.synth.playTie();
+            this.logMessage("GRID OVERRUN // MATRIX OVERFLOW CO-LOCKED // DRAW STATE", "error");
+            if (this.turnEl) {
+                this.turnEl.innerText = "It's a tie!";
+                this.turnEl.className = "turn-indicator yellow-text";
+            }
+            this.gameActive = false;
+            return;
         }
         
         this.currentPlayer = (this.currentPlayer === "X") ? "O" : "X";
@@ -178,7 +262,7 @@ class GridNexus {
         this.currentPlayer = "X";
         this.gameActive = true;
         this.synth.playReset();
-        this.logMessage("REBOOT MATRIX CORE CHASSIS // DUMPING DATA", "warning");
+        this.logMessage("REBOOT MATRIX CORE CHASSIS // CLEANING MATRIX...", "warning");
         
         if (this.turnEl) {
             this.turnEl.innerText = "Player X's Turn";
