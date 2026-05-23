@@ -1,6 +1,79 @@
 // Stacker Reactor Matrix core initializing...
 console.log('[SYS_INIT] Quantum stacker core standby.');
 
+class StackerSynth {
+    constructor() {
+        this.ctx = null;
+        this.muted = false;
+    }
+    
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+    
+    playDrop() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.linearRampToValueAtTime(300, now + 0.12);
+        
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.12);
+    }
+    
+    playSuccess(isPerfect, score) {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const baseFreq = isPerfect ? 587.33 : 440.00; // D5 arpeggio or A4
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(baseFreq + score * 10, now);
+        
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+    }
+    
+    playFail() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(200, now);
+        osc.frequency.linearRampToValueAtTime(60, now + 0.5);
+        
+        gain.gain.setValueAtTime(0.16, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.5);
+    }
+}
+
 class QuantumStacker {
     constructor() {
         this.gameActive = false;
@@ -12,6 +85,7 @@ class QuantumStacker {
         this.dropping = false;
         this.stack = [];
         this.dropTimeout = null;
+        this.synth = new StackerSynth();
         
         this.craneBlock = document.getElementById('crane-block');
         this.craneLine = document.getElementById('crane-line');
@@ -26,6 +100,7 @@ class QuantumStacker {
     init() {
         this.highScoreEl.innerText = this.highScore;
         this.setupEvents();
+        this.logMessage("STACK REACTOR ACTIVE // SECURED STANDBY MATRIX", "info");
     }
     
     setupEvents() {
@@ -52,6 +127,7 @@ class QuantumStacker {
         this.dropping = false;
         this.stack = [{left: 40, width: 240}];
         this.gameActive = true;
+        this.logMessage("QUANTUM STACK ENGINE REBOOTED // INITIATING DROP DECK", "warning");
         
         this.scoreEl.innerText = this.score;
         
@@ -92,6 +168,25 @@ class QuantumStacker {
     dropBlock() {
         if (!this.gameActive || this.dropping) return;
         this.dropping = true;
+        this.synth.playDrop();
+    }
+    
+    logMessage(message, type = 'info') {
+        const logsEl = document.getElementById('terminal-logs');
+        if (!logsEl) return;
+        
+        const time = new Date().toLocaleTimeString().split(' ')[0];
+        const line = document.createElement('div');
+        line.className = `log-line log-${type}`;
+        
+        let prefix = '[SYS_INFO]';
+        if (type === 'success') prefix = '[SEC_OK]  ';
+        if (type === 'error')   prefix = '[ALERT]   ';
+        if (type === 'warning') prefix = '[WARN]    ';
+        
+        line.innerText = `${time} - ${prefix} > ${message}`;
+        logsEl.appendChild(line);
+        logsEl.scrollTop = logsEl.scrollHeight;
     }
 }
 
