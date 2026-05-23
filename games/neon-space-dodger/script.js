@@ -1,4 +1,4 @@
-// Step 24: fix: implement keyboard focus checks to prevent default window scrolling
+// Step 25: refactor: modularize particle dynamics into discrete vector update loops
 // Neon Space Dodger - Crown Jewel Game Engine
 // Encapsulates high-performance vector physics, particle dynamics, and Web Audio FX.
 
