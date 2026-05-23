@@ -11,6 +11,9 @@ class StackerSynth {
         if (!this.ctx) {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
     }
     
     playDrop() {
@@ -92,6 +95,12 @@ class QuantumStacker {
         this.highScoreEl.innerText = this.highScore;
         this.setupEvents();
         this.logMessage("STACK REACTOR ACTIVE // SECURED STANDBY MATRIX", "info");
+        
+        // Sync mute status from global localStorage if available
+        const globalSound = localStorage.getItem('arcade_sound_enabled');
+        if (globalSound === 'false') {
+            this.synth.muted = true;
+        }
     }
     
     setupEvents() {
@@ -118,6 +127,7 @@ class QuantumStacker {
         this.dropping = false;
         this.stack = [{left: 40, width: 240}];
         this.gameActive = true;
+        this.synth.init();
         this.logMessage("QUANTUM STACK ENGINE REBOOTED // INITIATING DROP DECK", "warning");
         
         this.scoreEl.innerText = this.score;
@@ -145,7 +155,8 @@ class QuantumStacker {
         const swingMax = 320 - this.activeBlockWidth;
         this.craneBlock.style.setProperty('--swing-max', swingMax + 'px');
         
-        const duration = Math.max(0.6, 2.0 - this.score * 0.08);
+        // speed scaling coefficient optimization
+        const duration = Math.max(0.4, 2.0 - this.score * 0.08);
         this.craneBlock.style.animation = `swing ${duration}s ease-in-out infinite alternate`;
         
         this.dropping = false;
