@@ -1,6 +1,65 @@
 // Holographic Recall matrix core initializing...
 console.log('[SYS_INIT] Simon sequence matrix initialized.');
 
+class SimonSynth {
+    constructor() {
+        this.ctx = null;
+        this.muted = false;
+        this.freqs = {
+            green: 261.63, // C4
+            red: 329.63,   // E4
+            yellow: 392.00, // G4
+            blue: 523.25   // C5
+        };
+    }
+    
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+    
+    playBeep(color) {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(this.freqs[color], now);
+        
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.2, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.35);
+    }
+    
+    playFail() {
+        this.init();
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(130, now);
+        osc.frequency.linearRampToValueAtTime(70, now + 0.45);
+        
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.45);
+    }
+}
+
 class HolographicRecall {
     constructor() {
         this.statusIndicator = document.getElementById('status-indicator');
@@ -12,6 +71,7 @@ class HolographicRecall {
         this.highScore = parseInt(localStorage.getItem('simon_high_score')) || 0;
         this.gameActive = false;
         this.playingSequence = false;
+        this.synth = new SimonSynth();
         
         this.init();
     }
@@ -19,6 +79,7 @@ class HolographicRecall {
     init() {
         this.recordDisplay.innerText = this.highScore;
         this.setupEvents();
+        this.logMessage("HARMONIC MATRIX ONLINE // CORE CALIBRATED", "info");
     }
     
     setupEvents() {
@@ -38,6 +99,7 @@ class HolographicRecall {
     lightUp(color) {
         const panel = document.querySelector('.panel.' + color);
         panel.classList.add('active');
+        this.synth.playBeep(color);
         setTimeout(() => panel.classList.remove('active'), 250);
     }
     
@@ -45,6 +107,7 @@ class HolographicRecall {
         this.sequence = [];
         this.level = 0;
         this.gameActive = true;
+        this.logMessage("RESONANCE CHANNELS ALIGNED // ENGAGING", "warning");
         this.nextLevel();
     }
     
@@ -65,6 +128,7 @@ class HolographicRecall {
         }
         
         if (this.userSequence.length === this.sequence.length) {
+            this.logMessage(`MATRIX LEVEL_${this.level} DECIPHERED`, "success");
             setTimeout(() => this.nextLevel(), 1000);
         }
     }
@@ -74,6 +138,26 @@ class HolographicRecall {
         this.sequence = [];
         this.level = 0;
         this.statusIndicator.innerText = "0";
+        this.synth.playFail();
+        this.logMessage("FREQUENCY DISSONANCE DETECTED // DUMP", "error");
+    }
+    
+    logMessage(message, type = 'info') {
+        const logsEl = document.getElementById('terminal-logs');
+        if (!logsEl) return;
+        
+        const time = new Date().toLocaleTimeString().split(' ')[0];
+        const line = document.createElement('div');
+        line.className = `log-line log-${type}`;
+        
+        let prefix = '[SYS_INFO]';
+        if (type === 'success') prefix = '[SEC_OK]  ';
+        if (type === 'error')   prefix = '[ALERT]   ';
+        if (type === 'warning') prefix = '[WARN]    ';
+        
+        line.innerText = `${time} - ${prefix} > ${message}`;
+        logsEl.appendChild(line);
+        logsEl.scrollTop = logsEl.scrollHeight;
     }
 }
 
