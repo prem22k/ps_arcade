@@ -132,6 +132,33 @@ class NeonSpaceDodger {
             this.initAudio();
             this.startGame();
         });
+
+        // Mobile touch controller buttons mapping to standard key codes
+        const bindTouchButton = (elementId, keyName) => {
+            const btn = document.getElementById(elementId);
+            if (!btn) return;
+            
+            const handleStart = (e) => {
+                e.preventDefault();
+                this.initAudio();
+                this.keys[keyName] = true;
+            };
+            const handleEnd = (e) => {
+                e.preventDefault();
+                this.keys[keyName] = false;
+            };
+            
+            btn.addEventListener('pointerdown', handleStart);
+            btn.addEventListener('pointerup', handleEnd);
+            btn.addEventListener('pointerleave', handleEnd);
+            btn.addEventListener('pointercancel', handleEnd);
+        };
+        
+        bindTouchButton('ctrl-up', 'ArrowUp');
+        bindTouchButton('ctrl-down', 'ArrowDown');
+        bindTouchButton('ctrl-left', 'ArrowLeft');
+        bindTouchButton('ctrl-right', 'ArrowRight');
+        bindTouchButton('ctrl-fire', 'Space');
     }
 
     initAudio() {

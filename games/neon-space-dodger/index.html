@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS_ARCADE // Neon Space Dodger</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.0.1">
 </head>
 <body class="dodger-body">
     <div class="grid-overlay"></div>
@@ -79,8 +79,22 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Virtual Touch Controller for Mobile -->
+            <div class="mobile-controller">
+                <div class="dpad">
+                    <button class="ctrl-btn" id="ctrl-up">▲</button>
+                    <button class="ctrl-btn" id="ctrl-left">◀</button>
+                    <button class="ctrl-btn" id="ctrl-right">▶</button>
+                    <button class="ctrl-btn" id="ctrl-down">▼</button>
+                </div>
+                <div class="fire-btn-wrapper">
+                    <button class="ctrl-fire-btn" id="ctrl-fire">FIRE</button>
+                </div>
+            </div>
+            
             <footer class="hud-footer">
-                <p class="sys-msg">[SYS_STATUS: READY] // PRESS [SPACEBAR] TO FIRE // ENJOY DRIFT PHYSICS</p>
+                <p class="sys-msg">[SYS_STATUS: READY] // PRESS [SPACEBAR] OR [FIRE] TO SHOOT // ENJOY DRIFT PHYSICS</p>
             </footer>
         </main>
     </div>

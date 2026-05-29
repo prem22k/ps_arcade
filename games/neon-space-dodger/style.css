@@ -334,3 +334,180 @@ body.dodger-body {
 .sys-msg {
     letter-spacing: 1px;
 }
+
+/* --- MOBILE RESPONSIVE AND TOUCH CONTROLLER STYLES --- */
+.mobile-controller {
+    display: none;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(4, 12, 32, 0.6);
+    border: 1px solid var(--border-cyan);
+    border-radius: 10px;
+    box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
+}
+
+.dpad {
+    display: grid;
+    grid-template-areas: 
+        ". ctrl-up ."
+        "ctrl-left . ctrl-right"
+        ". ctrl-down .";
+    grid-template-columns: repeat(3, 40px);
+    grid-template-rows: repeat(3, 40px);
+    gap: 4px;
+    justify-content: center;
+    align-content: center;
+}
+
+.ctrl-btn {
+    background: rgba(2, 6, 18, 0.8);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 6px;
+    color: var(--neon-cyan);
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    text-shadow: var(--shadow-cyan);
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.1);
+    transition: all 0.1s ease;
+}
+
+.ctrl-btn:active {
+    background: var(--neon-cyan);
+    color: #020612;
+    text-shadow: none;
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(0.95);
+}
+
+#ctrl-up { grid-area: ctrl-up; }
+#ctrl-down { grid-area: ctrl-down; }
+#ctrl-left { grid-area: ctrl-left; }
+#ctrl-right { grid-area: ctrl-right; }
+
+.fire-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.ctrl-fire-btn {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: rgba(2, 6, 18, 0.8);
+    border: 2px solid var(--neon-pink);
+    color: var(--neon-pink);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    text-shadow: var(--shadow-pink);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+    transition: all 0.1s ease;
+}
+
+.ctrl-fire-btn:active {
+    background: var(--neon-pink);
+    color: #020612;
+    text-shadow: none;
+    box-shadow: 0 0 20px var(--neon-pink);
+    transform: scale(0.92);
+}
+
+@media (max-width: 768px) {
+    .mobile-controller {
+        display: flex;
+    }
+    
+    .control-legend {
+        display: none;
+    }
+    
+    .cabinet-container {
+        padding: 15px;
+        max-width: 98vw;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .game-title {
+        font-size: 1.4rem;
+    }
+    
+    .hud-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 10px;
+    }
+    
+    .hud-item {
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+    
+    .hud-item .value {
+        font-size: 0.95rem;
+    }
+    
+    .shield-container {
+        width: 80px;
+    }
+    
+    .overlay-inner {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .neon-title {
+        font-size: 1.6rem;
+    }
+    
+    .instruction-text, .final-report {
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-controller {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .dpad {
+        grid-template-columns: repeat(3, 35px);
+        grid-template-rows: repeat(3, 35px);
+    }
+    
+    .ctrl-btn {
+        font-size: 1rem;
+    }
+    
+    .ctrl-fire-btn {
+        width: 65px;
+        height: 65px;
+        font-size: 0.9rem;
+    }
+}
