@@ -93,6 +93,7 @@ class CyberGridSerpentine {
         
         this.loopInterval = null;
         this.speedCoeff = 150;
+        this.controlMode = 'dpad'; // 'dpad' or 'gestures'
         
         this.init();
     }
@@ -126,6 +127,90 @@ class CyberGridSerpentine {
         document.getElementById('restart-btn').addEventListener('click', () => {
             this.startSerpentine();
         });
+
+        // Virtual Touch D-pad control bindings
+        const bindDirectionButton = (id, direction) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                if (!this.gameActive || this.controlMode !== 'dpad') return;
+                
+                if (direction === 'up' && this.dy === 0) { this.dx = 0; this.dy = -this.gridSize; }
+                else if (direction === 'down' && this.dy === 0) { this.dx = 0; this.dy = this.gridSize; }
+                else if (direction === 'left' && this.dx === 0) { this.dx = -this.gridSize; this.dy = 0; }
+                else if (direction === 'right' && this.dx === 0) { this.dx = this.gridSize; this.dy = 0; }
+            });
+        };
+
+        bindDirectionButton('ctrl-up', 'up');
+        bindDirectionButton('ctrl-down', 'down');
+        bindDirectionButton('ctrl-left', 'left');
+        bindDirectionButton('ctrl-right', 'right');
+
+        // Setup control mode toggling
+        const modeBtn = document.getElementById('ctrl-mode-btn');
+        const dpadEl = document.getElementById('mobile-dpad');
+        const swipeHintEl = document.getElementById('mobile-swipe-hint');
+        
+        if (modeBtn) {
+            modeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.synth.init(); // interact to allow synth play
+                if (this.controlMode === 'dpad') {
+                    this.controlMode = 'gestures';
+                    modeBtn.innerText = '[MODE: SWIPE]';
+                    if (dpadEl) dpadEl.style.display = 'none';
+                    if (swipeHintEl) swipeHintEl.style.display = 'block';
+                    this.logMessage("CONTROL_MODE SHIFTED // ACTIVE: GESTURES", "info");
+                } else {
+                    this.controlMode = 'dpad';
+                    modeBtn.innerText = '[MODE: D-PAD]';
+                    if (dpadEl) dpadEl.style.display = 'grid';
+                    if (swipeHintEl) swipeHintEl.style.display = 'none';
+                    this.logMessage("CONTROL_MODE SHIFTED // ACTIVE: D-PAD", "info");
+                }
+            });
+        }
+
+        // Setup touch swipe gesture handlers on canvas
+        let touchStartX = 0;
+        let touchStartY = 0;
+        if (this.canvas) {
+            this.canvas.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+            
+            this.canvas.addEventListener('touchend', (e) => {
+                if (this.controlMode !== 'gestures' || !this.gameActive) return;
+                
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                
+                const dx = touchEndX - touchStartX;
+                const dy = touchEndY - touchStartY;
+                const threshold = 30; // minimum swipe distance
+                
+                if (Math.max(Math.abs(dx), Math.abs(dy)) > threshold) {
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        // Horizontal turn
+                        if (dx > 0 && this.dx === 0) {
+                            this.dx = this.gridSize; this.dy = 0;
+                        } else if (dx < 0 && this.dx === 0) {
+                            this.dx = -this.gridSize; this.dy = 0;
+                        }
+                    } else {
+                        // Vertical turn
+                        if (dy > 0 && this.dy === 0) {
+                            this.dx = 0; this.dy = this.gridSize;
+                        } else if (dy < 0 && this.dy === 0) {
+                            this.dx = 0; this.dy = -this.gridSize;
+                        }
+                    }
+                }
+            }, { passive: true });
+        }
     }
     
     startSerpentine() {

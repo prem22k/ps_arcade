@@ -341,3 +341,103 @@ body.snake-body {
         height: 280px;
     }
 }
+
+.mobile-controller {
+    display: none;
+    margin-top: 15px;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: rgba(4, 12, 32, 0.6);
+    border: 1px solid var(--border-cyan);
+    border-radius: 10px;
+    box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
+}
+
+.control-selector {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+}
+
+.control-selector .label {
+    color: #8c9baf;
+    letter-spacing: 1px;
+}
+
+.swipe-hint {
+    width: 100%;
+    text-align: center;
+    padding: 20px 10px;
+    background: rgba(2, 8, 16, 0.5);
+    border: 1px dashed rgba(0, 240, 255, 0.25);
+    border-radius: 6px;
+    animation: flashGlow 2s infinite alternate;
+}
+
+@keyframes flashGlow {
+    from {
+        box-shadow: 0 0 5px rgba(0, 240, 255, 0.1);
+        border-color: rgba(0, 240, 255, 0.2);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        border-color: var(--neon-cyan);
+    }
+}
+
+.dpad {
+    display: grid;
+    grid-template-areas: 
+        ". ctrl-up ."
+        "ctrl-left . ctrl-right"
+        ". ctrl-down .";
+    grid-template-columns: repeat(3, 45px);
+    grid-template-rows: repeat(3, 45px);
+    gap: 5px;
+    justify-content: center;
+    align-content: center;
+}
+
+.ctrl-btn {
+    background: rgba(2, 6, 18, 0.8);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 6px;
+    color: var(--neon-cyan);
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    text-shadow: var(--shadow-cyan);
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.1);
+    transition: all 0.1s ease;
+}
+
+.ctrl-btn:active {
+    background: var(--neon-cyan);
+    color: #020612;
+    text-shadow: none;
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(0.95);
+}
+
+#ctrl-up { grid-area: ctrl-up; }
+#ctrl-down { grid-area: ctrl-down; }
+#ctrl-left { grid-area: ctrl-left; }
+#ctrl-right { grid-area: ctrl-right; }
+
+@media (max-width: 768px) {
+    .mobile-controller {
+        display: flex;
+    }
+}

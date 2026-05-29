@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS_ARCADE // Cyber Grid Serpentine</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.0.1">
 </head>
 <body class="snake-body">
     <div class="ambient-glow glow-cyan"></div>
@@ -52,6 +52,25 @@
             <!-- Controls bar -->
             <div class="controls-bar">
                 <button id="restart-btn" class="menu-btn cyan-btn">START_SERPENT</button>
+            </div>
+
+            <!-- Virtual Touch Controller for Mobile -->
+            <div class="mobile-controller">
+                <div class="control-selector">
+                    <span class="label">MOBILE_INPUT:</span>
+                    <button id="ctrl-mode-btn" class="menu-btn cyan-btn" style="padding: 4px 12px; font-size: 0.8rem;">[MODE: D-PAD]</button>
+                </div>
+                
+                <div class="dpad" id="mobile-dpad">
+                    <button class="ctrl-btn" id="ctrl-up">▲</button>
+                    <button class="ctrl-btn" id="ctrl-left">◀</button>
+                    <button class="ctrl-btn" id="ctrl-right">▶</button>
+                    <button class="ctrl-btn" id="ctrl-down">▼</button>
+                </div>
+
+                <div class="swipe-hint" id="mobile-swipe-hint" style="display: none;">
+                    <p class="sys-msg">// SWIPE ON THE CANVAS TO STEER SERPENT</p>
+                </div>
             </div>
 
             <!-- Terminal Screen logs -->
