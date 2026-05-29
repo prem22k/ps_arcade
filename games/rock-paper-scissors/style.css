@@ -388,3 +388,81 @@ body.rps-body {
         transform: scale(1.1);
     }
 }
+
+@media (max-width: 600px) {
+    .cabinet-container {
+        padding: 15px;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .game-title {
+        font-size: 1.4rem;
+    }
+    
+    .hud-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .hud-item {
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+    
+    .hud-item .value {
+        font-size: 0.95rem;
+    }
+    
+    .battleground {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 10px;
+        min-height: auto;
+    }
+    
+    .choice-visualizer {
+        width: 110px;
+        height: 110px;
+        font-size: 1rem;
+    }
+    
+    .visualizer-symbol {
+        font-size: 2.2rem;
+    }
+    
+    .vs-divider {
+        font-size: 1.3rem;
+        padding: 5px 0;
+    }
+    
+    .deck-container {
+        gap: 8px;
+    }
+    
+    .deck-card .card-inner {
+        padding: 10px 5px;
+        gap: 5px;
+    }
+    
+    .deck-card .card-symbol {
+        font-size: 1.8rem;
+    }
+    
+    .deck-card .card-name {
+        font-size: 0.75rem;
+    }
+    
+    .menu-btn {
+        width: 100%;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
