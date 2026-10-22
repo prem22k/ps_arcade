@@ -1,0 +1,39 @@
+/* Shared mobile guards for all arcade game pages.
+   Loaded after each game's own style.css, so desktop rules are untouched. */
+
+@media (max-width: 480px) {
+    /* Decorative glows are 300-400px fixed squares positioned with percentages.
+       On phones that puts their right edge past the viewport, and the float
+       animations translate/scale them further out. Size them with vw units and
+       leave 16vw of room on the right-anchored glow for the largest animation
+       (translate 40px + scale 1.1). At 360px the widest transformed edge is
+       under 356px. */
+    .ambient-glow {
+        width: 55vw !important;
+        height: 55vw !important;
+        max-width: 55vw;
+        max-height: 55vw;
+    }
+
+    .ambient-glow.glow-pink,
+    .ambient-glow.glow-emerald {
+        right: 16vw !important;
+    }
+
+    /* Long unbroken Orbitron titles (e.g. CYBER_GRID_SERPENTINE at 21 chars)
+       plus 3-4px letter-spacing were wider than 360px cabinets. Scale both
+       with the viewport; at 360px a 21-char title is about 293px wide, which
+       fits the ~312px cabinet content box. overflow-wrap is the last resort. */
+    .game-title {
+        min-width: 0;
+        max-width: 100%;
+        font-size: clamp(0.9rem, 4.3vw, 1.4rem) !important;
+        letter-spacing: clamp(0.5px, 0.3vw, 1.5px) !important;
+        overflow-wrap: anywhere;
+    }
+
+    .header-main-row,
+    .header-top-row {
+        min-width: 0;
+    }
+}

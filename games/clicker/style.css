@@ -488,23 +488,54 @@ body.reactor-body {
 @media (max-width: 480px) {
     .cabinet-container {
         padding: 18px;
+        min-width: 0;
     }
     .game-header {
         padding-bottom: 12px;
         margin-bottom: 15px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-areas:
+            "back tags"
+            "title title";
+        align-items: center;
+        gap: 10px;
+    }
+    .back-btn {
+        grid-area: back;
+        min-width: 0;
+    }
+    .header-tags {
+        grid-area: tags;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        min-width: 0;
     }
     .game-title {
-        font-size: 1.4rem;
-        letter-spacing: 1.5px;
+        grid-area: title;
+        min-width: 0;
+        max-width: 100%;
+        text-align: center;
+        font-size: clamp(1.1rem, 5.6vw, 1.4rem);
+        letter-spacing: clamp(1px, 0.3vw, 1.5px);
+        overflow-wrap: anywhere;
     }
     .hud-bar {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
         padding: 10px 15px;
+        min-width: 0;
     }
     .hud-item {
         justify-content: center;
+        flex-wrap: wrap;
+        min-width: 0;
+        text-align: center;
+    }
+    .hud-item .value {
+        min-width: 0;
+        overflow-wrap: anywhere;
     }
     .hud-item .label {
         font-size: 0.75rem;
@@ -527,9 +558,25 @@ body.reactor-body {
         width: 75px;
         height: 75px;
     }
+    .terminal-display,
+    .crt-screen {
+        min-width: 0;
+        max-width: 100%;
+    }
+    .status-feed {
+        max-width: 100%;
+        font-size: clamp(0.85rem, 3.8vw, 1.05rem);
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+    .label-hint {
+        letter-spacing: 1px;
+        overflow-wrap: anywhere;
+    }
     .upgrades-grid {
         grid-template-columns: 1fr;
         grid-gap: 10px;
+        min-width: 0;
     }
     .upgrade-card {
         flex-direction: row;
@@ -537,14 +584,35 @@ body.reactor-body {
         text-align: left;
         padding: 10px 15px;
         justify-content: space-between;
+        min-width: 0;
+        gap: 8px;
     }
     .upgrade-card .card-emoji {
         font-size: 1.4rem;
         margin-bottom: 0;
-        margin-right: 10px;
+        margin-right: 0;
+        flex-shrink: 0;
+    }
+    .upgrade-card .card-title,
+    .upgrade-card .card-desc,
+    .upgrade-card .card-cost {
+        min-width: 0;
+        overflow-wrap: anywhere;
     }
     .upgrade-card .card-cost {
         width: auto;
         font-size: 0.85rem;
+    }
+    .controls-bar,
+    .menu-btn {
+        max-width: 100%;
+    }
+    .menu-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    .sys-msg {
+        letter-spacing: 1px;
+        overflow-wrap: anywhere;
     }
 }
