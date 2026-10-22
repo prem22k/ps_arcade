@@ -502,8 +502,11 @@ body.cypher-body {
     .hud-bar {
         padding: 8px 12px;
         font-size: 0.85rem;
+        /* STATUS / DECRYPTED / HIGH_SCORE don't fit one line at 360px */
+        flex-wrap: wrap;
+        row-gap: 4px;
     }
-    
+
     .hud-item .value {
         font-size: 0.95rem;
     }

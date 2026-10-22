@@ -768,3 +768,122 @@ body.guess-body {
     will-change: transform, left, width;
     transform: translate3d(0, 0, 0);
 }
+
+/* --- MOBILE HORIZONTAL-OVERFLOW GUARDS --- */
+@media (max-width: 480px) {
+    .cabinet-container {
+        min-width: 0;
+        max-width: 95vw;
+    }
+
+    /* Keep the decorative glows (and their float animation) inside the viewport */
+    .ambient-glow {
+        width: 55vw;
+        height: 55vw;
+        filter: blur(70px);
+    }
+
+    .glow-cyan {
+        left: 10%;
+    }
+
+    .glow-pink {
+        right: 16vw;
+    }
+
+    .game-title {
+        min-width: 0;
+        max-width: 100%;
+        font-size: clamp(1.15rem, 6vw, 1.5rem) !important;
+        letter-spacing: clamp(1px, 0.4vw, 2px) !important;
+        overflow-wrap: anywhere;
+    }
+
+    .header-top-row,
+    .header-tags,
+    .hud-bar,
+    .terminal-core,
+    .keypad-container {
+        min-width: 0;
+    }
+
+    .header-tags {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .hud-item {
+        min-width: 0;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .hud-item .value {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .label-hint,
+    .status-feed,
+    .bound-title,
+    .sys-msg {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .status-feed {
+        max-width: 100%;
+        font-size: clamp(0.95rem, 4vw, 1.15rem);
+    }
+
+    .display-panel,
+    .bounds-visualizer {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .bounds-labels {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px 8px;
+    }
+
+    .bound-title {
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    /* 1fr tracks may not shrink below their items' min-content without this */
+    .keypad-matrix {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        min-width: 0;
+    }
+
+    .key-btn,
+    .engage-btn {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .engage-btn {
+        padding: 0 10px;
+        white-space: normal;
+        font-size: clamp(0.78rem, 3.6vw, 0.9rem) !important;
+        letter-spacing: 1px !important;
+    }
+
+    .input-zone {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #user-guess-input {
+        max-width: calc(100% - 64px);
+    }
+
+    .menu-btn {
+        max-width: 100%;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+}
